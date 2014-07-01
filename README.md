@@ -1,4 +1,4 @@
-Manul - a simple extensible antimalware tool for websites
+Manul: a simple extensible antimalware tool for websites
 ====================
 An utility which allows to analyze website logs made by Manul.
 
@@ -18,7 +18,7 @@ Log example:
         <server_gateway>CGI/1.1</server_gateway>
         <server_signature/>
         <server_hostname>badcode.tk</server_hostname>
-        <platform_name>Linux 3.5.0-17-generic #28-Ubuntu SMP Tue Oct 9 19:31:23 UTC 2012</platform_name>
+        <platform_name>Linux 3.5.0-17-generic #28-Ubuntu SMP Tue</platform_name>
         <server_architecture>x86_64</server_architecture>
         <username>uid: 1000, gid: 1000</username>
         <path>/home/www/mysite.com/web_root/pat</path>
