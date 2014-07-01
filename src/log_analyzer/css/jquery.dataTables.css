@@ -1,0 +1,32 @@
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+}
+
+.previous { background: url('../img/arrow_left.png') no-repeat center; }
+.next { background: url('../img/arrow_right.png') no-repeat center; }
+
+.paginate_button {	
+	padding: 2px 5px;
+	margin: 0 3px;
+	cursor: pointer;
+	*cursor: hand;
+	color: #333 !important;
+}
+
+.current {
+    font-weight: bold;
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+.dataTables_length {
+    display: none;
+}
+
+.dataTables_info {
+    display: none;
+}
+

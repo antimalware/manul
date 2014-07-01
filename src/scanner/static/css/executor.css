@@ -1,0 +1,54 @@
+.executor_area
+{
+  font-family: Arial;
+  width: 600px;
+  height: 250px;
+}
+
+
+.recipe_pane {
+  font-size: 12px;
+  margin: 0 0 10px 0;
+}
+
+#executorForm {
+}
+
+.executor_header {
+   height: 40px;
+   font-size: 12px;
+   font-weight: 700;
+   background: #eeeeee;
+}
+
+.executor_row {
+   height: 30px;
+   font-size: 12px;
+}
+
+.check_executor {
+margin-left: 25px;
+}
+
+.executor_changes
+{
+  margin: 106px 35px; 
+  float:left; 
+  width: 95%; 
+  text-align: left;
+}
+
+.execute_button
+{
+  margin: 10px 0 0 0;
+}
+
+.quarantine_button
+{
+  margin: 20px 0 0 0;
+}
+
+.executorLog
+{
+  margin: 30px 0 0 0;
+}

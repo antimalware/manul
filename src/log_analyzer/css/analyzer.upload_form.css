@@ -1,0 +1,432 @@
+/* ../../desktop.blocks/page/page.css begin */
+.page
+{
+    font-family: Arial;
+
+    margin: 0;
+    background: #fafaf9;
+}
+
+.page,
+html
+{
+    height: 100%;
+}
+
+/* ../../desktop.blocks/page/page.css end */
+/* ../../desktop.blocks/body/body.css begin */
+.body
+{
+    position: relative;
+
+    height: 100%;
+    min-height: 100%;
+
+    text-align: center;
+
+    color: #231f20;
+    background: #fafaf9;
+}
+
+/* ../../desktop.blocks/body/body.css end */
+/* ../../desktop.blocks/body/__content/body__content.css begin */
+.body__content
+{
+    display: inline-block;
+
+    vertical-align: middle;
+    margin: 0px 10px 86px 10px ;
+}
+
+/* ../../desktop.blocks/body/__content/body__content.css end */
+/* ../../desktop.blocks/body/__spacer/body__spacer.css begin */
+.body__spacer
+{
+    display: inline-block;
+
+    width: 0;
+    height: 100%;
+
+    vertical-align: middle;
+}
+
+/* ../../desktop.blocks/body/__spacer/body__spacer.css end */
+/* ../../desktop.blocks/head/head.css begin */
+.head
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 20px;
+
+    text-align: left;
+}
+
+/* ../../desktop.blocks/head/head.css end */
+/* ../../desktop.blocks/head/__uninstall/head__uninstall.css begin */
+.head__uninstall
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* ../../desktop.blocks/head/__uninstall/head__uninstall.css end */
+/* ../../desktop.blocks/head/__menu/head__menu.css begin */
+.head__menu
+{
+    margin-top: 10px;
+}
+
+/* ../../desktop.blocks/head/__menu/head__menu.css end */
+/* ../../desktop.blocks/head/__menu-item/head__menu-item.css begin */
+.head__menu-item
+{
+    font-size: 15px;
+
+    display: inline-block;
+
+    margin-right: 20px;
+    padding-top: 16px;
+
+    text-decoration: none;
+
+    color: #2b4494;
+}
+
+a.head__menu-item:hover
+{
+    color: red;
+}
+
+/* ../../desktop.blocks/head/__menu-item/head__menu-item.css end */
+/* ../../desktop.blocks/head/__menu-item/_active/head__menu-item_active_yes.css begin */
+.head__menu-item_active_yes
+{
+    padding-top: 13px;
+
+    color: #000;
+    border-top: 3px solid;
+}
+
+/* ../../desktop.blocks/head/__menu-item/_active/head__menu-item_active_yes.css end */
+/* ../../desktop.blocks/header/header.css begin */
+.header
+{
+    font-size: 22px;
+    font-weight: normal;
+}
+
+/* ../../desktop.blocks/header/header.css end */
+/* ../../desktop.blocks/header/_type/header_type_main.css begin */
+.header_type_main
+{
+    font-size: 28px;
+    font-weight: 700;
+
+    margin: 0;
+}
+
+/* ../../desktop.blocks/header/_type/header_type_main.css end */
+/* ../../desktop.blocks/button/button.css begin */
+.button
+{
+    font-size: 16px;
+
+    position: relative;
+
+    margin: 0 12px;
+    padding: 9px 10px;
+
+    border: 1px solid #c4c3c3;
+    border-radius: 3px;
+    outline: none;
+    background: #fff;
+
+    word-spacing: 2px;
+    line-height: 15px;
+}
+button::-moz-focus-inner
+{
+    padding: 0;
+
+    border: 0;
+}
+.file .button
+{
+    padding: 9px 10px 7px;
+}
+.button:hover
+{
+    cursor: pointer;
+
+    border-color: rgba(0,0,0,.3);
+}
+
+/* ../../desktop.blocks/button/button.css end */
+/* ../../desktop.blocks/button/__text/button__text.css begin */
+.file .button__text
+{
+    font-size: 15px;
+}
+
+/* ../../desktop.blocks/button/__text/button__text.css end */
+/* ../../desktop.blocks/button/_disabled/button_disabled_yes.css begin */
+.button_disabled_yes
+{
+
+}
+.button_disabled_yes:hover
+{
+    cursor: default;
+    border-color: #c4c3c3;
+}
+
+
+/* ../../desktop.blocks/button/_disabled/button_disabled_yes.css end */
+/* ../../desktop.blocks/button/_press/button_press_yes.css begin */
+.button_press_yes
+{
+    background: rgba(191, 153, 0, .8);
+}
+
+/* ../../desktop.blocks/button/_press/button_press_yes.css end */
+/* ../../desktop.blocks/button/__error/button__error.css begin */
+.button .button__error
+{
+    position: absolute;
+    top: 0;
+    right: 105%;
+
+    visibility: visible;
+
+    padding: 8px 7px 7px;
+
+    -webkit-transition: opacity .1s ease-out;
+       -moz-transition: opacity .1s ease-out;
+         -o-transition: opacity .1s ease-out;
+            transition: opacity .1s ease-out;
+    white-space: nowrap;
+
+    opacity: 1;
+    color: #fff;
+    background: #ff7373;
+}
+
+.button__error .button__error-tail
+{
+    position: absolute;
+    top: 11px;
+    right: -5px;
+
+    width: 10px;
+    height: 10px;
+
+    -webkit-transform: rotate(45deg);
+       -moz-transform: rotate(45deg);
+         -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+
+    background: #ff7373;
+}
+
+/* ../../desktop.blocks/button/__error/button__error.css end */
+/* ../../desktop.blocks/button/_size/button_size_s.css begin */
+.button_size_s
+{
+    font-size: 13px;
+
+    padding: 5px 13px;
+
+    border-radius: 4px;
+}
+
+/* ../../desktop.blocks/button/_size/button_size_s.css end */
+/* ../../desktop.blocks/button/_theme/button_theme_action.css begin */
+.button_theme_action
+{
+    border: 1px solid #c8ad39;
+    background: #ffdc41;
+}
+
+.button_theme_action:hover
+{
+    border-color: rgba(159,127,0,.8);
+}
+
+/* ../../desktop.blocks/button/_theme/button_theme_action.css end */
+/* ../../desktop.blocks/sub-header/sub-header.css begin */
+.sub-header
+{
+    font-size: 16px;
+}
+
+/* ../../desktop.blocks/sub-header/sub-header.css end */
+/* ../../desktop.blocks/sub-header/_align/sub-header_align_left.css begin */
+.sub-header_align_left
+{
+    max-width: 630px;
+
+    text-align: left;
+    font-size: 15px;
+}
+
+/* ../../desktop.blocks/sub-header/_align/sub-header_align_left.css end */
+/* ../../desktop.blocks/form/form.css begin */
+.form
+{
+    margin-top: 12px;
+    padding-top: 1px;
+}
+
+/* ../../desktop.blocks/form/form.css end */
+/* ../../desktop.blocks/form/__file-load/form__file-load.css begin */
+.form__file-load
+{
+    text-align: center;
+    font-size: 15px;
+}
+
+/* ../../desktop.blocks/form/__file-load/form__file-load.css end */
+/* ../../desktop.blocks/form/__line/form__line.css begin */
+.form__line
+{
+    margin-bottom: 10px;
+}
+
+/* ../../desktop.blocks/form/__line/form__line.css end */
+/* ../../desktop.blocks/form/__line/_type/form__line_type_report-file.css begin */
+.form__line_type_report-file
+{
+    margin-bottom: 20px;
+}
+
+/* ../../desktop.blocks/form/__line/_type/form__line_type_report-file.css end */
+/* ../../desktop.blocks/form/__buttonarea/form__buttonarea.css begin */
+.form__buttonarea
+{
+    position: relative;
+    margin-top: 20px;
+}
+
+/* ../../desktop.blocks/form/__buttonarea/form__buttonarea.css end */
+/* ../../desktop.blocks/file/file.css begin */
+.file
+{
+    padding: 9px 0 7px;
+}
+
+/* ../../desktop.blocks/file/file.css end */
+/* ../../desktop.blocks/file/__button/file__button.css begin */
+.file__button
+{
+    overflow: hidden;
+    cursor: default;
+}
+
+.file__button_disable_yes
+{
+    opacity: .5;
+}
+
+/* ../../desktop.blocks/file/__button/file__button.css end */
+/* ../../desktop.blocks/file/__control/file__control.css begin */
+.file__control
+{
+    position: absolute;
+    top: 0;
+    margin: 0;
+    right: 0;
+    height: 100%;
+    font-size: 186%;
+    opacity: 0;
+    border: none;
+    background: none;
+}
+
+/* ../../desktop.blocks/file/__control/file__control.css end */
+/* ../../desktop.blocks/file/__text/file__text.css begin */
+.file__holder_state_hidden .file__text
+{
+    color: #b1b1b1;
+}
+
+/* ../../desktop.blocks/file/__text/file__text.css end */
+/* ../../desktop.blocks/file/__reset/file__reset.css begin */
+.file__reset
+{
+    position: relative;
+
+    display: inline-block;
+
+    width: 14px;
+    height: 15px;
+    margin-left: 10px;
+
+    vertical-align: middle;
+
+    background: url("../img/close.png") no-repeat;
+}
+
+.file__reset:hover
+{
+    cursor: pointer;
+}
+
+.file__holder_state_hidden .file__reset{
+    display: none;
+}
+
+/* ../../desktop.blocks/file/__reset/file__reset.css end */
+/* ../../desktop.blocks/footer/footer.css begin */
+.footer
+{
+    font-size: 13px;
+
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    padding: 16px 0;
+
+    text-align: right;
+    background: inherit;
+    border-top: 1px solid #ccc;
+}
+
+/* ../../desktop.blocks/footer/footer.css end */
+/* ../../desktop.blocks/footer/__item/footer__item.css begin */
+.footer__item
+{
+    display: inline-block;
+
+    margin-right: 27px;
+}
+
+.footer__item_type_copyright
+{
+}
+
+/* ../../desktop.blocks/footer/__item/footer__item.css end */
+/* ../../desktop.blocks/b-link/b-link.css begin */
+.b-link
+{
+    text-decoration: none;
+
+    color: #8a929f;
+}
+
+.b-link:hover
+{
+    color: red;
+}
+
+.modal .b-link
+{
+    color: #2e4a9a;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* ../../desktop.blocks/b-link/b-link.css end */

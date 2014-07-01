@@ -1,0 +1,1416 @@
+/* ../../desktop.blocks/page/page.css begin */
+.page
+{
+    font-family: Arial;
+
+    margin: 0;
+    background: #fafaf9;
+}
+
+.page,
+html
+{
+    height: 100%;
+}
+
+/* ../../desktop.blocks/page/page.css end */
+/* ../../desktop.blocks/body/body.css begin */
+.body
+{
+    position: relative;
+
+    height: 100%;
+    min-height: 100%;
+
+    text-align: center;
+
+    color: #231f20;
+    background: #fafaf9;
+}
+
+/* ../../desktop.blocks/body/body.css end */
+/* ../../desktop.blocks/body/__content/body__content.css begin */
+.body__content
+{
+    display: inline-block;
+
+    vertical-align: middle;
+    margin: 86px 10px;
+}
+
+/* ../../desktop.blocks/body/__content/body__content.css end */
+/* ../../desktop.blocks/body/__content/_display/body__content_display_block.css begin */
+.body__content_display_block
+{
+    display: block;
+}
+
+
+/* ../../desktop.blocks/body/__content/_display/body__content_display_block.css end */
+/* ../../desktop.blocks/body/_full/body_full_height.css begin */
+.body_full_height
+{
+    box-sizing: border-box;
+    height: auto;
+    position: relative;
+    min-height: 100%;
+}
+
+.body_full_height .head
+{
+    padding: 20px 20px 0;
+}
+
+.body_full_height .body__content
+{
+    padding: 20px 20px 80px;
+    margin: 0;
+}
+
+.body_full_height .head__uninstall
+{
+    top: 20px
+}
+
+.body_full_height .footer
+{
+    position: absolute;
+}
+
+/* ../../desktop.blocks/body/_full/body_full_height.css end */
+/* ../../desktop.blocks/head/head.css begin */
+.head
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 20px;
+
+    text-align: left;
+}
+
+/* ../../desktop.blocks/head/head.css end */
+/* ../../desktop.blocks/head/__uninstall/head__uninstall.css begin */
+.head__uninstall
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* ../../desktop.blocks/head/__uninstall/head__uninstall.css end */
+/* ../../desktop.blocks/head/__sub-header/head__sub-header.css begin */
+.head__sub-header
+{
+    font-weight: 400;
+    margin: 25px 0 10px;
+}
+
+/* ../../desktop.blocks/head/__sub-header/head__sub-header.css end */
+/* ../../desktop.blocks/head/__description/head__description.css begin */
+.head__description
+{
+    font-size: 15px;
+    width: 622px;
+}
+
+/* ../../desktop.blocks/head/__description/head__description.css end */
+/* ../../desktop.blocks/head/_position/head_position_relative.css begin */
+.head_position_relative
+{
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+/* ../../desktop.blocks/head/_position/head_position_relative.css end */
+/* ../../desktop.blocks/header/header.css begin */
+.header
+{
+    font-size: 22px;
+    font-weight: normal;
+}
+
+/* ../../desktop.blocks/header/header.css end */
+/* ../../desktop.blocks/header/_type/header_type_main.css begin */
+.header_type_main
+{
+    font-size: 28px;
+    font-weight: 700;
+
+    margin: 0;
+}
+
+/* ../../desktop.blocks/header/_type/header_type_main.css end */
+/* ../../desktop.blocks/button/button.css begin */
+.button
+{
+    font-size: 16px;
+
+    position: relative;
+
+    margin: 0 12px;
+    padding: 9px 10px;
+
+    border: 1px solid #c4c3c3;
+    border-radius: 3px;
+    outline: none;
+    background: #fff;
+
+    word-spacing: 2px;
+    line-height: 15px;
+}
+button::-moz-focus-inner
+{
+    padding: 0;
+
+    border: 0;
+}
+.file .button
+{
+    padding: 9px 10px 7px;
+}
+.button:hover
+{
+    cursor: pointer;
+
+    border-color: rgba(0,0,0,.3);
+}
+
+/* ../../desktop.blocks/button/button.css end */
+/* ../../desktop.blocks/button/__text/button__text.css begin */
+.file .button__text
+{
+    font-size: 15px;
+}
+
+/* ../../desktop.blocks/button/__text/button__text.css end */
+/* ../../desktop.blocks/button/_disabled/button_disabled_yes.css begin */
+.button_disabled_yes
+{
+
+}
+.button_disabled_yes:hover
+{
+    cursor: default;
+    border-color: #c4c3c3;
+}
+
+
+/* ../../desktop.blocks/button/_disabled/button_disabled_yes.css end */
+/* ../../desktop.blocks/button/_press/button_press_yes.css begin */
+.button_press_yes
+{
+    background: rgba(191, 153, 0, .8);
+}
+
+/* ../../desktop.blocks/button/_press/button_press_yes.css end */
+/* ../../desktop.blocks/button/__error/button__error.css begin */
+.button .button__error
+{
+    position: absolute;
+    top: 0;
+    right: 105%;
+
+    visibility: visible;
+
+    padding: 8px 7px 7px;
+
+    -webkit-transition: opacity .1s ease-out;
+    -moz-transition: opacity .1s ease-out;
+    -o-transition: opacity .1s ease-out;
+    transition: opacity .1s ease-out;
+    white-space: nowrap;
+
+    opacity: 1;
+    color: #fff;
+    background: #ff7373;
+}
+
+.button__error .button__error-tail
+{
+    position: absolute;
+    top: 11px;
+    right: -5px;
+
+    width: 10px;
+    height: 10px;
+
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+
+    background: #ff7373;
+}
+
+/* ../../desktop.blocks/button/__error/button__error.css end */
+/* ../../desktop.blocks/button/__arrow/button__arrow.css begin */
+.button__arrow
+{
+    display: inline-block;
+    pointer-events: none;
+
+    width: 11px;
+    height: 6px;
+
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    transition: all .2s ease;
+
+    background: url("../img/arrow.png") no-repeat;
+}
+
+.button_active_yes .button__arrow
+{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/* ../../desktop.blocks/button/__arrow/button__arrow.css end */
+/* ../../desktop.blocks/button/_size/button_size_s.css begin */
+.button_size_s
+{
+    font-size: 13px;
+
+    padding: 5px 13px;
+
+    border-radius: 4px;
+}
+
+/* ../../desktop.blocks/button/_size/button_size_s.css end */
+/* ../../desktop.blocks/button/_more/button_more_yes.css begin */
+.button_more_yes
+{
+    background: none;
+    border-color: transparent;
+    font-size: 7px;
+    padding: 10px 7px;
+    position: relative;
+    font-size: 0;
+    line-height: 0;
+}
+.button_more_yes:hover
+{
+    border-color: rgba(0,0,0,.3);
+}
+
+
+/* ../../desktop.blocks/button/_more/button_more_yes.css end */
+/* ../../desktop.blocks/button/_theme/button_theme_action.css begin */
+.button_theme_action
+{
+    border: 1px solid #c8ad39;
+    background: #ffdc41;
+}
+
+.button_theme_action:hover
+{
+    border-color: rgba(159,127,0,.8);
+}
+
+/* ../../desktop.blocks/button/_theme/button_theme_action.css end */
+/* ../../desktop.blocks/filter/filter.css begin */
+.filter
+{
+    text-align: right;
+    position: relative;
+    white-space: nowrap;
+    margin-bottom: 24px;
+    margin-right: 20px;
+}
+
+.filter .popup_name_timeslot
+{
+    right: 39px;
+    top: 36px;
+    left: auto;
+}
+
+.filter .popup_name_flag
+{
+    right: 720px;
+    top: 36px;
+    left: auto;
+}
+
+.filter .popup_name_columns
+{
+    right: 592px;
+    top: 36px;
+    left: auto;
+}
+
+
+/* ../../desktop.blocks/filter/filter.css end */
+/* ../../desktop.blocks/filter/__flag/filter__flag.css begin */
+.filter__flag
+{
+    background: #fff;
+    border: 1px solid #c3c2c2;
+    border-radius: 4px 0 0 4px;
+    font-size: 13px;
+    margin: 0;
+    padding: 3px 9px 5px;
+    vertical-align: middle;
+    outline: none;
+    height: 28px;
+}
+
+.filter__flag:hover
+{
+    border-color: rgba(0,0,0,.3);
+    cursor: pointer;
+}
+
+/* ../../desktop.blocks/filter/__flag/filter__flag.css end */
+/* ../../desktop.blocks/filter/__text-flag/filter__text-flag.css begin */
+.filter__text-flag
+{
+    vertical-align: middle;
+    margin-right: 9px;
+}
+
+/* ../../desktop.blocks/filter/__text-flag/filter__text-flag.css end */
+/* ../../desktop.blocks/filter/__arrow/filter__arrow.css begin */
+.filter__arrow
+{
+    display: inline-block;
+
+    width: 11px;
+    height: 6px;
+
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    transition: all .2s ease;
+    vertical-align: middle;
+
+    background: url("../img/arrow.png") no-repeat;
+}
+
+.filter__columns_open_yes .filter__arrow,
+.filter__flag_open_yes .filter__arrow,
+.filter__timeslot_open_yes .filter__arrow
+{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/* ../../desktop.blocks/filter/__arrow/filter__arrow.css end */
+/* ../../desktop.blocks/filter/__file-name/filter__file-name.css begin */
+.filter__file-name
+{
+    width: 227px;
+}
+.filter__file-name,
+.filter__file-type
+{
+    margin: 0 0 0 -1px;
+    font-size: 13px;
+    vertical-align: middle;
+    height: 24px;
+    padding-left: 12px;
+    outline: none;
+
+    -webkit-transition: box-shadow .05s ease;
+    transition: box-shadow .05s ease;
+
+    border: 1px solid #c4c3c3;
+    outline: none;
+    box-shadow: none;
+}
+
+.filter__file-name:focus,
+.filter__file-type:focus
+{
+    position: relative;
+    z-index: 1;
+    border-color: rgba(178,142,0,.6);
+    box-shadow: 0 0 6px 2px rgba(255,204,0,.7),0 1px 0 rgba(255,255,255,.2),inset 0 1px 1px rgba(0,0,0,.1);
+}
+
+/* ../../desktop.blocks/filter/__file-name/filter__file-name.css end */
+/* ../../desktop.blocks/filter/__file-type/filter__file-type.css begin */
+.filter__file-type
+{
+    width: 117px;
+}
+
+/* ../../desktop.blocks/filter/__file-type/filter__file-type.css end */
+/* ../../desktop.blocks/filter/__timeslot/filter__timeslot.css begin */
+.filter__columns
+{
+    background: #fff;
+    border: 1px solid #c3c2c2;
+    font-size: 13px;
+    margin: 0;
+    padding: 4px 12px 6px;
+    vertical-align: middle;
+    margin-left: -1px;
+    outline: none;
+    height: 28px;
+}
+
+.filter__columns:hover
+{
+    border-color: rgba(0, 0, 0, .3);
+    cursor: pointer;
+}
+
+
+.filter__timeslot
+{
+    background: #fff;
+    border: 1px solid #c3c2c2;
+    font-size: 13px;
+    margin: 0;
+    padding: 4px 12px 6px;
+    vertical-align: middle;
+    margin-left: -1px;
+    outline: none;
+    height: 28px;
+}
+
+.filter__timeslot:hover
+{
+    border-color: rgba(0, 0, 0, .3);
+    cursor: pointer;
+}
+
+/* ../../desktop.blocks/filter/__timeslot/filter__timeslot.css end */
+/* ../../desktop.blocks/filter/__text-timeslot/filter__text-timeslot.css begin */
+.filter__text-timeslot
+{
+    text-align: left;
+    width: 198px;
+    display: inline-block;
+}
+
+.filter__text-columns
+{
+    text-align: left;
+    width: 98px;
+    display: inline-block;
+}
+
+
+/* ../../desktop.blocks/filter/__text-timeslot/filter__text-timeslot.css end */
+/* ../../desktop.blocks/filter/__filter-button/filter__filter-button.css begin */
+.filter__filter-button
+{
+    vertical-align: middle;
+    background: #ffdc41;
+    border: 1px solid #c8ad39;
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+    margin: 0 0 0 -1px;
+    padding: 4px 9px 6px;
+    outline: none;
+    height: 28px;
+
+}
+.filter__filter-button:hover
+{
+    cursor: pointer;
+    border-color: rgba(0,0,0,.3);
+}
+
+
+/* ../../libs/bem-components/common.blocks/popup/popup.css end */
+/* ../../desktop.blocks/popup/popup.css begin */
+.popup
+{
+    position: absolute;
+    text-align: left;
+
+    padding: 18px;
+
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(0,0,0,.4);
+    z-index: 3200;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .1s ease-out;
+    -moz-transition: opacity .1s ease-out;
+    -o-transition: opacity .1s ease-out;
+    transition: opacity .1s ease-out;
+}
+
+
+.button_more_yes .popup:hover
+{
+    cursor: default;
+}
+
+/* ../../desktop.blocks/popup/popup.css end */
+/* ../../desktop.blocks/popup/__close/popup__close.css begin */
+.popup__close
+{
+    display: inline-block;
+
+    width: 14px;
+    height: 15px;
+    position: absolute;
+    opacity: .5;
+    background: url("../img/close.png") no-repeat;
+    top: 8px;
+    right: 8px;
+}
+.popup__close:hover
+{
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* ../../desktop.blocks/popup/__close/popup__close.css end */
+/* ../../desktop.blocks/popup/_visibility/popup_visibility_hidden.css begin */
+.popup_visibility_hidden
+{
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .1s ease-out,visibility 0 .1s;
+    -moz-transition: opacity .1s ease-out,visibility 0 .1s;
+    transition: opacity .1s ease-out,visibility 0 .1s;
+}
+
+/* ../../desktop.blocks/popup/_visibility/popup_visibility_hidden.css end */
+/* ../../desktop.blocks/list/list.css begin */
+.list
+{
+    padding: 0;
+    margin: -18px;
+    list-style: none;
+    padding: 10px 0;
+}
+
+/* ../../desktop.blocks/list/list.css end */
+/* ../../desktop.blocks/list/__line/list__line.css begin */
+.list__line
+{
+    padding: 3px 14px 3px 14px;
+}
+
+.list__line:hover
+{
+    cursor: pointer;
+    background: #ffeba0;
+}
+
+/* ../../desktop.blocks/list/__line/list__line.css end */
+/* ../../desktop.blocks/list/__line/_checked/list__line_checked_yes.css begin */
+.list__line_checked_yes .list__check
+{
+    background: url("../img/tick.png") no-repeat;
+    background-position: 0;
+}
+
+/* ../../desktop.blocks/list/__line/_checked/list__line_checked_yes.css end */
+/* ../../desktop.blocks/list/__check/list__check.css begin */
+.list__check
+{
+    vertical-align: middle;
+    width: 14px;
+    height: 19px;
+    display: inline-block;
+}
+
+/* ../../desktop.blocks/list/__check/list__check.css end */
+/* ../../desktop.blocks/list/__indicate/list__indicate.css begin */
+.list__indicate
+{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 0 7px;
+}
+
+/* ../../desktop.blocks/list/__indicate/list__indicate.css end */
+/* ../../desktop.blocks/list/__indicate/_color/list__indicate_color_green.css begin */
+.list__indicate_color_green
+{
+    background: #009245;
+}
+
+/* ../../desktop.blocks/list/__indicate/_color/list__indicate_color_green.css end */
+/* ../../desktop.blocks/list/__indicate/_color/list__indicate_color_yellow.css begin */
+.list__indicate_color_yellow
+{
+    background: #ffdc41;
+}
+
+/* ../../desktop.blocks/list/__indicate/_color/list__indicate_color_yellow.css end */
+/* ../../desktop.blocks/list/__indicate/_color/list__indicate_color_red.css begin */
+.list__indicate_color_red
+{
+    background: #ed1c24;
+}
+
+/* ../../desktop.blocks/list/__indicate/_color/list__indicate_color_red.css end */
+/* ../../desktop.blocks/list/__text/list__text.css begin */
+.list__text
+{
+    vertical-align: middle;
+}
+
+/* ../../desktop.blocks/list/__text/list__text.css end */
+/* ../../desktop.blocks/m-datepicker/m-datepicker.css begin */
+.m-datepicker
+{
+    font-size: 13px;
+}
+
+.m-datepicker .m-datepicker__day-name
+{
+    padding: 4px 8px 6px;
+}
+.m-datepicker__day,
+.m-datepicker__day-name,
+.m-datepicker__day-empty
+{
+    position: relative;
+
+    display: inline-block;
+
+    padding: 3px 8px;
+
+    text-align: center;
+
+    /*border: 2px solid transparent;*/
+    border: 0;
+}
+
+/* Set content with date number */
+.m-datepicker .m-datepicker__day:after
+{
+    content: attr(data-content);
+}
+.m-datepicker .m-datepicker__day_last_yes,
+.m-datepicker .m-datepicker__day_last_yes:hover
+{
+    background: #e5e5e5;
+}
+.m-datepicker .m-datepicker__day_first_yes,
+.m-datepicker .m-datepicker__day_first_yes:hover
+{
+    background: #999;
+}
+/*
+    this is dirty hack, yes :(
+    it sets date 'cell' size, so they all are the same
+    we need it, because some Opera issues: http://jsfiddle.net/aRRxa/
+    (cant use 'display: table-cell' without 'display: table-row' wrappers)
+    reported to Opera as DSK-380974
+*/
+.m-datepicker .m-datepicker__day:before,
+.m-datepicker .m-datepicker__day-empty:before,
+.m-datepicker .m-datepicker__day-name:before
+{
+    content: '42';
+    visibility: hidden;
+}
+
+.m-datepicker .m-datepicker__day-name-i,
+.m-datepicker .m-datepicker__day:after
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: inherit;
+
+    text-align: right;
+}
+
+.m-datepicker__day
+{
+    cursor: pointer;
+}
+
+.m-datepicker__day:hover
+{
+    background: #ffdc41;
+}
+
+.m-datepicker__day_weekend_yes
+{
+    /*background: #eee;*/
+}
+
+.m-datepicker__day_today_yes
+{
+    /*border: 2px solid red !important;*/
+}
+
+.m-datepicker__foot
+{
+    padding: 5px 0;
+
+    border-top: 1px solid #ccc;
+}
+/* ../../desktop.blocks/m-datepicker/m-datepicker.css end */
+/* ../../desktop.blocks/m-datepicker/_type/m-datepicker_type_month.css begin */
+.m-datepicker_type_month
+{
+    position: relative;
+
+    display: inline-block;
+    overflow: hidden;
+
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.m-datepicker_type_month .m-datepicker__bodies
+{
+    margin: 0;
+
+    -webkit-transition: margin .2s ease-in;
+    -moz-transition: margin .2s ease-in;
+    -ms-transition: margin .2s ease-in;
+    -o-transition: margin .2s ease-in;
+    transition: margin .2s ease-in;
+}
+
+.m-datepicker_show_great-chooser .m-datepicker__bodies
+{
+    margin-top: 120%;
+}
+
+.m-datepicker_type_month .m-datepicker__left,
+.m-datepicker_type_month .m-datepicker__right
+{
+    -webkit-transition: left .2s ease-in, right .2s ease-in;
+    -moz-transition: left .2s ease-in, right .2s ease-in;
+    -ms-transition: left .2s ease-in, right .2s ease-in;
+    -o-transition: left .2s ease-in, right .2s ease-in;
+    transition: left .2s ease-in, right .2s ease-in;
+}
+
+.m-datepicker_type_month.m-datepicker_show_great-chooser .m-datepicker__left
+{
+    left: -100%;
+}
+
+.m-datepicker_type_month.m-datepicker_show_great-chooser .m-datepicker__right
+{
+    right: -100%;
+}
+
+.m-datepicker_type_month .m-datepicker__great-chooser
+{
+    position: absolute;
+    z-index: 2;
+    top: -100%;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    -webkit-transition: top .2s ease-in, -webkit-transform .2s ease-in;
+    -moz-transition: top .2s ease-in, -moz-transform .2s ease-in;
+    -ms-transition: top .2s ease-in, -ms-transform .2s ease-in;
+    -o-transition: top .2s ease-in, -o-transform .2s ease-in;
+    transition: top .2s ease-in, transform .2s ease-in;
+    text-align: center;
+    white-space: normal;
+
+    background: #fff;
+}
+
+.m-datepicker_show_great-chooser .m-datepicker__great-chooser
+{
+    top: 0;
+
+    -webkit-transform: translateY(25px);
+    -moz-transform: translateY(25px);
+    -ms-transform: translateY(25px);
+    -o-transform: translateY(25px);
+    transform: translateY(25px);
+}
+
+.m-datepicker_type_month .m-datepicker__choose-year
+{
+    display: inline-block;
+
+    width: 150px;
+}
+
+.m-datepicker_type_month .m-datepicker__choose-year .b-form-input__input
+{
+    text-align: center;
+}
+
+.m-datepicker_type_month .m-datepicker__choose-month
+{
+    margin-top: 5px;
+}
+
+.m-datepicker_type_month .m-datepicker__choose-month .b-form-radio
+{
+    display: block;
+
+    margin-top: 3px;
+}
+
+.m-datepicker_type_month .m-datepicker__choose-month .b-form-radio__text
+{
+    display: inline-block;
+
+    width: 25px;
+
+    text-align: center;
+}
+
+.m-datepicker_type_month .m-datepicker__chooser-submit
+{
+    margin-top: 3px;
+}
+
+.m-datepicker_type_month .b-form-button_size_m.b-form-button_target_previous,
+.m-datepicker_type_month .b-form-button_size_m.b-form-button_target_next
+{
+    height: 21px;
+
+    vertical-align: middle;
+}
+
+.m-datepicker_type_month .b-form-button_target_previous .b-form-button__simple,
+.m-datepicker_type_month .b-form-button_target_next .b-form-button__simple
+{
+    line-height: 19px;
+
+    height: 21px;
+    margin: 0 !important;
+    padding: 0 6px;
+}
+
+.m-datepicker_type_month .m-datepicker__title-click
+{
+    /*cursor: pointer;*/
+}
+
+
+.m-datepicker_type_month .m-datepicker__title-click:hover
+{
+    /*color: #f00;*/
+}
+
+.m-datepicker_type_month .m-datepicker__title-click:after
+{
+    position: absolute;
+
+    display: none;
+
+    padding-left: 3px;
+
+    content: '▲';
+}
+
+.m-datepicker_type_month.m-datepicker_show_great-chooser .m-datepicker__title-click:after
+{
+    display: inline;
+}
+
+.m-datepicker_type_month .m-datepicker__head
+{
+    position: relative;
+
+    padding: 0 25px;
+}
+
+.m-datepicker_type_month .m-datepicker__left:hover,
+.m-datepicker_type_month .m-datepicker__right:hover
+{
+    cursor: pointer;
+}
+
+.m-datepicker_type_month .m-datepicker__left,
+.m-datepicker_type_month .m-datepicker__right
+{
+    position: absolute;
+    z-index: 1;
+    top: 4px;
+    font-size: 13px;
+    line-height: 13px;
+    color: #4d4d4d;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.m-datepicker_type_month .m-datepicker__left
+{
+    left: 0;
+}
+
+.m-datepicker_type_month .m-datepicker__right
+{
+    right: 0;
+}
+
+.m-datepicker_type_month .m-datepicker__grid-table
+{
+    font-size: 13px;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+
+    text-align: right;
+}
+
+.m-datepicker_type_month .m-datepicker__day-name
+{
+    font-weight: normal;
+}
+
+.m-datepicker_type_month .m-datepicker__grid
+{
+    display: inline-block;
+}
+
+.m-datepicker_type_month .m-datepicker__day_selected_yes
+{
+    background: #999;
+}
+
+.m-datepicker_type_month .m-datepicker__day_selected_yes.m-datepicker__day_weekend_yes
+{
+    /*background: #e9d484;*/
+}
+
+.m-datepicker_special-days_yes.m-datepicker_type_month .m-datepicker__day_selected_yes
+{
+    color: #000 !important;
+    background: #ffeba0 !important;
+}
+
+.m-datepicker_special-days_yes.m-datepicker_type_month .m-datepicker__day_selected_yes.m-datepicker__day_weekend_yes
+{
+    color: #000 !important;
+    background: #e9d484 !important;
+}
+
+.m-datepicker_type_month .m-datepicker__bodies
+{
+    position: relative;
+
+    overflow: hidden;
+}
+
+.m-datepicker_type_month .m-datepicker__titles
+{
+    position: relative;
+
+    overflow: hidden;
+
+    height: inherit;
+
+    text-align: center;
+}
+
+.m-datepicker_show_great-chooser .m-datepicker__titles
+{
+    overflow: visible;
+}
+
+.m-datepicker_type_month .m-datepicker__title
+{
+    font-weight: bold;
+    line-height: 25px;
+
+    width: 100%;
+}
+
+.m-datepicker_type_month .m-datepicker__body,
+.m-datepicker_type_month .m-datepicker__title
+{
+    position: absolute;
+    left: 0;
+
+    -webkit-transition: left .2s ease-in;
+    -moz-transition: left .2s ease-in;
+    -ms-transition: left .2s ease-in;
+    -o-transition: left .2s ease-in;
+    transition: left .2s ease-in;
+}
+
+.m-datepicker_type_month .m-datepicker__body_transition_no,
+.m-datepicker_type_month .m-datepicker__title_transition_no
+{
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.m-datepicker_type_month .m-datepicker__body_position_current,
+.m-datepicker_type_month .m-datepicker__title_position_current
+{
+    left: 0;
+}
+
+.m-datepicker_type_month .m-datepicker__body_position_back.m-datepicker__body_direction_next,
+.m-datepicker_type_month .m-datepicker__title_position_back.m-datepicker__title_direction_next
+{
+    left: 100%;
+}
+
+.m-datepicker_type_month .m-datepicker__body_position_back.m-datepicker__body_direction_previous,
+.m-datepicker_type_month .m-datepicker__title_position_back.m-datepicker__title_direction_previous
+{
+    left: -100%;
+}
+
+.m-datepicker_type_month .m-datepicker__body_position_current.m-datepicker__body_direction_next,
+.m-datepicker_type_month .m-datepicker__title_position_current.m-datepicker__title_direction_next
+{
+    left: -100%;
+}
+
+.m-datepicker_type_month .m-datepicker__body_position_current.m-datepicker__body_direction_previous,
+.m-datepicker_type_month .m-datepicker__title_position_current.m-datepicker__title_direction_previous
+{
+    left: 100%;
+}
+
+/* ../../desktop.blocks/m-datepicker/_type/m-datepicker_type_month.css end */
+/* ../../desktop.blocks/table/table.css begin */
+.table
+{
+    width: 100%;
+    text-align: left;
+    font-size: 13px;
+    border-collapse: collapse;
+}
+.popup .table
+{
+    margin-left: -20px;
+}
+
+/* ../../desktop.blocks/table/table.css end */
+/* ../../desktop.blocks/table/__head/table__head.css begin */
+.table__head
+{
+}
+
+/* ../../desktop.blocks/table/__head/table__head.css end */
+/* ../../desktop.blocks/table/__head-item/table__head-item.css begin */
+.table__head-item
+{
+    padding: 8px 10px 10px;
+}
+
+/* ../../desktop.blocks/table/__head-item/table__head-item.css end */
+/* ../../desktop.blocks/table/__head-item/_type/table__head-item_type_flag.css begin */
+.table__head-item_type_flag
+{
+    min-width: 33px;
+    padding-left: 20px;
+}
+
+/* ../../desktop.blocks/table/__head-item/_type/table__head-item_type_flag.css end */
+/* ../../desktop.blocks/table/__head-item/_type/table__head-item_type_button.css begin */
+.table__head-item_type_button
+{
+    min-width: 221px;
+}
+
+/* ../../desktop.blocks/table/__head-item/_type/table__head-item_type_button.css end */
+/* ../../desktop.blocks/table/__column-title/table__column-title.css begin */
+.table__column-title
+{
+    position: relative;
+    padding-right: 10px;
+}
+.table__column-title:hover
+{
+    cursor: pointer;
+}
+
+.table__column-title:after,
+.table__column-title:before
+{
+    content: '';
+    position: absolute;
+    right: 0;
+    border: solid transparent;
+}
+
+.table__column-title:after
+{
+    top: 9px;
+    border-width: 3px 3px 0 3px;
+    border-top-color: #a4a3a2
+}
+
+.table__column-title:before
+{
+    top: 4px;
+    border-width: 0 3px 3px 3px;
+    border-bottom-color: #a4a3a2
+}
+
+/* ../../desktop.blocks/table/__column-title/table__column-title.css end */
+/* ../../desktop.blocks/table/__column-title/_sort/table__column-title_sort_up.css begin */
+.table__column-title_sort_up:before
+{
+    border-bottom-color: #626464;
+}
+
+/* ../../desktop.blocks/table/__column-title/_sort/table__column-title_sort_up.css end */
+/* ../../desktop.blocks/table/__column-title/_sort/table__column-title_sort_down.css begin */
+.table__column-title_sort_down:after
+{
+    border-top-color: #626464;
+}
+
+/* ../../desktop.blocks/table/__column-title/_sort/table__column-title_sort_down.css end */
+/* ../../desktop.blocks/table/__body/table__body.css begin */
+.table__body
+{
+}
+
+/* ../../desktop.blocks/table/__body/table__body.css end */
+/* ../../desktop.blocks/table/__line/table__line.css begin */
+.table__line
+{
+}
+
+.table__line:hover
+{
+    background: #eeeded;
+}
+
+/* ../../desktop.blocks/table/__line/table__line.css end */
+/* ../../desktop.blocks/table/__line/_light/table__line_light_yes.css begin */
+.table__line_light_yes
+{
+    background: #eeeded;
+}
+
+/* ../../desktop.blocks/table/__line/_light/table__line_light_yes.css end */
+/* ../../desktop.blocks/table/__item/table__item.css begin */
+.table__item
+{
+    white-space: nowrap;
+    padding: 5px 10px 6px 30px;
+    border: 0;
+}
+
+.first__table__item 
+{
+	padding-left: 40px;
+}
+
+.table__item .button
+{
+    vertical-align: middle;
+    margin: 0 8px 0 0;
+}
+
+/* ../../desktop.blocks/table/__item/table__item.css end */
+/* ../../desktop.blocks/table/__item/_align/table__item_align_center.css begin */
+.table__item_align_center
+{
+    text-align: center;
+}
+
+/* ../../desktop.blocks/table/__item/_align/table__item_align_center.css end */
+/* ../../desktop.blocks/table/__item/_full-width/table__item_full-width_yes.css begin */
+.table__item_full-width_yes
+{
+    width: 100%;
+}
+
+/* ../../desktop.blocks/table/__item/_full-width/table__item_full-width_yes.css end */
+/* ../../desktop.blocks/table/__item/_bold/table__item_bold_yes.css begin */
+.table__item_bold_yes
+{
+    font-weight: 700;
+}
+
+/* ../../desktop.blocks/table/__item/_bold/table__item_bold_yes.css end */
+/* ../../desktop.blocks/table/__flag/table__flag.css begin */
+.table__flag
+{
+    width: 10px;
+    display: inline-block;
+    height: 10px;
+    border-radius: 10px;
+    margin-left: 13px;
+}
+
+tr:hover 
+{
+    background-color: #eeeded;
+}
+
+/* ../../desktop.blocks/table/__flag/table__flag.css end */
+/* ../../desktop.blocks/table/__flag/_color/table__flag_color_green.css begin */
+.table__flag_color_green
+{
+    background: #009245;
+}
+
+/* ../../desktop.blocks/table/__flag/_color/table__flag_color_green.css end */
+/* ../../desktop.blocks/table/__flag/_color/table__flag_color_yellow.css begin */
+.table__flag_color_yellow
+{
+    background: #ffdc41;
+}
+
+/* ../../desktop.blocks/table/__flag/_color/table__flag_color_yellow.css end */
+/* ../../desktop.blocks/table/__flag/_color/table__flag_color_red.css begin */
+.table__flag_color_red
+{
+    background: #ed1c24;
+}
+
+/* ../../desktop.blocks/table/__flag/_color/table__flag_color_red.css end */
+/* ../../desktop.blocks/button-group/button-group.css begin */
+.button-group
+{
+    position: relative;
+}
+
+.button-group .popup
+{
+    top: 32px;
+    right: 189px;
+}
+
+/* ../../desktop.blocks/button-group/button-group.css end */
+/* ../../desktop.blocks/paragraph/paragraph.css begin */
+.paragraph
+{
+    width: 623px;
+    font-size: 15px;
+    text-align: left;
+}
+
+/* ../../desktop.blocks/paragraph/paragraph.css end */
+/* ../../desktop.blocks/form/form.css begin */
+.form
+{
+    margin-top: 12px;
+    padding-top: 1px;
+}
+
+/* ../../desktop.blocks/form/form.css end */
+/* ../../desktop.blocks/form/__head/form__head.css begin */
+.form__head
+{
+    font-size: 22px;
+    text-align: left;
+    font-weight: 400;
+}
+
+/* ../../desktop.blocks/form/__head/form__head.css end */
+/* ../../desktop.blocks/form/__textarea-wrapper/form__textarea-wrapper.css begin */
+.form__textarea-wrapper
+{
+    margin-right: 20px;
+}
+
+/* ../../desktop.blocks/form/__textarea-wrapper/form__textarea-wrapper.css end */
+/* ../../desktop.blocks/form/__textarea/form__textarea.css begin */
+.form__textarea
+{
+    width: 100%;
+    border: 1px solid #c4c3c3;
+    height: 209px;
+    outline: none;
+    resize: vertical;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.form__textarea:focus
+{
+    border-color: rgba(178,142,0,.6);
+    box-shadow: 0 0 6px 2px rgba(255,204,0,.7),0 1px 0 rgba(255,255,255,.2),inset 0 1px 1px rgba(0,0,0,.1);
+}
+
+/* ../../desktop.blocks/form/__textarea/form__textarea.css end */
+/* ../../desktop.blocks/form/__buttonarea/form__buttonarea.css begin */
+.form__buttonarea
+{
+    position: relative;
+    margin-top: 20px;
+}
+
+/* ../../desktop.blocks/form/__buttonarea/form__buttonarea.css end */
+/* ../../desktop.blocks/form/__buttonarea/_align/form__buttonarea_align_right.css begin */
+.form__buttonarea_align_right
+{
+    text-align: right;
+    overflow: hidden;
+}
+
+.form__buttonarea_align_right .button
+{
+    margin: 0;
+    margin-left: 24px;
+}
+
+/* ../../desktop.blocks/form/__buttonarea/_align/form__buttonarea_align_right.css end */
+/* ../../desktop.blocks/footer/footer.css begin */
+.footer
+{
+    font-size: 13px;
+
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    padding: 16px 0;
+
+    text-align: right;
+    background: inherit;
+    border-top: 1px solid #ccc;
+}
+
+/* ../../desktop.blocks/footer/footer.css end */
+/* ../../desktop.blocks/footer/__item/footer__item.css begin */
+.footer__item
+{
+    display: inline-block;
+
+    margin-right: 27px;
+}
+
+.footer__item_type_copyright
+{
+}
+
+/* ../../desktop.blocks/footer/__item/footer__item.css end */
+/* ../../desktop.blocks/b-link/b-link.css begin */
+.b-link
+{
+    text-decoration: none;
+
+    color: #8a929f;
+}
+
+.b-link:hover
+{
+    color: red;
+}
+
+.modal .b-link
+{
+    color: #2e4a9a;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* ../../desktop.blocks/b-link/b-link.css end */
+
+

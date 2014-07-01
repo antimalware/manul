@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<files>
+  <file>
+    <path>./pat/tests/test_file.txt</path>
+    <size>10</size>
+    <ctime>0</ctime>
+    <mtime>0</mtime>
+    <owner>1000</owner>
+    <access>33204</access>
+    <crc32b>93a5e159</crc32b>
+    <crc32>64353b9c</crc32>
+    <md5>56dd8a439abf97fda051f88f09f00d65</md5>
+    <md2>caa0bdc08266c1ef51d49bba17cef09b</md2>
+  </file>
+</files>

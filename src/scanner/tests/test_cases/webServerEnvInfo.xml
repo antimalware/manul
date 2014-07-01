@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<website_info>
+  <server_environment>
+    <script_filename>/home/www/badcode.tk/web_root/pat/tests/WebServerEnvInfo.test.php</script_filename>
+    <document_root>/home/www/badcode.tk/web_root/pat/tests</document_root>
+    <http_host>testhost.com</http_host>
+    <admin_email>admin@testhost.com</admin_email>
+    <time>0</time>
+    <server_addr>8.8.8.8</server_addr>
+    <software>nginx/1.2.1</software>
+    <server_gateway>CGI/1.1</server_gateway>
+    <server_signature/>
+    <server_hostname>badcode.tk</server_hostname>
+    <platform_name>Linux 3.5.0-17-generic #28-Ubuntu SMP Tue Oct 9 19:31:23 UTC 2012</platform_name>
+    <server_architecture>x86_64</server_architecture>
+    <username>uid: 1000, gid: 1000</username>
+    <path>/home/www/badcode.tk/web_root/pat/tests</path>
+    <phpinfo/>
+  </server_environment>
+</website_info>

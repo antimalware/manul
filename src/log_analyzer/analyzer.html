@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8"/>
+    <title>
+      Анализатор логов
+    </title>
+
+    <script src="js/xml2json.js"></script>
+	<script src="js/zip.js"></script>
+    <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
+    <script src="http://yastatic.net/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.min.js"></script>
+    <script src="js/HashTable.js"></script>    
+    <script src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script src="js/fileParser.js"></script>        
+  
+  <link rel="stylesheet" href="css/jquery.dataTables.css"/> 
+  <link rel="stylesheet" href="css/analyzer.table.css"/> 
+  
+  <meta name="description" content=""/>
+  </head>
+  <body class="page" onload="checkFileAPI();">  
+
+  <style>
+    #uploadScreen {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color:#ffd000;
+        z-index: 2;
+    }
+
+   .upload__screen__block {
+    width: 500px;
+    height: 500px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+    }
+
+    .upload__screen__button {
+    opacity:0; 
+    width: 200px;
+    height: 180px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position:absolute;
+    z-index: 3;
+
+    }
+
+ 
+  </style>           
+
+      <div id="uploadScreen">              
+        <div class="body">
+
+           <div class="upload__screen__block">
+            <h2 class="header">Загрузите лог для анализа</h2>
+            <p class="sub-header sub-header_align_left">Лог создается при сканировании сайта инструментом и содержит информацию об окружении сайта (данные о вебсервере, интерпретаторе, системах контроля версий) а также файлах. Загружать лог можно как в виде архива, так и в виде распакованного xml.</p>
+
+            <input accept="application/zip, text/xml"  class="upload__screen__button" type="file" name="report" onchange="turnOnTableScreen(); readText(this);">
+            <span class="button button_theme_action i-bem button_js_inited button_hovered">Загрузить файл</span>
+            </input>
+
+
+
+        </div>
+        <div class="body__spacer"></div>
+        <div class="footer">
+            <a class="b-link footer__item" href="#">Обратная связь</a>
+            <a class="b-link footer__item" href="#">Помощь</a>
+            <div class="footer__item footer__item_type_copyright">©&nbsp;2001&mdash;2013</div>
+        </div>
+    </div>
+    
+      </div>
+	
+
+    <div id="tableScreen">
+    
+    <div class="body body_full_height">
+      <div class="head head_position_relative">
+        <h1 class="header header_type_main">
+          Manul: Анализатор логов
+        </h1>
+        <h2 class="head__sub-header">
+          Список файлов
+        </h2>
+        <p class="head__description">
+          Анализатор логов Manul. Для эффективного поиска вредоносных файлов следует добавить вайтлисты или полученные ранее логи. В качестве фильтров можно задать маску имени файлов и дату создания.
+        </p>
+      </div>
+        <div class="filter i-bem" data-bem="{&quot;filter&quot;:&quot;true&quot;}">
+        <button class="filter__flag">
+          <span class="filter__text-flag">
+            Флаг
+          </span>
+          <span class="filter__arrow">
+          </span>
+        </button><div class="popup popup_name_flag popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
+          <div class="popup__content">
+            <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
+              <li class="list__line list__line_checked_yes" val="green" num="1">
+                <span class="list__check">
+                </span>
+                <span class="list__indicate list__indicate_color_green">
+                </span>
+                <span class="list__text">
+                  Не найдено
+                </span>
+              </li>
+              <li class="list__line list__line_checked_yes" val="yellow" num="2">
+                <span class="list__check">
+                </span>
+                <span class="list__indicate list__indicate_color_yellow">
+                </span>
+                <span class="list__text">
+                  Подозрительный
+                </span>
+              </li>
+              <li class="list__line list__line_checked_yes" val="red" num="3">
+                <span class="list__check">
+                </span>
+                <span class="list__indicate list__indicate_color_red">
+                </span>
+                <span class="list__text">
+                  Вредоносный
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div><button class="filter__columns"><span class="filter__text-columns" id="fileTimeFilterSpan">Поля таблицы</span><span class="filter__arrow"></span></button><div class="popup popup_name_columns popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
+          <div class="popup__content">
+            <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
+              <li class="list__line list__line_checked_yes" val="0" num="0">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Флаг
+                </span>
+              </li>
+              <li class="list__line list__line_checked_yes" val="1">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Путь
+                </span>
+              </li>
+              <li class="list__line list__line_checked_yes" val="2">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Размер
+                </span>
+              </li>
+              <li class="list__line list__line_checked_yes" val="3">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Время создания
+                </span>
+              </li>
+              <li class="list__line list__line_checked_yes" val="4">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Время модификации
+                </span>
+              </li>
+              <li class="list__line" val="5">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Владелец
+                </span>
+              </li>
+              <li class="list__line" val="6">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Группа
+                </span>
+              </li>
+              <li class="list__line" val="7">
+                <span class="list__check">
+                </span>
+                <span class="list__text">
+                  Атрибуты
+                </span>
+              </li>              
+            </ul>
+          </div>
+        </div><input class="filter__file-name" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
+        <span class="filter__text-timeslot" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
+        <div class="popup__content"><div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}"></div></div>
+        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action">          
+          Фильтр из файла          
+        </button>
+        </input>
+      </div>
+
+
+      <div class="body__content body__content_display_block">
+
+       <table class="table" id="filesTable">
+            <thead class="table__head">
+                <th class="table__head-item table__head-item_type_flag"><span class="table__column-title" id="tableHeaderFlagSpan">Флаг</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Filename"><span class="table__column-title table__column-title_sort_up">Имя файла</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Size"><span class="table__column-title table__column-title_sort_down">Размер</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Created"><span class="table__column-title">Создан</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Изменен</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Created"><span class="table__column-title">Владелец</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Группа</span>
+                </th>
+                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Атрибуты</span>
+                </th>
+                <th class="table__head-item table__head-item_type_button">Действие</th>
+            </thead>
+
+        <tbody class="table__body">
+
+        </tbody>
+      </table>
+
+        <p class="paragraph">
+          Созданное предписание можно запустить в выполняторе предписаний Manul
+        </p>
+        <form class="form">
+          <h3 class="form__head">
+            Предписание
+          </h3>
+          <div class="form__textarea-wrapper">
+            <textarea class="form__textarea" id="recipeTextarea">
+            </textarea>
+          </div>
+          <div class="form__buttonarea form__buttonarea_align_right">
+            <button class="button button_theme_action i-bem" data-bem="{&quot;button&quot;:{}}" role="button" id="copyRecipeButton">
+              Копировать
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="footer">
+        <a class="b-link footer__item" href="#">
+          Обратная связь
+        </a>
+        <a class="b-link footer__item" href="#">
+          Помощь
+        </a>
+        <div class="footer__item footer__item_type_copyright">
+          ©&nbsp;2001&mdash;2013
+        </div>
+      </div>
+    </div>
+
+    <script>
+        var logLoaded = false;
+        var filesDataTable = null;
+
+        function parseWebsiteLog(fileDictDict) {
+			var fileInfoArrayArray = new Array;
+			for(var fileDictName in fileDictDict) {
+				var fileInfoArray = new Array;
+				var fileDict = fileDictDict[fileDictName];
+				fileInfoArray.push(fileDict['_detected']);
+				fileInfoArray.push(fileDict['path']);
+				fileInfoArray.push(fileDict['size']);
+				fileInfoArray.push(fileDict.ctime);
+				fileInfoArray.push(fileDict.mtime);
+				fileInfoArray.push(fileDict['owner']);
+				fileInfoArray.push(fileDict['group']);
+				fileInfoArray.push(fileDict['access']);
+				fileInfoArray.push({'md5': fileDict.md5, 'pos': fileDict._pos, 'snippet': fileDict._snippet, 'path': fileDict.path});
+                fileInfoArray.push(fileDict.md5);
+				fileInfoArrayArray.push(fileInfoArray);
+			}
+			return fileInfoArrayArray;             
+        }
+
+        function parseWhitelist(fileDictDict) {
+            //FIXME later
+			var fileInfoArrayArray = new Array;
+			for(var fileDictName in fileDictDict) {
+				var fileInfoArray = new Array;
+				var fileDict = fileDictDict[fileDictName];
+				fileInfoArray.push(null);
+				fileInfoArray.push(fileDict.path);
+				fileInfoArray.push(null);
+				fileInfoArray.push(null);
+				fileInfoArray.push(null);
+				fileInfoArray.push(null);
+				fileInfoArray.push(null);
+				fileInfoArray.push(null);
+				fileInfoArray.push(null);
+                fileInfoArray.push(fileDict.md5);
+				fileInfoArrayArray.push(fileInfoArray);
+			}
+			return fileInfoArrayArray;             
+        }
+
+		function getFileInfoArray(json) {
+			var fileDictDict;
+			if (json.hasOwnProperty('website_info')) {
+			    //website log
+			    fileDictDict = json.website_info.files.file;
+			    return parseWebsiteLog(fileDictDict);
+			} else if (json.hasOwnProperty('files')) {
+			    //whitelist
+			    fileDictDict = json.files.file;			    
+			    console.log('whitelist');
+			    console.log(fileDictDict);
+			    return parseWhitelist(fileDictDict);
+			}
+		}
+
+		//datatable filtering by timeslot and flags
+		$.fn.dataTable.ext.search.push(
+			function( settings, data, dataIndex ) {
+			    var minDateStr = $('#dateMin').val();
+			    var maxDateStr = $('#dateMax').val();
+
+ 			    var flags = [];
+         		$('.popup_name_flag').find('.list__line_checked_yes').each(function(){flags.push(this.getAttribute('val'))});
+
+				var minDate = new Date(minDateStr);
+				var maxDate = new Date(maxDateStr);
+				var date = new Date(data[4]); // use data for the mtime column
+
+			    var flag = data[0];
+
+				if (flags.indexOf(flag) == -1) {
+				    return false;
+				} 
+        		 
+				if ( ( minDateStr == '' && '' == maxDateStr ) ||
+				     ( minDateStr == '' && date <= maxDate ) ||
+					 ( minDate <= date && '' == maxDateStr ) ||
+					 ( minDate <= date && date <= maxDate ) )
+				{      
+					return true;
+				}
+				return false;
+			}
+		);			
+
+		function buildTrable(data) {
+			window.filesDataTable = $('#filesTable').dataTable({
+
+			   "aLengthMenu": [[100, 10, 500, -1], [100, 10, 500, "All"]],
+
+			   "iDisplayLength": 50,
+
+			   //Localization
+			   "oLanguage": {
+					"sLengthMenu": "Отображать по _MENU_ записей",
+					"sZeroRecords": "Ничего не найдено",
+					"sInfo": "Отображается c _START_ по _END_ из _TOTAL_ файлов",
+					"sInfoEmpty": "Нет файлов",
+					"sInfoFiltered": "(всего записей _MAX_)",
+					"sSearch":       "Поиск:",
+					"sUrl":          "",
+					"oPaginate": {
+						"sFirst": "&nbsp;&nbsp;&nbsp;",
+						"sPrevious": "&nbsp;&nbsp;&nbsp;",
+						"sNext": "&nbsp;&nbsp;&nbsp;",
+						"sLast": "&nbsp;&nbsp;&nbsp;"
+					},
+					"oAria": {
+						"sSortAscending":  ": активировать для сортировки столбца по возрастанию",
+						"sSortDescending": ": активировать для сортировки столбцов по убыванию"			
+					}
+				},
+
+				//Data source
+				"aaData": data,
+
+				//Data preprocessing for rendering
+				"aoColumnDefs": [
+
+					//Detection flag field preprocessing        
+					{
+						"aTargets": [0],
+						"sType": "html",
+						"sClass": "table__item",
+						//FIXME - profomance issue with tag stripping
+						//http://datatables.net/forums/discussion/3896/how-to-apply-sorting-on-hidden-column
+						"mRender": function (flag, type, full) {
+							if (flag == 'c') {
+								return '<span class="table__flag table__flag_color_red"><span style="display:none">red<span></span>';								
+							} else if (flag == 'w') {
+								return '<span class="table__flag table__flag_color_yellow"><span style="display:none">yellow</span></span>';
+							}
+							return '<span class="table__flag table__flag_color_green"><span style="display:none">green</span></span>';							
+						}
+
+					},
+
+					//File size field preprocessing
+					{
+						"aTargets": [2],
+						"sClass": "table__item",
+						"mRender": function (size, type, full) {
+							if (size == -1) {
+								return '[Каталог]';
+							}
+							return size;
+						}
+					},
+
+					//Ctime and mtime fields preprocessing        
+					{
+						"aTargets": [3, 4],
+						"sClass": "table__item",
+						"sType": "date",
+						"mRender": function (timestamp, type, full) {
+							return $.format.date(new Date(timestamp * 1000), "yyyy-MM-dd HH:mm:ss");
+						}
+					},
+					{
+						"aTargets": [1],
+    					"sClass": "table__item",
+    				},
+					{
+						"aTargets": [5, 6, 7],
+    					"sClass": "table__item",
+                        "visible": false
+    				},
+					{
+						"aTargets": [8],
+						"sClass": "table__item",
+						"mRender": function (detectionInfo, type, full) {                        
+							var buttons = "<div class=\"button-group i-bem button-group_js_inited\"><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Карантин</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Удалить</span></button></div>";
+							return buttons;
+						}
+					},
+					//md5 hash as a hidden column
+                    {
+                        "aTargets": [9],
+                        "visible": false
+                    }
+									 
+
+				]
+			});		
+
+		}
+
+		function filterColumns() {
+			$('.popup_name_columns').find('.list__line').each(function(){
+				var column = filesDataTable.DataTable().column( this.getAttribute('val') );
+				column.visible( $(this).hasClass('list__line_checked_yes') );				
+				console.log(this.getAttribute('val'));
+			});
+		}
+		function filterByFlags() {
+
+		    var flags = [];
+     		$('.popup_name_flag').find('.list__line_checked_yes').each(function(){flags.push(this.getAttribute('val'))});
+     		console.log($('.popup_name_flag').find('.list__line_checked_yes'));
+     		console.log(flags);
+     		filesDataTable.DataTable().draw();
+		}	
+		
+		var data = "";
+		var new_data = "";
+		function displayContents(xmlStr) {
+		    if (logLoaded) {
+		        var new_json = parseXMLstrToJSON(xmlStr);
+				new_data = getFileInfoArray(new_json);
+				filter_obj = {};
+				new_data.forEach(function(fileInfoArray) {
+					filepath = fileInfoArray[1];
+					hash = fileInfoArray[9];
+					if (hash) {      
+						filter_obj[filepath] = hash;
+					}
+				});
+				var filesDataTable = $('#filesTable').DataTable(); 
+				var filteredRowNumbers = [];
+				var filteredData = filesDataTable
+					.column( 1 )
+					.data()
+					.filter( function ( value, index ) { 
+						//check file name
+						if (filter_obj.hasOwnProperty(value)) {
+							//check file hash
+							logFileHash = filesDataTable.row(index).data()[9];
+							filterFileHash = filter_obj[value];
+							console.log(value + ' ' + logFileHash + ' ' + filterFileHash);
+							if (logFileHash == filterFileHash) {
+								filteredRowNumbers.push(index);
+							}			
+						}
+						return false;		
+					} );
+					filteredData;
+
+					filesDataTable.rows(filteredRowNumbers).remove();
+
+				filesDataTable.draw();
+
+		    } else {
+				logLoaded = true;	
+				var json = parseXMLstrToJSON(xmlStr);
+				data = getFileInfoArray(json);
+				buildTrable(data);      
+
+				
+			}					
+		};
+
+		
+    </script>
+    
+    <script type="text/javascript" src="js/analyzer.table.js" defer></script>
+    <script type="text/javascript">
+
+        var client = new ZeroClipboard(document.getElementById("copyRecipeButton"), {
+          moviePath: "//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf"
+        });
+
+        client.on("load", function(client) {
+          client.on('dataRequested', function (client, args) {
+              client.setText(document.getElementById('recipeTextarea').value);
+          });
+        });
+
+     function turnOnTableScreen() {
+         $('#uploadScreen').hide();		
+
+         $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
+         $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
+		 $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+		 $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+         $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);}); 
+
+     }
+
+    </script>
+  </div>
+  </body>
+</html>

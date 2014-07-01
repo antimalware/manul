@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="website_info">
+        <xs:complexType>
+            <xs:sequence>
+			    <xs:element name="server_environment">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="script_filename" type="xs:string"/>
+							<xs:element name="document_root" type="xs:string"/>
+							<xs:element name="http_host" type="xs:string"/>
+							<xs:element name="admin_email" type="xs:string"/>
+							<xs:element name="time" type="xs:string"/>
+						</xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+				<xs:element name="files">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="path" type="xs:string"/>
+							<xs:element name="crc32" type="xs:string"/>
+							<xs:element name="md5" type="xs:string"/>
+							<xs:element name="size" type="xs:integer"/>
+							<xs:element name="time_modified" type="xs:integer"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>							
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
