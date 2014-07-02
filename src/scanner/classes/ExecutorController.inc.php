@@ -102,8 +102,8 @@ class ExecutorController {
                      global $project_root_dir, $project_tmp_dir;                     
                      if ($project_tmp_dir == sys_get_temp_dir()) {
                          @unlink($project_tmp_dir . '/scan_log.xml');
-                         array_map('unlink', glob($project_tmp_dir . "/*.pat.tmp.txt"));
-                         array_map('unlink', glob($project_tmp_dir . "/*.pat.tmp"));        
+                         array_map('unlink', glob($project_tmp_dir . "/*.manul.tmp.txt"));
+                         array_map('unlink', glob($project_tmp_dir . "/*.manul.tmp"));        
                          array_map('unlink', glob($project_tmp_dir . "/config.php"));        
                      }
 

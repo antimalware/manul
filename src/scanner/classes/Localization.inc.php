@@ -56,7 +56,7 @@ if ($lang == "ru") {
 	define('PS_TITLE_SCANNER', 'Сканер');
 	define('PS_TITLE_EXECUTOR', 'Лечение');
 	define('PS_HELP', 'Помощь');
-	define('PS_MAIN_TITLE', 'PAT Tool');
+	define('PS_MAIN_TITLE', 'Манул');
 	define('PS_INSERT_RECIPE', 'Вставьте предписание:');
 	define('PS_CHECK_RECIPE', 'Действия будут применены только к выбранным файлам:');
 	define('PS_EXECUTE', 'Исполнить');
@@ -74,7 +74,7 @@ if ($lang == "ru") {
 	define('PS_SETTINGS', 'Настройки');
 	define('PS_FURTHER_INSTRUCTIONS', 'Теперь вы можете скачать отчет и передать его на анализ вирусному аналитику.');
 	define('PS_START_SCAN', 'Начать сканирование');
-    define('PS_ERR_DUMMY_FOLDER', 'Имя каталога, где размещен скрипт PAT Tool, должен быть уникальным и содержать хотя бы 5 символов. Например, "pat_%s". Переименуйте текущий каталог "%s".');
+    define('PS_ERR_DUMMY_FOLDER', 'Имя каталога, где размещен скрипт Манул, должен быть уникальным и содержать хотя бы 5 символов. Например, "manul_%s". Переименуйте текущий каталог "%s".');
     define('PS_ERR_CANNOT_CREATE_FILE', 'Ошибка при создании файла %s<br>Текст ошибки: %s');
     define('PS_OLD_PHP', 'Для работы необходим PHP версии 5.2.0 или выше.');
     define('PS_NO_ZIP_MODULE', 'Для работы необходим PHP модуль zip.');
@@ -110,7 +110,7 @@ if ($lang == "ru") {
     define('PS_SCANNING_OF', 'file of');
     define('PS_SCANNING_FOUND', 'found');
 	define('PS_SEND_REPORT_BUTTON', 'Send report');
-	define('PS_ERR_NO_TEMP_FOLDER', "Cannot find folder for temporary files. Please ensure that either php temporary folder is configured properly or PAT tool folder is writable");
+	define('PS_ERR_NO_TEMP_FOLDER', "Cannot find folder for temporary files. Please ensure that either php temporary folder is configured properly or Manul folder is writable");
 	define('PS_ERR_UPLOADING_XML', 'Error in uploading xml report. Check your php settings (upload_max_filesize)');
 	define('PS_ERR_BROKEN_XML', 'xml report is broken');
 	define('PS_ERR_ARCHIVE_OPENING', 'Archive opening error');
@@ -159,7 +159,7 @@ if ($lang == "ru") {
 	define('PS_TITLE_SCANNER', 'Scanner');
 	define('PS_TITLE_EXECUTOR', 'Executor');
 	define('PS_HELP', 'Help');
-	define('PS_MAIN_TITLE', 'PAT Tool');
+	define('PS_MAIN_TITLE', 'Manul');
 	define('PS_INSERT_RECIPE', 'Insert the recipe:');
 	define('PS_CHECK_RECIPE', 'Changes will be applied to the selected files:');
 	define('PS_EXECUTE', 'Execute');
@@ -177,7 +177,7 @@ if ($lang == "ru") {
 	define('PS_SETTINGS', 'Settings');
 	define('PS_FURTHER_INSTRUCTIONS', 'Now you can download the report and send it to malware analyst:');
 	define('PS_START_SCAN', 'Start Scanning');
-	define('PS_ERR_DUMMY_FOLDER', 'PAT Tool folder must be unique and at least 5 character length. For example, "pat_%s". Please, rename current folder "%s"');
+	define('PS_ERR_DUMMY_FOLDER', 'Manul folder must be unique and at least 5 character length. For example, "manul_%s". Please, rename current folder "%s"');
 	define('PS_ERR_CANNOT_CREATE_FILE', 'Cannot create file %s<br>Message: %s');
     define('PS_OLD_PHP', 'PHP version 5.2.0 or newer required.');
     define('PS_NO_ZIP_MODULE', 'PHP extension "zip" required.');

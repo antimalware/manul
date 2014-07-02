@@ -11,7 +11,7 @@ class Healer {
 
         $time_string = date("Y_m_d_H_i", $_SERVER["REQUEST_TIME"]);
         $this->quarantine_filename = $project_tmp_dir . '/' . "quarantine." . $time_string . ".zip";
-        $this->backup_filename = $project_tmp_dir . '/' .  "pat_deleted_files_backup." . $time_string . ".zip";
+        $this->backup_filename = $project_tmp_dir . '/' .  "manul_deleted_files_backup." . $time_string . ".zip";
 
         $this->log = "";
         

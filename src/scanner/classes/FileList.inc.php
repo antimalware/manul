@@ -10,13 +10,13 @@ class FileList {
 
         global $project_tmp_dir;
 
-        $this->DIRLIST_TMP_FILENAME = $project_tmp_dir . '/dirlist.pat.tmp.txt';
-        $this->FILELIST_OFFSET_FILENAME = $project_tmp_dir . '/queue_offset.pat.tmp.txt';
+        $this->DIRLIST_TMP_FILENAME = $project_tmp_dir . '/dirlist.manul.tmp.txt';
+        $this->FILELIST_OFFSET_FILENAME = $project_tmp_dir . '/queue_offset.manul.tmp.txt';
 
         $this->log_filename = $project_tmp_dir .'/scan_log.xml';
         $this->AJAX_HEADER_DIRS = 'DIRS';
         $this->AJAX_HEADER_ERROR = 'ERR';
-        $this->AJAX_TMP_FILE = $project_tmp_dir .'/ajax_scnnr_tbnj.pat.tmp';
+        $this->AJAX_TMP_FILE = $project_tmp_dir .'/ajax_scnnr_tbnj.manul.tmp';
         $this->MAX_EXECUTION_DURATION = 2;
         $this->TYPE_ANY = 0;
         $this->TYPE_FOLDER = 1;
@@ -39,7 +39,7 @@ class FileList {
 
         #For creating temprorary queue for further antimalware/whitelist scan
         $this->GENERATE_FILE_QUEUE = true;
-        $this->tmp_queue_filename = $project_tmp_dir . '/scan_queue.pat.tmp.txt';
+        $this->tmp_queue_filename = $project_tmp_dir . '/scan_queue.manul.tmp.txt';
 
     }
 

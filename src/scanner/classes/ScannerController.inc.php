@@ -24,8 +24,8 @@ class ScannerController {
     function removeTempFiles() {
         global $project_tmp_dir;         
         @unlink($project_tmp_dir . '/scan_log.xml');
-        array_map('unlink', glob($project_tmp_dir . "/*.pat.tmp.txt"));
-        array_map('unlink', glob($project_tmp_dir . "/*.pat.tmp"));
+        array_map('unlink', glob($project_tmp_dir . "/*.manul.tmp.txt"));
+        array_map('unlink', glob($project_tmp_dir . "/*.manul.tmp"));
     }
 
     function getXMLReport() {
