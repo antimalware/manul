@@ -18,7 +18,7 @@
   <body class="page">
     <div class="body">
       <div class="head">
-           <h1 class="header header_type_main">PHP Antimalware Tool</h1>
+           <h1 class="header header_type_main">Manul</h1>
            <div class="head__uninstall">
                 <button class="button small_button_font" id="deleteButton">{PS_DELETE_TOOL_BUTTON_TITLE}</button>
            </div>
@@ -35,7 +35,7 @@
                     <div id="errorCaption">???</div>
                     <div id="errorText">???</div>
                     <div>  
-                         <form method="POST" action="http://amtool.tk/error_report.php">
+                         <form method="POST" action="http://manul.ml/error_report.php">
                              <input type="hidden" name="errorCaption" id="errorFormErrorCaption">
                              <input type="hidden" name="errorText" id="errorFormErrorText">
                              <input type="submit" class="button_action" id="errorButton" value="{PS_SEND_REPORT_BUTTON}">
