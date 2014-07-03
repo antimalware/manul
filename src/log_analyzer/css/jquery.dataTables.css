@@ -1,6 +1,6 @@
 .dataTables_paginate {
 	float: center;
-	text-align: right;
+	text-align: center;
 }
 
 .previous { background: url('../img/arrow_left.png') no-repeat center; }
