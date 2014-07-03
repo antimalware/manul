@@ -70,7 +70,7 @@
                 <div id="configPanel" class="popup popup_name_setting">
                    <div class="popup__tail"></div>
                     <form name="config">
-                        <div>{PS_INTERVAL} <input type="text" class="textarea__input text_interval" name="interval" id="requestDelayTextbox" value="{PS_REQUEST_DELAY}" maxlength=2 size=3>&nbsp; {PS_SEC}</div>
+                        <div>{PS_INTERVAL}<input type="text" class="textarea__input text_interval" name="interval" id="requestDelayTextbox" value="{PS_REQUEST_DELAY}" maxlength=2 size=3>&nbsp; {PS_SEC}</div>
                         
                         <div class="setting__checkbox">
                              <span class="b-checkbox b-checkbox_size_s i-bem" name="malware" id="scanForMalwareCheckbox" checked>

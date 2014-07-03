@@ -17,7 +17,7 @@ class FileList {
         $this->AJAX_HEADER_DIRS = 'DIRS';
         $this->AJAX_HEADER_ERROR = 'ERR';
         $this->AJAX_TMP_FILE = $project_tmp_dir .'/ajax_scnnr_tbnj.manul.tmp';
-        $this->MAX_EXECUTION_DURATION = 2;
+        $this->MAX_EXECUTION_DURATION = 5;
         $this->TYPE_ANY = 0;
         $this->TYPE_FOLDER = 1;
         $this->TYPE_FILE = 2;
@@ -50,9 +50,6 @@ class FileList {
     }
 
     function fileExecutor($file_path, $type, $action_type) {
-        if (time() - $this->SCRIPT_START > $this->MAX_EXECUTION_DURATION) {
-           $this->throwTimeout();
-        }
 
         if ($action_type == $this->ACTION_PROCESS) {
             $fileinfo = new FileInfo($file_path);

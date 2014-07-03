@@ -2,7 +2,7 @@
 var maxAjaxErrors = 3;
 
 var scanForMalware = true;
-var requestDelay = 3;
+var requestDelay = 5;
 
 var numberFilesScanned = 0;
 var numberFilesToScan = 0;
