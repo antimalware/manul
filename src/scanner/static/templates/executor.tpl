@@ -18,7 +18,7 @@
   <body class="page">
     <div class="body">
       <div class="head">
-           <h1 class="header header_type_main">PHP Antimalware Tool</h1>
+           <h1 class="header header_type_main">{PS_MAIN_TITLE}</h1>
            <div class="head__uninstall">
                 <button class="button small_button_font" id="deleteButton">{PS_DELETE_TOOL_BUTTON_TITLE}</button>
            </div>
