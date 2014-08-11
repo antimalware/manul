@@ -24,47 +24,6 @@
   </head>
   <body class="page" onload="checkFileAPI();">  
 
-  <style>
-    #uploadScreen {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color:#ffd000;
-        z-index: 2;
-    }
-
-   .upload__screen__block {
-    width: 500px;
-    height: 500px;
-
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-    }
-
-    .upload__screen__button {
-    opacity:0; 
-    width: 200px;
-    height: 180px;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    position:absolute;
-    z-index: 3;
-
-    }
-
- 
-  </style>           
-
       <div id="uploadScreen">              
         <div class="body">
 
@@ -90,21 +49,29 @@
       </div>
 	
 
-    <div id="tableScreen">
-    
-    <div class="body body_full_height">
-      <div class="head head_position_relative">
-        <h1 class="header header_type_main">
-          Manul: Анализатор логов
-        </h1>
-        <h2 class="head__sub-header">
-          Список файлов
-        </h2>
-        <p class="head__description">
-          Анализатор логов Manul. Для эффективного поиска вредоносных файлов следует добавить вайтлисты или полученные ранее логи. В качестве фильтров можно задать маску имени файлов и дату создания.
-        </p>
-      </div>
-        <div class="filter i-bem" data-bem="{&quot;filter&quot;:&quot;true&quot;}">
+    <div id="tableScreen">    
+        <div class="body body_full_height">
+            <div>
+                <div class="head head_position_relative"  style="float: left;">
+                    <h1 class="header header_type_main">
+                        Manul: Анализатор логов
+                    </h1>
+                    <h2 class="head__sub-header">
+                        Список файлов
+                    </h2>
+                    <p class="head__description">
+                        Анализатор логов Manul. Для эффективного поиска вредоносных файлов следует добавить вайтлисты или полученные ранее логи. В качестве фильтров можно задать маску имени файлов и дату создания.
+                    </p>
+                </div>
+                <div class="filter_list">
+                     <table id="filter_file_list" style="text-align: left; border-spacing: 10px;">
+                         <thead>
+                             <th>Файл</th><th>Записей</th><th>Отфильтровано</th><th></th>
+                         </thead>
+                     </table>
+                </div>
+           
+     <div class="filter i-bem" data-bem="{&quot;filter&quot;:&quot;true&quot;}">
         <button class="filter__flag">
           <span class="filter__text-flag">
             Флаг
@@ -114,7 +81,7 @@
         </button><div class="popup popup_name_flag popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
           <div class="popup__content">
             <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
-              <li class="list__line list__line_checked_yes" val="green" num="1">
+              <li class="list__line list__line_checked_yes" val="1" num="1">
                 <span class="list__check">
                 </span>
                 <span class="list__indicate list__indicate_color_green">
@@ -123,7 +90,7 @@
                   Не найдено
                 </span>
               </li>
-              <li class="list__line list__line_checked_yes" val="yellow" num="2">
+              <li class="list__line list__line_checked_yes" val="2" num="2">
                 <span class="list__check">
                 </span>
                 <span class="list__indicate list__indicate_color_yellow">
@@ -132,7 +99,7 @@
                   Подозрительный
                 </span>
               </li>
-              <li class="list__line list__line_checked_yes" val="red" num="3">
+              <li class="list__line list__line_checked_yes" val="3" num="3">
                 <span class="list__check">
                 </span>
                 <span class="list__indicate list__indicate_color_red">
@@ -212,7 +179,7 @@
         </button>
         </input>
       </div>
-
+      </div>
 
       <div class="body__content body__content_display_block">
 
@@ -276,8 +243,10 @@
     <script>
         var logLoaded = false;
         var filesDataTable = null;
+        var numberItemsInFilter;
 
         function parseWebsiteLog(fileDictDict) {
+
 			var fileInfoArrayArray = new Array;
 			for(var fileDictName in fileDictDict) {
 				var fileInfoArray = new Array;
@@ -315,12 +284,17 @@
                 fileInfoArray.push(fileDict.md5);
 				fileInfoArrayArray.push(fileInfoArray);
 			}
+			numberItemsInFilter = fileInfoArrayArray.length;
+			console.log(fileInfoArrayArray.length + ' items in filter');
 			return fileInfoArrayArray;             
+
         }
 
+        var cmsDictList;
 		function getFileInfoArray(json) {
 			var fileDictDict;
-			if (json.hasOwnProperty('website_info')) {
+			if (json.hasOwnProperty('website_info')) {                 
+    			cmsDictList = json.website_info.cms_list.cms;    			
 			    //website log
 			    fileDictDict = json.website_info.files.file;
 			    return parseWebsiteLog(fileDictDict);
@@ -328,11 +302,31 @@
 			    //whitelist
 			    fileDictDict = json.files.file;			    
 			    console.log('whitelist');
-			    console.log(fileDictDict);
+			    //console.log(fileDictDict);
 			    return parseWhitelist(fileDictDict);
 			}
 		}
 
+		function downloadWhitelist(cms) {
+			$.ajax({ type: "GET",   
+					 url: "http://manul.ml/analyzer2/get_wl.php?name=joomla&version=2.5.9",   
+					 async: false,
+					 success : function(text)
+					 {					     
+						 whitelist = JSON.parse(text);
+						 console.log(whitelist);
+					 }
+			});					
+		
+		}
+
+
+		function tryDownloadWhitelist() {
+    		for(var index in cmsDictList) {
+    		    cms = cmsDictList[index];
+    		    console.log(cms._name + ' ' + cms._version);
+		    }
+		}
 		//datatable filtering by timeslot and flags
 		$.fn.dataTable.ext.search.push(
 			function( settings, data, dataIndex ) {
@@ -363,8 +357,18 @@
 			}
 		);			
 
+        function escapeHtml(text) {
+          return text
+          			.replace(/&/g, "&amp;")
+          			.replace(/</g, "&lt;")
+          			.replace(/>/g, "&gt;")
+          			.replace(/"/g, "&quot;")
+          			.replace(/'/g, "&#039;");
+        }
+
 		function buildTrable(data) {
 			window.filesDataTable = $('#filesTable').dataTable({
+   			   "order": [[ 0, "desc" ]],
 
 			   "aLengthMenu": [[100, 10, 500, -1], [100, 10, 500, "All"]],
 
@@ -406,11 +410,11 @@
 						//http://datatables.net/forums/discussion/3896/how-to-apply-sorting-on-hidden-column
 						"mRender": function (flag, type, full) {
 							if (flag == 'c') {
-								return '<span class="table__flag table__flag_color_red"><span style="display:none">red<span></span>';								
+								return '<span class="table__flag table__flag_color_red"><span style="display:none">3<span></span>';								
 							} else if (flag == 'w') {
-								return '<span class="table__flag table__flag_color_yellow"><span style="display:none">yellow</span></span>';
+								return '<span class="table__flag table__flag_color_yellow"><span style="display:none">2</span></span>';
 							}
-							return '<span class="table__flag table__flag_color_green"><span style="display:none">green</span></span>';							
+							return '<span class="table__flag table__flag_color_green"><span style="display:none">1</span></span>';							
 						}
 
 					},
@@ -418,10 +422,12 @@
 					//File size field preprocessing
 					{
 						"aTargets": [2],
+						//"sType": "numeric",
 						"sClass": "table__item",
 						"mRender": function (size, type, full) {
 							if (size == -1) {
-								return '[Каталог]';
+								//return '[Каталог]';
+								return '0';
 							}
 							return size;
 						}
@@ -431,7 +437,7 @@
 					{
 						"aTargets": [3, 4],
 						"sClass": "table__item",
-						"sType": "date",
+						//"sType": "date",
 						"mRender": function (timestamp, type, full) {
 							return $.format.date(new Date(timestamp * 1000), "yyyy-MM-dd HH:mm:ss");
 						}
@@ -449,7 +455,7 @@
 						"aTargets": [8],
 						"sClass": "table__item",
 						"mRender": function (detectionInfo, type, full) {                        
-							var buttons = "<div class=\"button-group i-bem button-group_js_inited\"><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Карантин</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Удалить</span></button></div>";
+							var buttons = "<div class=\"button-group i-bem button-group_js_inited\"><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Карантин</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Удалить</span></button></div>";
 							return buttons;
 						}
 					},
@@ -457,9 +463,7 @@
                     {
                         "aTargets": [9],
                         "visible": false
-                    }
-									 
-
+                    }									 
 				]
 			});		
 
@@ -472,6 +476,7 @@
 				console.log(this.getAttribute('val'));
 			});
 		}
+
 		function filterByFlags() {
 
 		    var flags = [];
@@ -506,7 +511,7 @@
 							//check file hash
 							logFileHash = filesDataTable.row(index).data()[9];
 							filterFileHash = filter_obj[value];
-							console.log(value + ' ' + logFileHash + ' ' + filterFileHash);
+							//console.log(value + ' ' + logFileHash + ' ' + filterFileHash);
 							if (logFileHash == filterFileHash) {
 								filteredRowNumbers.push(index);
 							}			
@@ -516,6 +521,11 @@
 					filteredData;
 
 					filesDataTable.rows(filteredRowNumbers).remove();
+					console.log(filteredRowNumbers.length + ' rows were removed');
+					lastFilterFilename = filter_filename_list.slice(-1)[0];
+					remove_control = '<a onclick="console.log($(this).parent().parent());" href="#">X</a>'
+					$('#filter_file_list tr:last').after('<tr><td>' + lastFilterFilename + '</td><td>' + numberItemsInFilter + '</td><td>' + filteredRowNumbers.length + '</td><td><input type="button" value="X" class="filter_list_button_remove"/></td></tr>');
+					$('.filter_list').css('visibility', 'visible');
 
 				filesDataTable.draw();
 
@@ -523,11 +533,13 @@
 				logLoaded = true;	
 				var json = parseXMLstrToJSON(xmlStr);
 				data = getFileInfoArray(json);
-				buildTrable(data);      
-
-				
+				buildTrable(data);      				
 			}					
 		};
+
+    	$('#filter_file_list').on('click', 'input[type="button"]', function(e){
+            $(this).closest('tr').remove()
+        });
 
 		
     </script>
@@ -547,13 +559,11 @@
 
      function turnOnTableScreen() {
          $('#uploadScreen').hide();		
-
          $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
          $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
 		 $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
 		 $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
          $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);}); 
-
      }
 
     </script>

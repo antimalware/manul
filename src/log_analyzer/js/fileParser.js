@@ -32,11 +32,13 @@ function readZip(blob, callback) {
 	
 }
 
+var filter_filename_list = Array();
 function readText(fileInput) {
 		var file = fileInput.files[0];
 
 		var onsuccess = displayContents;
-
+		console.log('Trying to load file ' + file.name);
+		filter_filename_list.push(file.name);
 		if (file.name.indexOf('.zip') != -1 ) {
 			readZip(file, onsuccess);                
 		} else {
