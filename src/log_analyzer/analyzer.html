@@ -35,8 +35,6 @@
             <span class="button button_theme_action i-bem button_js_inited button_hovered">Загрузить файл</span>
             </input>
 
-
-
         </div>
         <div class="body__spacer"></div>
         <div class="footer">
@@ -202,6 +200,7 @@
                 <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Атрибуты</span>
                 </th>
                 <th class="table__head-item table__head-item_type_button">Действие</th>
+                <th class="table__head-item table__head-item_type_Modified">Хэш-сумма</th>
             </thead>
 
         <tbody class="table__body">
@@ -246,7 +245,6 @@
         var numberItemsInFilter;
 
         function parseWebsiteLog(fileDictDict) {
-
 			var fileInfoArrayArray = new Array;
 			for(var fileDictName in fileDictDict) {
 				var fileInfoArray = new Array;
@@ -267,64 +265,68 @@
         }
 
         function parseWhitelist(fileDictDict) {
-            //FIXME later
-			var fileInfoArrayArray = new Array;
+            whitelist = {};
 			for(var fileDictName in fileDictDict) {
-				var fileInfoArray = new Array;
-				var fileDict = fileDictDict[fileDictName];
-				fileInfoArray.push(null);
-				fileInfoArray.push(fileDict.path);
-				fileInfoArray.push(null);
-				fileInfoArray.push(null);
-				fileInfoArray.push(null);
-				fileInfoArray.push(null);
-				fileInfoArray.push(null);
-				fileInfoArray.push(null);
-				fileInfoArray.push(null);
-                fileInfoArray.push(fileDict.md5);
-				fileInfoArrayArray.push(fileInfoArray);
-			}
-			numberItemsInFilter = fileInfoArrayArray.length;
-			console.log(fileInfoArrayArray.length + ' items in filter');
-			return fileInfoArrayArray;             
-
+			    fileDict = fileDictDict[fileDictName];
+			    if (fileDict.md5 && fileDict.md5.length > 1) {
+    			    whitelist[fileDict.md5] = fileDict.path;
+    			}
+			}			
+			console.log(Object.keys(whitelist).length + ' items in filter');
+			return whitelist;             
         }
 
         var cmsDictList;
 		function getFileInfoArray(json) {
+		    console.log('!@');
+		    console.log(json);
 			var fileDictDict;
 			if (json.hasOwnProperty('website_info')) {                 
-    			cmsDictList = json.website_info.cms_list.cms;    			
+    			cmsDictList = json.website_info.cms_list;    			
 			    //website log
 			    fileDictDict = json.website_info.files.file;
 			    return parseWebsiteLog(fileDictDict);
-			} else if (json.hasOwnProperty('files')) {
-			    //whitelist
-			    fileDictDict = json.files.file;			    
-			    console.log('whitelist');
-			    //console.log(fileDictDict);
-			    return parseWhitelist(fileDictDict);
 			}
 		}
 
-		function downloadWhitelist(cms) {
+		function getFilter(json) {		    
+			if (json.hasOwnProperty('website_info')) {                 
+			    //another log
+			    var website_log_filter = parseWhitelist(json.website_info.files.file);
+			    applyFilter('websitelog', website_log_filter);
+			    return true;
+			} else if (json.hasOwnProperty('whitelist')) {
+			    //whitelist file
+			    var whitelist_name = json.whitelist.meta.name + "_" + json.whitelist.meta.version;
+			    console.log('Whitelist ' + whitelist_name + ' was loaded.');
+			    var whitelist_filter = parseWhitelist(json.whitelist.files);
+			    applyFilter(whitelist_name, whitelist_filter)
+			    return true;
+			} 
+		}
+
+		function downloadWhitelist(cms_name, cms_version) {
+		    //FIXME
+		    url = "http://manul.ml/downloads/get_wl.php?name=" + cms_name.toLowerCase() + "&version=" + cms_version + "&format=json";
+		    console.log('Fetching whitelist from ' + url);
 			$.ajax({ type: "GET",   
-					 url: "http://manul.ml/analyzer2/get_wl.php?name=joomla&version=2.5.9",   
+					 url: url,   
 					 async: false,
 					 success : function(text)
 					 {					     
-						 whitelist = JSON.parse(text);
-						 console.log(whitelist);
+						 whitelist_json = JSON.parse(text);
+						 getFilter(whitelist_json);						 
+						 console.log('Whitelist for ' + cms_name + ' ' + cms_version + ' was downloaded');
 					 }
-			});					
-		
+			});									
 		}
-
 
 		function tryDownloadWhitelist() {
     		for(var index in cmsDictList) {
     		    cms = cmsDictList[index];
+       		    console.log('Trying to download whitelist');
     		    console.log(cms._name + ' ' + cms._version);
+    		    downloadWhitelist(cms._name, cms._version);
 		    }
 		}
 		//datatable filtering by timeslot and flags
@@ -367,6 +369,7 @@
         }
 
 		function buildTrable(data) {
+
 			window.filesDataTable = $('#filesTable').dataTable({
    			   "order": [[ 0, "desc" ]],
 
@@ -394,6 +397,7 @@
 						"sSortDescending": ": активировать для сортировки столбцов по убыванию"			
 					}
 				},
+				
 
 				//Data source
 				"aaData": data,
@@ -455,13 +459,14 @@
 						"aTargets": [8],
 						"sClass": "table__item",
 						"mRender": function (detectionInfo, type, full) {                        
-							var buttons = "<div class=\"button-group i-bem button-group_js_inited\"><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Карантин</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Удалить</span></button></div>";
+							var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Карантин</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Удалить</span></button></div>";
 							return buttons;
 						}
 					},
 					//md5 hash as a hidden column
                     {
                         "aTargets": [9],
+                        "sClass": "table__item",
                         "visible": false
                     }									 
 				]
@@ -485,63 +490,82 @@
      		console.log(flags);
      		filesDataTable.DataTable().draw();
 		}	
+
+		function applyFilter(filter_name, filter) {
+		    filters[filter_name] = filter;
+	        filter_stat[filter_name] = {'total': Object.keys(filters[filter_name]).length, 'filtered': 0}
+
+		    //reset counter for each filter because stats is calculated 
+			//for all filters again every time new filter is added
+			$.each(filter_stat, function(name, stat) {
+    		   filter_stat[name]['filtered'] = 0;
+			});
+
+	    	remove_control = '<a onclick="console.log($(this).parent().parent());" href="#">X</a>'
+	    	row = '<tr><td>' + filter_name + '</td><td>' + filter_stat[filter_name]['total'] + '</td>';
+	    	row += '<td id="fb_' + filter_name +'">' + filter_stat[filter_name]['filtered'] + '</td><td><input type="button" value="X" class="filter_list_button_remove"/></td></tr>';
+    		$('#filter_file_list tr:last').after(row);
+			$('.filter_list').css('visibility', 'visible');
+            
+            //redraw the table with newly added filter				
+		    $("#filesTable").dataTable().fnDraw();
+
+			//WTF jquery selector doesn't work here
+			$(document.getElementById('fb_' + filter_name)).text(filter_stat[filter_name]['filtered']);
+		}
 		
 		var data = "";
 		var new_data = "";
+		var filters = {};
 		function displayContents(xmlStr) {
 		    if (logLoaded) {
-		        var new_json = parseXMLstrToJSON(xmlStr);
-				new_data = getFileInfoArray(new_json);
-				filter_obj = {};
-				new_data.forEach(function(fileInfoArray) {
-					filepath = fileInfoArray[1];
-					hash = fileInfoArray[9];
-					if (hash) {      
-						filter_obj[filepath] = hash;
-					}
-				});
-				var filesDataTable = $('#filesTable').DataTable(); 
-				var filteredRowNumbers = [];
-				var filteredData = filesDataTable
-					.column( 1 )
-					.data()
-					.filter( function ( value, index ) { 
-						//check file name
-						if (filter_obj.hasOwnProperty(value)) {
-							//check file hash
-							logFileHash = filesDataTable.row(index).data()[9];
-							filterFileHash = filter_obj[value];
-							//console.log(value + ' ' + logFileHash + ' ' + filterFileHash);
-							if (logFileHash == filterFileHash) {
-								filteredRowNumbers.push(index);
-							}			
-						}
-						return false;		
-					} );
-					filteredData;
-
-					filesDataTable.rows(filteredRowNumbers).remove();
-					console.log(filteredRowNumbers.length + ' rows were removed');
-					lastFilterFilename = filter_filename_list.slice(-1)[0];
-					remove_control = '<a onclick="console.log($(this).parent().parent());" href="#">X</a>'
-					$('#filter_file_list tr:last').after('<tr><td>' + lastFilterFilename + '</td><td>' + numberItemsInFilter + '</td><td>' + filteredRowNumbers.length + '</td><td><input type="button" value="X" class="filter_list_button_remove"/></td></tr>');
-					$('.filter_list').css('visibility', 'visible');
-
-				filesDataTable.draw();
-
+		        //loading filters from files		        
+		        var new_json = parseXMLstrToJSON(xmlStr);		        
+				getFilter(new_json);							
 		    } else {
+     		    //loading log from file
 				logLoaded = true;	
 				var json = parseXMLstrToJSON(xmlStr);
 				data = getFileInfoArray(json);
 				buildTrable(data);      				
+     			tryDownloadWhitelist();
 			}					
 		};
 
     	$('#filter_file_list').on('click', 'input[type="button"]', function(e){
-            $(this).closest('tr').remove()
+    	    row = $(this).closest('tr');
+            row.remove();
+            filename = row.children().first().text();            
+
+            //remove filename from filter_list
+            delete filters[filename];
+            delete filter_stat[filename];
+
+            if (Object.keys(filters).length <= 0) {
+                $('.filter_list').css('visibility', 'hidden');
+            }
+            //redraw table
+            $("#filesTable").dataTable().fnDraw();      
         });
 
-		
+        //whitelist filtering
+        var filter_stat = {}
+        $.fn.dataTableExt.afnFiltering.push(
+                function( oSettings, aData, iDataIndex )
+                {
+                    var row = oSettings.aoData[iDataIndex].nTr;
+                    filepath = $(row).children().eq(1).text();
+                    hash = $(row).children().last().children().first().attr('hash');
+                    var is_whitelisted = false;
+                    $.each(filters, function(filter_name, filter) {
+                        if (filter.hasOwnProperty(hash)) {
+                            filter_stat[filter_name]['filtered'] += 1;                            
+                            is_whitelisted = true;
+                        }                        
+                    });                    
+                    return !is_whitelisted;
+                }
+            ); 			
     </script>
     
     <script type="text/javascript" src="js/analyzer.table.js" defer></script>
