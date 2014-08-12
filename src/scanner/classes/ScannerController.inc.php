@@ -94,7 +94,7 @@ class ScannerController {
          				//REPORTING
                         $xml_log = $this->getXMLReport();                         
                         $log_filename = $project_tmp_dir . '/scan_log.xml';
-     			        file_put_contents2($log_filename, $xml_log);       				            
+     			        file_put_contents2($log_filename, $xml_log);      
 
                         print json_encode(array('type' => 'getWebsiteLog', 'status' => 'ok', 'phpError' => $php_errormsg));
 
