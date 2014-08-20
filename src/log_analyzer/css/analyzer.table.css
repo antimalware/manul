@@ -111,7 +111,7 @@ html
 .head__description
 {
     font-size: 15px;
-    width: 622px;
+    /* width: 622px; */
 }
 
 /* ../../desktop.blocks/head/__description/head__description.css end */
@@ -1426,7 +1426,7 @@ tr:hover
     visibility: hidden;
     /* background: #E7E7E3; */
     padding: 4px 9px 6px;
-    width: 600px;
+    width: 420px;
     height: 120px;
     text-align: right;
     position: relative;
@@ -1435,7 +1435,9 @@ tr:hover
     margin-top: 20px; 
     margin-left: auto; 
     margin-bottom: 20px; 
-    margin-right: 90px;
+    margin-right: 44px;
+    text-align: left;
+    overflow:hidden;
 }
 
 #uploadScreen {
@@ -1472,3 +1474,40 @@ tr:hover
     z-index: 3;
 }
 
+.sub-header_align_left {
+    margin: 20px;    
+    text-align: justify;
+}
+
+
+.header_div {
+    height: 200px;
+    width: 100%;
+}
+
+.header_left_block {
+    width: 30%;
+    float: left;
+    text-align: justify;
+    font-size: 15px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.header_right_block {
+    width: 60%;
+    float: right;
+    height: 100%;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.filter_list {
+    height: 70%;    
+}
+
+.filter_toolbar {
+    height: 30%;
+    margin-right: 44px;
+
+}

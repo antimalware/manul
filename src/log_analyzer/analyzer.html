@@ -32,7 +32,7 @@
             <p class="sub-header sub-header_align_left">Лог создается при сканировании сайта инструментом и содержит информацию об окружении сайта (данные о вебсервере, интерпретаторе, системах контроля версий) а также файлах. Загружать лог можно как в виде архива, так и в виде распакованного xml.</p>
 
             <input accept="application/zip, text/xml"  class="upload__screen__button" type="file" name="report" onchange="turnOnTableScreen(); readText(this);">
-            <span class="button button_theme_action i-bem button_js_inited button_hovered">Загрузить файл</span>
+            <span class="button button_theme_action i-bem button_js_inited button_hovered" style="margin-top: 40px;">Загрузить файл</span>
             </input>
 
         </div>
@@ -45,138 +45,140 @@
     </div>
     
       </div>
-	
-
+           
     <div id="tableScreen">    
         <div class="body body_full_height">
-            <div>
-                <div class="head head_position_relative"  style="float: left;">
+            <div class="header_div">
+                <div class="header_left_block">
                     <h1 class="header header_type_main">
                         Manul: Анализатор логов
                     </h1>
-                    <h2 class="head__sub-header">
+                    <!-- <h2 class="head__sub-header">
                         Список файлов
-                    </h2>
+                    </h2> -->
                     <p class="head__description">
                         Анализатор логов Manul. Для эффективного поиска вредоносных файлов следует добавить вайтлисты или полученные ранее логи. В качестве фильтров можно задать маску имени файлов и дату создания.
                     </p>
                 </div>
-                <div class="filter_list">
-                     <table id="filter_file_list" style="text-align: left; border-spacing: 10px;">
-                         <thead>
-                             <th>Файл</th><th>Записей</th><th>Отфильтровано</th><th></th>
-                         </thead>
-                     </table>
+                <div class="header_right_block">
+                    <div class="filter_list">
+                         <h4 style="margin-bottom: 0px;">Подключенные файлы-фильтры:</h4>
+                         <table id="filter_file_list" style="text-align: left; float: right; border-spacing: 10px; overflow: hidden;">
+                             <thead>
+                                 <th>Файл</th><th>Записей</th><th>Отфильтровано</th><th></th>
+                             </thead>
+                         </table>
+                    </div>
+                    
+                    <div class="filter_toolbar filter i-bem" data-bem="{&quot;filter&quot;:&quot;true&quot;}">
+                        <button class="filter__flag">
+                          <span class="filter__text-flag">
+                            Флаг
+                          </span>
+                          <span class="filter__arrow">
+                          </span>
+                        </button><div class="popup popup_name_flag popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
+                          <div class="popup__content">
+                            <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
+                              <li class="list__line list__line_checked_yes" val="1" num="1">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__indicate list__indicate_color_green">
+                                </span>
+                                <span class="list__text">
+                                  Не найдено
+                                </span>
+                              </li>
+                              <li class="list__line list__line_checked_yes" val="2" num="2">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__indicate list__indicate_color_yellow">
+                                </span>
+                                <span class="list__text">
+                                  Подозрительный
+                                </span>
+                              </li>
+                              <li class="list__line list__line_checked_yes" val="3" num="3">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__indicate list__indicate_color_red">
+                                </span>
+                                <span class="list__text">
+                                  Вредоносный
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div><button class="filter__columns"><span class="filter__text-columns" id="fileTimeFilterSpan">Поля таблицы</span><span class="filter__arrow"></span></button><div class="popup popup_name_columns popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
+                          <div class="popup__content">
+                            <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
+                              <li class="list__line list__line_checked_yes" val="0" num="0">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Флаг
+                                </span>
+                              </li>
+                              <li class="list__line list__line_checked_yes" val="1">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Путь
+                                </span>
+                              </li>
+                              <li class="list__line list__line_checked_yes" val="2">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Размер
+                                </span>
+                              </li>
+                              <li class="list__line list__line_checked_yes" val="3">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Время создания
+                                </span>
+                              </li>
+                              <li class="list__line list__line_checked_yes" val="4">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Время модификации
+                                </span>
+                              </li>
+                              <li class="list__line" val="5">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Владелец
+                                </span>
+                              </li>
+                              <li class="list__line" val="6">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Группа
+                                </span>
+                              </li>
+                              <li class="list__line" val="7">
+                                <span class="list__check">
+                                </span>
+                                <span class="list__text">
+                                  Атрибуты
+                                </span>
+                              </li>              
+                            </ul>
+                          </div>
+                        </div><input class="filter__file-name" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
+                        <span class="filter__text-timeslot" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
+                        <div class="popup__content"><div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}"></div></div>
+                        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action">          
+                          Фильтр из файла          
+                        </button>
+                        </input>
+                    </div>
                 </div>
-           
-     <div class="filter i-bem" data-bem="{&quot;filter&quot;:&quot;true&quot;}">
-        <button class="filter__flag">
-          <span class="filter__text-flag">
-            Флаг
-          </span>
-          <span class="filter__arrow">
-          </span>
-        </button><div class="popup popup_name_flag popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
-          <div class="popup__content">
-            <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
-              <li class="list__line list__line_checked_yes" val="1" num="1">
-                <span class="list__check">
-                </span>
-                <span class="list__indicate list__indicate_color_green">
-                </span>
-                <span class="list__text">
-                  Не найдено
-                </span>
-              </li>
-              <li class="list__line list__line_checked_yes" val="2" num="2">
-                <span class="list__check">
-                </span>
-                <span class="list__indicate list__indicate_color_yellow">
-                </span>
-                <span class="list__text">
-                  Подозрительный
-                </span>
-              </li>
-              <li class="list__line list__line_checked_yes" val="3" num="3">
-                <span class="list__check">
-                </span>
-                <span class="list__indicate list__indicate_color_red">
-                </span>
-                <span class="list__text">
-                  Вредоносный
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div><button class="filter__columns"><span class="filter__text-columns" id="fileTimeFilterSpan">Поля таблицы</span><span class="filter__arrow"></span></button><div class="popup popup_name_columns popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
-          <div class="popup__content">
-            <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
-              <li class="list__line list__line_checked_yes" val="0" num="0">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Флаг
-                </span>
-              </li>
-              <li class="list__line list__line_checked_yes" val="1">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Путь
-                </span>
-              </li>
-              <li class="list__line list__line_checked_yes" val="2">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Размер
-                </span>
-              </li>
-              <li class="list__line list__line_checked_yes" val="3">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Время создания
-                </span>
-              </li>
-              <li class="list__line list__line_checked_yes" val="4">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Время модификации
-                </span>
-              </li>
-              <li class="list__line" val="5">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Владелец
-                </span>
-              </li>
-              <li class="list__line" val="6">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Группа
-                </span>
-              </li>
-              <li class="list__line" val="7">
-                <span class="list__check">
-                </span>
-                <span class="list__text">
-                  Атрибуты
-                </span>
-              </li>              
-            </ul>
-          </div>
-        </div><input class="filter__file-name" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
-        <span class="filter__text-timeslot" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
-        <div class="popup__content"><div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}"></div></div>
-        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action">          
-          Фильтр из файла          
-        </button>
-        </input>
-      </div>
       </div>
 
       <div class="body__content body__content_display_block">
