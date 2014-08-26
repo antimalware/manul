@@ -5,7 +5,10 @@ require_once("Archiver.inc.php");
 require_once("Auth.inc.php");
 ob_end_clean();
 
-session_start();
+if(!empty($_SESSION)) 
+{ 
+    session_start(); 
+} 
 
 class DownloadController {
 
@@ -37,9 +40,21 @@ class DownloadController {
 
         $xml_data = file_get_contents($log_filename);
 
-        $archiver = new Archiver($packed_log_filename, 'w');
+        $archiver = new Archiver($packed_log_filename, 'a');
         $archiver->createFile(basename($log_filename), $xml_data);
+
+        if (isset($_SESSION['qarc_filename'])) {
+           $archiver->addFile($_SESSION['qarc_filename'], basename($_SESSION['qarc_filename']));
+        }
+
         $archiver->close();
+
+        // unlink needs to be after $archiver->close() to zip it properly
+        if (isset($_SESSION['qarc_filename'])) {
+           unlink($_SESSION['qarc_filename']);
+           unset($_SESSION['qarc_filename']);
+        }
+
 
         $this->streamFileContent($packed_log_filename, true);
         unlink($log_filename);        
