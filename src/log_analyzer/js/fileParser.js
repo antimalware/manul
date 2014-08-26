@@ -36,7 +36,7 @@ function readText(fileInput) {
 		var file = fileInput.files[0];
 
 		var onsuccess = displayContents;
-
+		console.log('Trying to load file ' + file.name);
 		if (file.name.indexOf('.zip') != -1 ) {
 			readZip(file, onsuccess);                
 		} else {
