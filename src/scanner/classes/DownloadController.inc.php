@@ -5,7 +5,10 @@ require_once("Archiver.inc.php");
 require_once("Auth.inc.php");
 ob_end_clean();
 
-session_start();
+if(!empty($_SESSION)) 
+{ 
+    session_start(); 
+} 
 
 class DownloadController {
 
