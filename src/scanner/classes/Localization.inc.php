@@ -1,8 +1,25 @@
 <?php
+define('MANUL_LANG_ID_RU', 'ru');
+define('MANUL_LANG_ID_EN', 'en');
 
-$lang = "ru";
+define('MANUL_LANG_ID_DEFAULT', MANUL_LANG_ID_EN);
 
-if ($lang == "ru") {
+$locals = array(MANUL_LANG_ID_RU, MANUL_LANG_ID_EN);
+
+if (!isset($_COOKIE['lang'])) {
+  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+     $current_lang = @substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+  } else {
+     $current_lang = MANUL_LANG_ID_DEFAULT;
+  }
+} else {
+  $current_lang = @substr($_COOKIE['lang'], 0, 2);
+  if (!in_array($current_lang, $locals)) {
+     $current_lang = MANUL_LANG_ID_DEFAULT;
+  }
+}
+
+if ($current_lang == MANUL_LANG_ID_RU) {
     define('PS_SCANNING_FILE', 'Сканируем');
     define('PS_SCANNING_OF', 'из');
     define('PS_SCANNING_FOUND', '');

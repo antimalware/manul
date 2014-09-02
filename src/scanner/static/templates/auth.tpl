@@ -7,7 +7,7 @@
     <style type="text/css" src="static/css/scanner.css"></style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="static/js/localization.ru.js"></script>
+    <script src="static/js/localization.{PS_LANG}.js"></script>
     <script src="static/js/auth.js"></script>
 
     <link href="static/css/common.css" type="text/css" rel="stylesheet" />
@@ -24,6 +24,10 @@
         </div>
         <button id="sendPasswordButton" class="button_action" type="submit">{PS_OK}</button>
         </form>
+       </div>
+       <div class="language_pane">
+         <a class="lang_switcher_{PS_ACTIVE_RU}" href="#" onclick="switchTo('ru');"><img src="static/img/ru.png" border=0></a>
+         <a class="lang_switcher_{PS_ACTIVE_EN}" href="#" onclick="switchTo('en');"><img src="static/img/uk.png" border=0></a>
        </div>
        <div class="body__spacer"></div>
     </div> 
