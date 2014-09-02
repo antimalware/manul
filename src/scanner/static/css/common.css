@@ -1,3 +1,36 @@
+.language_pane
+{
+   position: relative;
+   height: 20px;
+   width: 60px;
+   left: 50%;
+   margin-left: -20px;
+}
+
+.lang_switcher_passive
+{
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+
+  /* Netscape */
+  -moz-opacity: 0.6;
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.6;
+
+  /* Modern browsers */
+  opacity: 0.6;  
+}
+
+.lang_switcher_
+{
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+
 .fix_link
 {
   color: #303030;

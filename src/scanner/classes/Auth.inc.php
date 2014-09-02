@@ -17,8 +17,18 @@ class Auth
 
 
      function templateOutput($message) {
+         global $locals, $current_lang;
          $view = new View();
+
+         define('PS_ACTIVE_' . strtoupper($current_lang), '');
+
+         foreach ($locals as $lang) {
+            define('PS_ACTIVE_' . strtoupper($lang), 'passive');
+         }
+
+
          define('PS_AUTH_FORM_MESSAGE', $message);
+         define('PS_LANG', $current_lang);
          define('PS_AUTH_FORM_TARGET', $_SERVER['REQUEST_URI']);
          $view->display("auth.tpl");
      }
