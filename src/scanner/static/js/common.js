@@ -1,5 +1,5 @@
 ﻿var ajaxErrorCounter = 0;
-var maxAjaxErrors = 3;
+var maxAjaxErrors = 5;
 
 var scanForMalware = true;
 var requestDelay = 5;
@@ -8,6 +8,8 @@ var numberFilesScanned = 0;
 var numberFilesToScan = 0;
 
 function showErrorMessage(caption, text) {
+
+    text = text.replace(/\n/g, "<br />");
 
     $('#spinner_gif').hide();
     $('#startButton').hide();
@@ -144,14 +146,13 @@ $(document).ready(function(){
                
             })
               .fail(function(response) {
-                ajaxErrorCounter++;
-                console.log("ajax error " + ajaxErrorCounter + ' ' + JSON.stringify(response));
-                if (ajaxErrorCounter < maxAjaxErrors) {
-                    sendRequest(url, handleResponse);
-                } else {
-                
+                ajaxErrorCounter++;                
+                if (ajaxErrorCounter <= maxAjaxErrors) {                    
+                    delay = ajaxErrorCounter * 1000;
+                    console.log('Ajax error ' + ajaxErrorCounter + ' ' + JSON.stringify(response) + ' delay before new request = ' + delay/1000);
+                    setTimeout(sendRequest(url, handleResponse), delay);
+                } else {                
                    showErrorMessage('Ajax critical error', 'Could not properly handle AJAX request ' + JSON.stringify(response));
-
                 }
             })
         }

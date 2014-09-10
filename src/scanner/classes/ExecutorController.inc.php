@@ -17,7 +17,7 @@ class ExecutorController {
                 $view = new View();
                 $healer = new Healer();
 
-                //////////////////////////////////////////////////////////////////////////////////////////
+
 		if (!empty($_POST) && !empty($_POST["recipe"])) 
 		{
                	    $xml_recipe = $_POST["recipe"];
@@ -63,7 +63,7 @@ class ExecutorController {
 
     		    $view->display("executor_changes.tpl");
                 } 
-                 //////////////////////////////////////////////////////////////////////////////////////////
+
                  else if (isset($_POST["a"]) && ($_POST["a"] == 'apply')) {
                       $delete_total = (int)$_POST['total_d'];
                       $quarantine_total = (int)$_POST['total_q'];
@@ -113,7 +113,7 @@ class ExecutorController {
                          print(json_encode(array("result" => "error", "details" => $deleteResult)));
                      }
                  }
-                 //////////////////////////////////////////////////////////////////////////////////////////
+
 		 else {
                       $view->display("executor.tpl");
 		 }
