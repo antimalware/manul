@@ -34,11 +34,16 @@ class DownloadController {
         }
 
         $xml_data = file_get_contents($log_filename);
-
         $archiver = new Archiver($packed_log_filename, 'a');
         $archiver->createFile(basename($log_filename), $xml_data);
 
-        // TODO: check for valid file to be added
+        // make it a bit safer
+        $_COOKIE['qarc_filename'] = trim($_COOKIE['qarc_filename']);
+
+        if (strpos($_COOKIE['qarc_filename'], $project_tmp_dir) !== 0) {
+           die("Fatal: Invalid cookie value [" . $_COOKIE['qarc_filename'] . "]"); 
+        }
+
         if (isset($_COOKIE['qarc_filename'])) {
            $archiver->addFile($_COOKIE['qarc_filename'], basename($_COOKIE['qarc_filename']));
         }
@@ -49,9 +54,8 @@ class DownloadController {
         if (isset($_COOKIE['qarc_filename'])) {
            unlink($_COOKIE['qarc_filename']);
            unset($_COOKIE['qarc_filename']);
-           setcookie('qarc_filename', -1, -1, '/', $_SERVER['HTTP_HOST'], true, true);
+           setcookie('qarc_filename', -1, -1, '/', $_SERVER['HTTP_HOST'], false, true);
         }
-
 
         $this->streamFileContent($packed_log_filename, true);
         unlink($log_filename);        
@@ -65,7 +69,7 @@ class DownloadController {
 
         $this->streamFileContent($quarantine_filename, true);
         unset($_COOKIE['quarantine_file']);
-        setcookie('quarantine_file', -1, -1, '/', $_SERVER['HTTP_HOST'], true, true);
+        setcookie('quarantine_file', -1, -1, '/', $_SERVER['HTTP_HOST'], false, true);
         exit;
     }
 

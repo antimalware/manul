@@ -138,7 +138,7 @@ class Healer {
    
 
         if (file_exists($this->quarantine_filename)) {
-           setcookie('quarantine_file', $this->quarantine_filename, time() + 86400, '/', $_SERVER['HTTP_HOST'], true, true);
+           setcookie('quarantine_file', $this->quarantine_filename, time() + 86400, '/', $_SERVER['HTTP_HOST'], false, true);
            $_COOKIE['quarantine_file'] = $this->quarantine_filename;
         }
 
