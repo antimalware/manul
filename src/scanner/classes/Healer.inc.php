@@ -17,7 +17,7 @@ class Healer {
         
         $this->web_root_dir = $_SERVER['DOCUMENT_ROOT'];
 
-        if (file_exists($this->quarantine_filename) && (!isset($_SESSION['quarantine_file']))) {
+        if (file_exists($this->quarantine_filename) && (!isset($_COOKIE['quarantine_file']))) {
             $this->log .= sprintf(PS_DELETE_ARCHIVE, $this->quarantine_filename);
             unlink($this->quarantine_filename);
         }
@@ -138,7 +138,8 @@ class Healer {
    
 
         if (file_exists($this->quarantine_filename)) {
-           $_SESSION['quarantine_file'] = $this->quarantine_filename;
+           setcookie('quarantine_file', $this->quarantine_filename, time() + 86400, '/', $_SERVER['HTTP_HOST'], true, true);
+           $_COOKIE['quarantine_file'] = $this->quarantine_filename;
         }
 
         return $this->log;

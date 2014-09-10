@@ -5,11 +5,6 @@ require_once("Archiver.inc.php");
 require_once("Auth.inc.php");
 ob_end_clean();
 
-if(!empty($_SESSION)) 
-{ 
-    session_start(); 
-} 
-
 class DownloadController {
 
     function streamFileContent($filename, $need_to_delete = false) {
@@ -43,16 +38,18 @@ class DownloadController {
         $archiver = new Archiver($packed_log_filename, 'a');
         $archiver->createFile(basename($log_filename), $xml_data);
 
-        if (isset($_SESSION['qarc_filename'])) {
-           $archiver->addFile($_SESSION['qarc_filename'], basename($_SESSION['qarc_filename']));
+        // TODO: check for valid file to be added
+        if (isset($_COOKIE['qarc_filename'])) {
+           $archiver->addFile($_COOKIE['qarc_filename'], basename($_COOKIE['qarc_filename']));
         }
 
         $archiver->close();
 
         // unlink needs to be after $archiver->close() to zip it properly
-        if (isset($_SESSION['qarc_filename'])) {
-           unlink($_SESSION['qarc_filename']);
-           unset($_SESSION['qarc_filename']);
+        if (isset($_COOKIE['qarc_filename'])) {
+           unlink($_COOKIE['qarc_filename']);
+           unset($_COOKIE['qarc_filename']);
+           setcookie('qarc_filename', -1, -1, '/', $_SERVER['HTTP_HOST'], true, true);
         }
 
 
@@ -61,17 +58,16 @@ class DownloadController {
     }
 
     function getQuarantine() {
-        $quarantine_filename = $_SESSION['quarantine_file'];
+        $quarantine_filename = $_COOKIE['quarantine_file'];
         if (!is_file($quarantine_filename)) {
             die(PS_ERR_NO_QUARANTINE_FILE);
         }
 
         $this->streamFileContent($quarantine_filename, true);
-        unset($_SESSION['quarantine_file']);
+        unset($_COOKIE['quarantine_file']);
+        setcookie('quarantine_file', -1, -1, '/', $_SERVER['HTTP_HOST'], true, true);
         exit;
     }
-
-
 
     function start() {
         switch ($_GET['f']) {
