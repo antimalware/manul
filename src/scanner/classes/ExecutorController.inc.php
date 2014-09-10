@@ -10,11 +10,6 @@ require_once("XmlValidator.inc.php");
 require_once("Auth.inc.php");
 ob_end_clean();
 
-if(!empty($_SESSION)) 
-{ 
-    session_start(); 
-} 
-
 class ExecutorController {
 
 	function startExecutor() {
@@ -91,7 +86,7 @@ class ExecutorController {
                       $num_quarantined = 0;
                       define('PS_EXECUTOR_LOG', $healer->executeXmlRecipe($delete_files, $quarantine_files, $num_quarantined));
 
-                      if (is_file($_SESSION['quarantine_file']) && $num_quarantined) {
+                      if (is_file($_COOKIE['quarantine_file']) && $num_quarantined) {
                          $quarantine_filename = $_SERVER['PHP_SELF'] . '?controller=download&f=quarantine';
                       } else {
                          $quarantine_filename = "";
