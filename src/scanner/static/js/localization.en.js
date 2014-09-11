@@ -11,3 +11,4 @@ var PT_STR_SHORT_PASSWORD = "Minimal password length is 8 characters.";
 var PT_STR_DELETE_TOOL = "Tool will be uninstalled. Confirm?"
 var PT_STR_TOOL_DELETED = "Tool has been uninstalled."
 var PT_STR_TOOL_DELETE_ERROR = "Error during uninstall."
+var PT_STR_CANCEL_SCAN_CONFIRM = "Closing this page during scanning will cause scan cancellation. Abort scan?";

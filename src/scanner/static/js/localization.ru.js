@@ -11,3 +11,4 @@ var PT_STR_SHORT_PASSWORD = "Минимальная длина пароля = 8 
 var PT_STR_DELETE_TOOL = "Инструмент будет удален с сайта. Вы уверены?"
 var PT_STR_TOOL_DELETED = "Инструмент удален."
 var PT_STR_TOOL_DELETE_ERROR = "При удалении инструмента возникла ошибка"
+var PT_STR_CANCEL_SCAN_CONFIRM = "Переход прервет процесс сканирования. Прервать?";
