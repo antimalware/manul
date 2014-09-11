@@ -187,7 +187,7 @@ if ($current_lang == MANUL_LANG_ID_RU) {
 	define('PS_PRETEXT', 'Let\'s find some malware!');
 	define('PS_PROGRESS', 'Progress:');
 	define('PS_TOTAL_PROGRESS', 'Total found <span id="count">0</span> files');
-	define('PS_BODYTEXT', 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.');
+	define('PS_BODYTEXT', 'To start the scan of the site push the button and wait for scanning to be finished. After the scan is done, download the report archive file and send it to the antimalware specialist for analysis. Details can be found at the <a href="static/html/help.html">help page</a>.');
 	define('PS_INTERVAL', 'Request Interval:');
 	define('PS_SEC', 'sec');
 	define('PS_SCAN_LABEL', 'Scan for Malware:');

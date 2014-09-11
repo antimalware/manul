@@ -54,6 +54,9 @@ $(document).ready(function(){
             $('#configPanel').hide();
             $('#scannerCaption').hide();
             $('#scannerDescription').hide();
+
+            //allow going away after scan is finished
+            $(window).off('beforeunload');
         }
 
         function finishGetFileList() {
@@ -158,6 +161,12 @@ $(document).ready(function(){
         }
             
         $("#startButton").click(function() {
+        
+            //prevent going away after scan is started
+            $(window).on('beforeunload', function(){                
+                return PT_STR_CANCEL_SCAN_CONFIRM; 
+            });
+
             $('#spinner_gif').show();        
             $(this).attr('value', PT_STR_BUTTON_CANCEL);
             console.log("getFileList");
