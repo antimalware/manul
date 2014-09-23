@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 define('MANUL_LANG_ID_RU', 'ru');
 define('MANUL_LANG_ID_EN', 'en');
 
@@ -114,6 +114,7 @@ if ($current_lang == MANUL_LANG_ID_RU) {
   	define('PS_CHECKER_TITLE', 'Проверка конфигурации сервера');
   	define('PS_CHECKER_PASSED', 'Да');
   	define('PS_CHECKER_FAILED', 'Нет');
+  	define('PS_CHECKER_ROOT_READABLE', 'Корневой каталог доступен на чтение');
   	define('PS_CHECKER_PHPVERSION', 'Версия PHP >= 5.2');
   	define('PS_CHECKER_ZIP', 'Установлен модуль php Zip');
   	define('PS_CHECKER_DOM', 'Установлен модуль php XML DOM');
@@ -206,6 +207,7 @@ if ($current_lang == MANUL_LANG_ID_RU) {
   	define('PS_CHECKER_TITLE', 'Configuration Check');
   	define('PS_CHECKER_PASSED', 'OK');
   	define('PS_CHECKER_FAILED', 'Failed');
+  	define('PS_CHECKER_ROOT_READABLE', 'Document Root folder is not readable');
   	define('PS_CHECKER_PHPVERSION', 'PHP Version >= 5.2');
   	define('PS_CHECKER_ZIP', 'PHP Zip Installed');
   	define('PS_CHECKER_DOM', 'PHP XML DOM Installed');
