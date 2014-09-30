@@ -210,6 +210,37 @@
         </tbody>
       </table>
 
+       <style> 
+           #server_environment_table {
+               table-layout:fixed;
+               text-align: left; 
+               float: left; 
+               display: none; 
+               margin-bottom: 20px;
+               margin-left: 5%;
+               width: 90%;
+               margin-right: 5%;
+               margin-top: 20px;
+           }
+           #server_environment_table td{ 
+               padding: 10px;
+               overflow: hidden;               
+               word-wrap: break-word;
+           }
+           
+
+       </style>
+                    <div class="server_environment" style="margin-top: 20px; maring-bottom: 20px;">
+                        <button class="button i-bem" data-bem="{&quot;button&quot;:{}}" role="button" id="showServerEnvTable" onclick="$('#server_environment_table').toggle();">
+                             Информация о серверном окружении
+                        </button>
+
+                        <table id="server_environment_table">
+                        <thead><th style="width: 160px;">Ключ</th><th>Значение</th></thead>
+                        </table>
+                    </div>
+
+
         <p class="paragraph">
           Созданное предписание можно запустить в выполняторе предписаний Manul
         </p>
@@ -259,7 +290,13 @@
 				fileInfoArray.push(fileDict['owner']);
 				fileInfoArray.push(fileDict['group']);
 				fileInfoArray.push(fileDict['access']);
-				fileInfoArray.push({'md5': fileDict.md5, 'pos': fileDict._pos, 'snippet': fileDict._snippet, 'path': fileDict.path});
+				extraData = {'md5': fileDict.md5, 'pos': fileDict._pos, 'path': fileDict.path}
+    			if (fileDict._snippet) {
+    				extraData['snippet'] = atob(fileDict._snippet);
+				} else {
+				    extraData['snippet'] = '-';
+				}
+				fileInfoArray.push(extraData);
                 fileInfoArray.push(fileDict.md5);
 				fileInfoArrayArray.push(fileInfoArray);
 			}
@@ -280,11 +317,11 @@
 
         var cmsDictList;
 		function getFileInfoArray(json) {
-		    console.log('!@');
-		    console.log(json);
 			var fileDictDict;
 			if (json.hasOwnProperty('website_info')) {                 
     			cmsDictList = json.website_info.cms_list;    			
+    			buildEnvTable(json.website_info.server_environment);
+
 			    //website log
 			    fileDictDict = json.website_info.files.file;
 			    return parseWebsiteLog(fileDictDict);
@@ -370,6 +407,7 @@
           			.replace(/'/g, "&#039;");
         }
 
+        
 		function buildTrable(data) {
 
 			window.filesDataTable = $('#filesTable').dataTable({
@@ -431,10 +469,6 @@
 						//"sType": "numeric",
 						"sClass": "table__item",
 						"mRender": function (size, type, full) {
-							if (size == -1) {
-								//return '[Каталог]';
-								return '0';
-							}
 							return size;
 						}
 					},
@@ -593,6 +627,16 @@
      }
 
     </script>
+
+<script> 
+    function buildEnvTable(data) {
+        $.each( data, function( key, value ) {
+            $('#server_environment_table tr:last').after( '<tr><td>' + key + '</td><td>' + value + '</td></tr>' );
+        });
+    }
+</script>
+
+
   </div>
   </body>
 </html>
