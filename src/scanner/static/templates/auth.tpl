@@ -28,6 +28,8 @@
        <div class="language_pane">
          <a class="lang_switcher_{PS_ACTIVE_RU}" href="#" onclick="switchTo('ru');"><img src="static/img/ru.png" border=0></a>
          <a class="lang_switcher_{PS_ACTIVE_EN}" href="#" onclick="switchTo('en');"><img src="static/img/uk.png" border=0></a>
+         <a class="lang_switcher_{PS_ACTIVE_UA}" href="#" onclick="switchTo('uk');"><img src="static/img/ua.png" border=0></a>
+         <a class="lang_switcher_{PS_ACTIVE_TR}" href="#" onclick="switchTo('tr');"><img src="static/img/tr.png" border=0></a>
        </div>
        <div class="body__spacer"></div>
     </div> 
