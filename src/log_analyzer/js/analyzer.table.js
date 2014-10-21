@@ -7378,3 +7378,29 @@ function add_delete(uid, name) {
 
     return false;
 }
+
+
+var client = new ZeroClipboard(document.getElementById("copyRecipeButton"), {
+  moviePath: "//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf"
+});
+
+client.on("load", function(client) {
+  client.on('dataRequested', function (client, args) {
+      client.setText(document.getElementById('recipeTextarea').value);
+  });
+});
+
+function turnOnTableScreen() {
+ $('#uploadScreen').hide();		
+ $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
+ $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
+ $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+ $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+ $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);}); 
+}
+
+function buildEnvTable(data) {
+    $.each( data, function( key, value ) {
+        $('#server_environment_table tr:last').after( '<tr><td>' + key + '</td><td>' + value + '</td></tr>' );
+    });
+}

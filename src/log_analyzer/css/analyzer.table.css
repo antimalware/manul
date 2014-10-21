@@ -1511,3 +1511,20 @@ tr:hover
     margin-right: 44px;
 
 }
+
+#server_environment_table {
+   table-layout:fixed;
+   text-align: left; 
+   float: left; 
+   display: none; 
+   margin-bottom: 20px;
+   margin-left: 5%;
+   width: 90%;
+   margin-right: 5%;
+   margin-top: 20px;
+}
+#server_environment_table td{ 
+   padding: 10px;
+   overflow: hidden;               
+   word-wrap: break-word;
+}
