@@ -16,6 +16,17 @@
     <script src="js/HashTable.js"></script>    
     <script src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script src="js/fileParser.js"></script>        
+    <script src="js/jquery.i18n.min.js"></script>        
+    <script src="js/localization.js"></script>        
+
+<script>
+    $(document).ready(function() {
+        localization.init('en');
+        localization.localize();
+    });
+</script>
+
+
   
   <link rel="stylesheet" href="css/jquery.dataTables.css"/> 
   <link rel="stylesheet" href="css/analyzer.table.css"/> 
@@ -38,8 +49,8 @@
         </div>
         <div class="body__spacer"></div>
         <div class="footer">
-            <a class="b-link footer__item" href="#">Обратная связь</a>
-            <a class="b-link footer__item" href="#">Помощь</a>
+            <a class="b-link footer__item contact" href="#">Обратная связь</a>
+            <a class="b-link footer__item help" href="#">Помощь</a>
             <div class="footer__item footer__item_type_copyright">©&nbsp;2001&mdash;2013</div>
         </div>
     </div>
@@ -85,7 +96,7 @@
                                 </span>
                                 <span class="list__indicate list__indicate_color_green">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text flag_notfound">
                                   Не найдено
                                 </span>
                               </li>
@@ -94,7 +105,7 @@
                                 </span>
                                 <span class="list__indicate list__indicate_color_yellow">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text flag_suspicious">
                                   Подозрительный
                                 </span>
                               </li>
@@ -103,77 +114,77 @@
                                 </span>
                                 <span class="list__indicate list__indicate_color_red">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text flag_malicious">
                                   Вредоносный
                                 </span>
                               </li>
                             </ul>
                           </div>
-                        </div><button class="filter__columns"><span class="filter__text-columns" id="fileTimeFilterSpan">Поля таблицы</span><span class="filter__arrow"></span></button><div class="popup popup_name_columns popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
+                        </div><button class="filter__columns"><span class="filter__text-columns visible_fields_menu" id="fileTimeFilterSpan">Поля таблицы</span><span class="filter__arrow"></span></button><div class="popup popup_name_columns popup_visibility_hidden i-bem" data-bem="{&quot;popup&quot;:{}}">
                           <div class="popup__content">
                             <ul class="list i-bem" data-bem="{&quot;list&quot;:&quot;true&quot;}">
                               <li class="list__line list__line_checked_yes" val="0" num="0">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_flag">
                                   Флаг
                                 </span>
                               </li>
                               <li class="list__line list__line_checked_yes" val="1">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_path">
                                   Путь
                                 </span>
                               </li>
                               <li class="list__line list__line_checked_yes" val="2">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_size">
                                   Размер
                                 </span>
                               </li>
                               <li class="list__line list__line_checked_yes" val="3">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_ctime">
                                   Время создания
                                 </span>
                               </li>
                               <li class="list__line list__line_checked_yes" val="4">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_mtime">
                                   Время модификации
                                 </span>
                               </li>
                               <li class="list__line" val="5">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_owner">
                                   Владелец
                                 </span>
                               </li>
                               <li class="list__line" val="6">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_group">
                                   Группа
                                 </span>
                               </li>
                               <li class="list__line" val="7">
                                 <span class="list__check">
                                 </span>
-                                <span class="list__text">
+                                <span class="list__text field_attributes">
                                   Атрибуты
                                 </span>
                               </li>              
                             </ul>
                           </div>
-                        </div><input class="filter__file-name" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
-                        <span class="filter__text-timeslot" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
+                        </div><input class="filter__file-name filter_path" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
+                        <span class="filter__text-timeslot filter_timeperiod" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
                         <div class="popup__content"><div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}"></div></div>
-                        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action">          
+                        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action filter_loadfilter">          
                           Фильтр из файла          
                         </button>
                         </input>
@@ -187,22 +198,22 @@
             <thead class="table__head">
                 <th class="table__head-item table__head-item_type_flag"><span class="table__column-title" id="tableHeaderFlagSpan">Флаг</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Filename"><span class="table__column-title table__column-title_sort_up">Имя файла</span>
+                <th class="table__head-item table__head-item_type_Filename"><span class="table__column-title table__column-title_sort_up" id="tableHeaderFileName">Имя файла</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Size"><span class="table__column-title table__column-title_sort_down">Размер</span>
+                <th class="table__head-item table__head-item_type_Size"><span class="table__column-title table__column-title_sort_down" id="tableHeaderFileSize">Размер</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Created"><span class="table__column-title">Создан</span>
+                <th class="table__head-item table__head-item_type_Created"><span class="table__column-title" id="tableHeaderFileCtime">Создан</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Изменен</span>
+                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title" id="tableHeaderFileMtime">Изменен</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Created"><span class="table__column-title">Владелец</span>
+                <th class="table__head-item table__head-item_type_Created"><span class="table__column-title" id="tableHeaderFileOwner">Владелец</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Группа</span>
+                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title" id="tableHeaderFileGroup">Группа</span>
                 </th>
-                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title">Атрибуты</span>
+                <th class="table__head-item table__head-item_type_Modified"><span class="table__column-title" id="tableHeaderFileAttributes">Атрибуты</span>
                 </th>
-                <th class="table__head-item table__head-item_type_button">Действие</th>
-                <th class="table__head-item table__head-item_type_Modified">Хэш-сумма</th>
+                <th class="table__head-item table__head-item_type_button" id="tableHeaderFileAction">Действие</th>
+                <th class="table__head-item table__head-item_type_Modified" id="tableHeaderFileHash">Хэш-сумма</th>
             </thead>
 
         <tbody class="table__body">
@@ -260,10 +271,10 @@
         </form>
       </div>
       <div class="footer">
-        <a class="b-link footer__item" href="#">
+        <a class="b-link footer__item contact" href="#">
           Обратная связь
         </a>
-        <a class="b-link footer__item" href="#">
+        <a class="b-link footer__item help" href="#">
           Помощь
         </a>
         <div class="footer__item footer__item_type_copyright">
@@ -495,7 +506,7 @@
 						"aTargets": [8],
 						"sClass": "table__item",
 						"mRender": function (detectionInfo, type, full) {                        
-							var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Карантин</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text\">Удалить</span></button></div>";
+							var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text quarantine\">" + window.locale_dict["TableScreen.Quarantine" ] + "</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text delete\">" + window.locale_dict["TableScreen.Delete"] + "</span></button></div>";
 							return buttons;
 						}
 					},
