@@ -1,6 +1,7 @@
 var localization = {
 
     browser_language: 'en',
+    locale_dict: '',
 
     init: function(language) {
         var browser_language = navigator.language;
@@ -11,7 +12,7 @@ var localization = {
             browser_language = language;    
         }
 
-        window.locale_dict = this.locale_dicts[browser_language];
+        window.locale_dict = jQuery.extend({},  this.locale_dicts[browser_language]);       
         $.i18n.load(locale_dict);
     },       
 
@@ -219,5 +220,20 @@ var localization = {
         $('.filter_timeperiod')._t('TableScreen.FilterMenu.TimePeriod');
         $('.filter_loadfilter')._t('TableScreen.FilterMenu.LoadFilter');
         $('.visible_fields_menu')._t('TableScreen.FilterMenu.Fields');        
+    },
+
+    switchLanguage: function(element) {
+        lang = $(element).attr('language');        
+        console.log(lang);
+        this.init(lang);
+        this.localize();
+        
+        $('.lang_switcher_active').toggleClass('lang_switcher_active');
+        $("a[language='"+lang+"']").toggleClass('lang_switcher_active');
     }
 }
+
+$(document).ready(function() {
+    $('.lang_switcher').bind('click', function(){localization.switchLanguage(this)});
+});
+

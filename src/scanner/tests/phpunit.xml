@@ -1,9 +1,0 @@
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         syntaxCheck="false">
-  <testsuites>
-    <testsuite name="tests">
-      <directory suffix="test.php">.</directory>
-    </testsuite>
-  </testsuites>
-</phpunit>

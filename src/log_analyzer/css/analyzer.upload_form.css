@@ -430,3 +430,43 @@ button::-moz-focus-inner
 }
 
 /* ../../desktop.blocks/b-link/b-link.css end */
+
+.language_pane
+{
+   position: absolute;
+   margin: 0 50% 0 50%;
+   width: 175px;
+   
+}
+
+.lang_switcher
+{
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+
+  /* Netscape */
+  -moz-opacity: 0.6;
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.6;
+
+  /* Modern browsers */
+  opacity: 0.6;  
+}
+
+.lang_switcher_active
+{
+  /* Netscape */
+  -moz-opacity: 1;
+
+  /* Safari 1.x */
+  -khtml-opacity: 1;
+
+  /* Modern browsers */
+  opacity: 1;  
+ 
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+}

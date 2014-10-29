@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<recipe> 
-    <quarantine>./pat/tests/test_dir1/test_file1.php</quarantine>
-    <delete>./pat/tests/test_dir1/test_file1.php</delete>
-    <quarantine>./pat/tests/test_dir1/test_dir2/test_file2.php</quarantine>
-    <delete>./pat/tests/test_dir1/test_dir2/test_file2.php</delete>
-</recipe>
