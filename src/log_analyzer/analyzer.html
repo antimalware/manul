@@ -12,28 +12,35 @@
 
     <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
     <script src="http://yastatic.net/jquery/1.8.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.min.js"></script>
     <script src="js/HashTable.js"></script>    
-    <script src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>   
+    <script src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>   
 
     <script src="js/jquery.i18n.min.js"></script>        
     <script src="js/localization.js"></script>        
+    <script src="js/spin.js"></script>        
+
     <script>
         $(document).ready(function() {
             localization.init('en');
             localization.localize();
         });
     </script>
-
-
   
+  <link rel="stylesheet" href="css/general.css"/> 
   <link rel="stylesheet" href="css/jquery.dataTables.css"/> 
   <link rel="stylesheet" href="css/analyzer.table.css"/> 
   
   <meta name="description" content=""/>
   </head>
   <body class="page" onload="checkFileAPI();">  
+      <div id="modal" class="modal_pane">
+      </div>
+      <script>
+         modalWindow = document.getElementById('modal');
+         spinner = new Spinner(opts).spin(modalWindow);
+      </script>
 
       <div id="uploadScreen">              
         <div class="body">
@@ -178,13 +185,26 @@
                               </li>              
                             </ul>
                           </div>
-                        </div><input class="filter__file-name filter_path" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
-                        <span class="filter__text-timeslot filter_timeperiod" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
-                        <div class="popup__content"><div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}"></div></div>
-                        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action filter_loadfilter">          
-                          Фильтр из файла          
+                        </div>
+
+                        <input class="filter__file-name filter_path" placeholder="Путь к файлу" id="filePathSearchFilter"/>
+                        <button class="filter__timeslot">
+                        <input id='dateMin' type='hidden' />
+                        <input id='dateMax' type='hidden' />
+                        <span class="filter__text-timeslot filter_timeperiod" id="fileTimeFilterSpan">Временной интервал</span>
+                        <span class="filter__arrow"></span>
                         </button>
+                        <div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
+                           <div class="popup__content">
+                                <div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}">
+                                </div>
+                           </div>
+                        </div>
+
+                        <input accept="application/zip, text/xml" style="width: 90px; opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);">
+                             <button class="filter__filter-button filter__filter-button_theme_action filter_loadfilter">Фильтр из файла</button>
                         </input>
+
                     </div>
                 </div>
       </div>
@@ -260,10 +280,7 @@
       </div>
     </div>
 
-    <script>
-
-    </script>
-    
+  
     <script src="js/analyzer.table.js" defer></script>
     <script src="js/fileParser.js" defer></script>        
     <script src="js/analyzer.tableBuilder.js" defer></script>            

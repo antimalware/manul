@@ -3483,7 +3483,7 @@ provide(/** @exports */{
     /**
      * URL for loading jQuery if it does not exist
      */
-    url : '//yandex.st/jquery/2.1.0/jquery.min.js'
+    url : 'http://yandex.st/jquery/2.1.0/jquery.min.js'
 });
 
 });
@@ -3506,7 +3506,7 @@ provide(
         objects.extend(
             base,
             {
-                url : '//yandex.st/jquery/1.11.0/jquery.min.js'
+                url : 'http://yandex.st/jquery/1.11.0/jquery.min.js'
             }) :
         base);
 
@@ -7381,7 +7381,7 @@ function add_delete(uid, name) {
 
 
 var client = new ZeroClipboard(document.getElementById("copyRecipeButton"), {
-  moviePath: "//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf"
+  moviePath: "http://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf"
 });
 
 client.on("load", function(client) {
@@ -7391,6 +7391,7 @@ client.on("load", function(client) {
 });
 
 function turnOnTableScreen() {
+ showProgress(true);
  $('#uploadScreen').hide();		
  $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
  $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
