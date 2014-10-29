@@ -17,7 +17,7 @@ function parseWebsiteLog(fileDictDict) {
         fileInfoArray.push(fileDict['access']);
         extraData = {'md5': fileDict.md5, 'pos': fileDict._pos, 'path': fileDict.path}
         if (fileDict._snippet) {
-            extraData['snippet'] = atob(fileDict._snippet);
+            extraData['snippet'] = normalizeSnippet(atob(fileDict._snippet));
         } else {
             extraData['snippet'] = '-';
         }
@@ -26,6 +26,10 @@ function parseWebsiteLog(fileDictDict) {
         fileInfoArrayArray.push(fileInfoArray);
     }
     return fileInfoArrayArray;             
+}
+
+function normalizeSnippet(str) {
+  return str.replace(/@_MARKER_@/gi, "<font color=#FF00FF><b>|</b></font>");
 }
 
 function parseWhitelist(fileDictDict) {
@@ -133,12 +137,15 @@ function escapeHtml(text) {
 }
 
 
-function buildTrable(data) {
-
+function buildTable(data) {
     window.filesDataTable = $('#filesTable').dataTable({
        "order": [[ 0, "desc" ]],
 
        "aLengthMenu": [[100, 10, 500, -1], [100, 10, 500, "All"]],
+
+       "fnInitComplete": function(oSettings, json) {
+           showProgress(false);
+       },
 
        "iDisplayLength": 50,
 
@@ -173,6 +180,8 @@ function buildTrable(data) {
             //Detection flag field preprocessing        
             {
                 "aTargets": [0],
+                "bAutoWidth": false,
+                "sWidth" : "60px",
                 "sType": "html",
                 "sClass": "table__item",
                 //FIXME - profomance issue with tag stripping
@@ -190,17 +199,31 @@ function buildTrable(data) {
 
             //File size field preprocessing
             {
+                "aTargets": [1],
+                "bAutoWidth": false,
+                "sWidth" : "500px",
+            },
+
+            //File size field preprocessing
+            {
                 "aTargets": [2],
-                //"sType": "numeric",
+                "bAutoWidth": false,
+                "sWidth" : "100px",
                 "sClass": "table__item",
                 "mRender": function (size, type, full) {
-                    return size;
+                    if (size > -1) {
+                       return size;
+                    } else {
+                       return '';
+                    }
                 }
             },
 
             //Ctime and mtime fields preprocessing        
             {
                 "aTargets": [3, 4],
+                "bAutoWidth": false,
+                "sWidth" : "250px",
                 "sClass": "table__item",
                 //"sType": "date",
                 "mRender": function (timestamp, type, full) {
@@ -209,6 +232,7 @@ function buildTrable(data) {
             },
             {
                 "aTargets": [1],
+                "sWidth" : "100px",
                 "sClass": "table__item",
             },
             {
@@ -218,6 +242,8 @@ function buildTrable(data) {
             },
             {
                 "aTargets": [8],
+                "sWidth" : "100px",
+                "bAutoWidth": false,
                 "sClass": "table__item",
                 "mRender": function (detectionInfo, type, full) {                        
                     var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text quarantine\">" + window.locale_dict["TableScreen.Quarantine" ] + "</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text delete\">" + window.locale_dict["TableScreen.Delete"] + "</span></button></div>";
@@ -232,6 +258,7 @@ function buildTrable(data) {
             }									 
         ]
     });		
+
 
 }
 
@@ -271,7 +298,7 @@ function applyFilter(filter_name, filter) {
     //redraw the table with newly added filter				
     $("#filesTable").dataTable().fnDraw();
 
-    //WTF jquery selector doesn't work here
+    //TODO: jquery selector doesn't work here
     $(document.getElementById('fb_' + filter_name)).text(filter_stat[filter_name]['filtered']);
 }
 
@@ -288,7 +315,7 @@ function displayContents(xmlStr) {
         logLoaded = true;	
         var json = parseXMLstrToJSON(xmlStr);
         data = getFileInfoArray(json);
-        buildTrable(data);      				
+        buildTable(data);      				
         tryDownloadWhitelist();
     }					
 };
