@@ -1,6 +1,7 @@
 var localization = {
 
     browser_language: 'en',
+    locale_dict: '',
 
     init: function(language) {
         var browser_language = navigator.language;
@@ -11,7 +12,7 @@ var localization = {
             browser_language = language;    
         }
 
-        window.locale_dict = this.locale_dicts[browser_language];
+        window.locale_dict = jQuery.extend({},  this.locale_dicts[browser_language]);       
         $.i18n.load(locale_dict);
     },       
 
@@ -19,7 +20,7 @@ var localization = {
         "ru": {
             "Common.Title": "Анализатор логов",
             "Common.LoadFile": "Загрузить файл",
-            "FirstScreen.LogDescription": "Лог создается при сканировании сайта инструментом и содержит информацию об окружении сайта (данные о вебсервере, интерпретаторе, системах контроля версий) а также файлах. Загружать лог можно как в виде архива, так и в виде распакованного xml.",
+            "FirstScreen.LogDescription": "Чтобы просмотреть отчет о проверке сайта, загрузите лог, созданный Манулом при сканировании. Загрузить лог можно как в виде архива, так и в виде распакованного xml.",
             "FirstScreen.LoadLog": "Загрузите лог для анализа",
             "Footer.Contact": "Обратная связь",
             "Footer.Help": "Помощь",
@@ -28,7 +29,7 @@ var localization = {
             "TableScreen.Entries": "Записей",
             "TableScreen.Filtered": "Отфильтровано",
             "TableScreen.Header": "Manul: Анализатор логов",
-            "TableScreen.HeaderDescription": "Анализатор логов Manul. Для эффективного поиска вредоносных файлов следует добавить вайтлисты или полученные ранее логи. В качестве фильтров можно задать маску имени файлов и дату создания.",
+            "TableScreen.HeaderDescription": "Для известных версий CMS автоматически применяется вайтлист, чтобы отфильтровать файлы из стандартной комплектации. С помощью кнопки “Фильтр/Сравнение” можно загрузить дополнительный вайтлист или предыдущий лог проверки, чтобы сравнить его с текущим. Чтобы взять файл на анализ, нажмите на кнопку “Карантин”. Чтобы удалить файл, нажмите на кнопку “Удалить”. Скрипт будет сформирован в поле “Предписание” в нижней части страницы. Скопируйте его в буфер обмена и выполните через вкладку “Лечение” в сканере.",
             "TableScreen.FilterTable.Title": "Подключенные файлы-фильтры:",
             "TableScreen.Copy": "Копировать",
             "TableScreen.Recipe": "Предписание",
@@ -51,32 +52,32 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Поля таблицы",
             "TableScreen.FilterMenu.Filepath": "Путь к файлу",
             "TableScreen.FilterMenu.TimePeriod": "Временной интервал",
-            "TableScreen.FilterMenu.LoadFilter": "Фильтр из файла",
-            "TableScreen.RecipeHint": "Созданное предписание можно запустить в выполняторе предписаний Manul"
+            "TableScreen.FilterMenu.LoadFilter": "Фильтр/Сравнение",
+            "TableScreen.RecipeHint": "Скопируйте скрипт в буфер обмена и выполните через вкладку “Лечение” в Мануле"
         },
         "en": {
             "Common.Title": "Log analyzer",        
-            "Common.LoadFile": "Load a file",
-            "FirstScreen.LogDescription": "Log created when you scan the site tool and contains information about the environment of the site (data on web server, interpreter, version control systems) as well as files. You can upload the log in an archive, or as uncompressed xml.",
-            "FirstScreen.LoadLog": "Load a log for analysis",
-            "Footer.Contact": "Contact",
+            "Common.LoadFile": "Load file",
+            "FirstScreen.LogDescription": "Please upload the log file created by Manul during scanning to view the site scan report. You can upload it either as an archive, or as an unpacked xml file.",
+            "FirstScreen.LoadLog": "Load log for analysis",
+            "Footer.Contact": "Contact us",
             "Footer.Help": "Help",
-            "TableScreen.ShowServerEnvironment": "Show sever environment data",
+            "TableScreen.ShowServerEnvironment": "Show server environment data",
             "TableScreen.File": "File",
             "TableScreen.Entries": "Entries",
-            "TableScreen.Filtered": "Filered",
+            "TableScreen.Filtered": "Filtered",
             "TableScreen.Header": "Manul: Log analyzer",
-            "TableScreen.HeaderDescription": "Log analyzer Manul. For effective search of malicious files should be added to the previously obtained vaytlisty or logs. As a filter, you can specify a file name mask, and creation date.",
+            "TableScreen.HeaderDescription": "A whitelist is used to automatically filter out files included among the standard features of well-known CMS program versions. By using the Filter/Compare tool, you can upload and apply an additional whitelist, or upload an older scan log to compare it with the current one. Click on the Quarantine button to send a file for analysis. To delete a file, click on Delete. A script will appear in the Prescription field in the lower part of the page. Copy it to the clipboard and execute it via the Treatment tab in the scanner.",
             "TableScreen.FilterTable.Title": "Loaded filters:",
             "TableScreen.Copy": "Copy",
             "TableScreen.Recipe": "Recipe",
             "TableScreen.Quarantine": "Quarantine",
             "TableScreen.Delete": "Delete",
             "TableScreen.TableHeader.Flag": "Flag",
-            "TableScreen.TableHeader.Name": "Name",
+            "TableScreen.TableHeader.Name": "File name",
             "TableScreen.TableHeader.Size": "Size",
-            "TableScreen.TableHeader.Ctime": "Ctime",
-            "TableScreen.TableHeader.Mtime": "Mtime",
+            "TableScreen.TableHeader.Ctime": "Created",
+            "TableScreen.TableHeader.Mtime": "Modified",
             "TableScreen.TableHeader.Owner": "Owner",
             "TableScreen.TableHeader.Group": "Group",
             "TableScreen.TableHeader.Attributes": "Attributes",
@@ -87,86 +88,86 @@ var localization = {
             "TableScreen.FilterMenu.Flags.Suspicious": "Suspicious",
             "TableScreen.FilterMenu.Flags.Malicious": "Malicious",
             "TableScreen.FilterMenu.Fields": "Visible fields",
-            "TableScreen.FilterMenu.Filepath": "File path",
-            "TableScreen.FilterMenu.TimePeriod": "Time period",
-            "TableScreen.FilterMenu.LoadFilter": "Load filter",
-            "TableScreen.RecipeHint": "Generated recipe can be executed in Manul recipe executor"
+            "TableScreen.FilterMenu.Filepath": "Path to file",
+            "TableScreen.FilterMenu.TimePeriod": "Time interval",
+            "TableScreen.FilterMenu.LoadFilter": "Filter/Compare",
+            "TableScreen.RecipeHint": "Copy the script to the clipboard and execute it via the Treatment tab in Manul"
         },             
         "tr": {
-            "Common.Title": "Log analyzer",
-            "Common.LoadFile": "Load a file",
-            "FirstScreen.LogDescription": "Log created when you scan the site tool and contains information about the environment of the site (data on web server, interpreter, version control systems) as well as files. You can upload the log in an archive, or as uncompressed xml.",
-            "FirstScreen.LoadLog": "Load a log for analysis",
-            "Footer.Contact": "Contact",
-            "Footer.Help": "Help",
+            "Common.Title": "Kayıt denetleyicisi",
+            "Common.LoadFile": "Dosyayı yükle",
+            "FirstScreen.LogDescription": "Site kontrol raporunu görmek için Manul tarafından tarama işlemi sırasında oluşturulan kayıt dosyasını yükleyiniz. Anılan kayıt dosyasını ister bir arşiv olarak isterse açılmış bir XML dosyası olarak yükleyebilirsiniz.",
+            "FirstScreen.LoadLog": "Denetlenecek kayıt dosyasını (log) yükleyin",
+            "Footer.Contact": "Bize ulaşın",
+            "Footer.Help": "Kullanıcı yardımı",
             "TableScreen.ShowServerEnvironment": "Show sever environment data",
-            "TableScreen.File": "File",
+            "TableScreen.File": "Dosya",
             "TableScreen.Entries": "Entries",
             "TableScreen.Filtered": "Filered",
-            "TableScreen.Header": "Manul: Log analyzer",
-            "TableScreen.HeaderDescription": "Log analyzer Manul. For effective search of malicious files should be added to the previously obtained vaytlisty or logs. As a filter, you can specify a file name mask, and creation date.",
+            "TableScreen.Header": "Manul: Kayıt denetleyicisi",
+            "TableScreen.HeaderDescription": "Standart donanımdaki dosyaları filtrelemek üzere bilinen CMS sürümleri için bekleme listesi otomatik uygulanır. 'Filtreleme/Karşılaştırma' butonu aracılığıyla geçerli bekleme listesi veya kayıt dosyasıyla karşılaştırılmak üzere ek bir bekleme listesi veya önceki kontrol işleminin kayıt dosyası yüklenebilir. Bir dosyayı denetlemeye göndermek için 'Karantina' butonunu tıklayınız. Dosyayı silmek için 'Dosyayı sil' butonunu tıklayınız. Komut dosyası (script), sayfanın alt kısmındaki 'Talimat' alanında oluşturulduktan sonra bunu kopyalayarak 'Virüslerden arındırma' sekmesi üzerinden çalıştırın.",
             "TableScreen.FilterTable.Title": "Loaded filters:",
-            "TableScreen.Copy": "Copy",
-            "TableScreen.Recipe": "Recipe",
-            "TableScreen.Quarantine": "Quarantine",
-            "TableScreen.Delete": "Delete",
-            "TableScreen.TableHeader.Flag": "Flag",
-            "TableScreen.TableHeader.Name": "Name",
-            "TableScreen.TableHeader.Size": "Size",
-            "TableScreen.TableHeader.Ctime": "Ctime",
-            "TableScreen.TableHeader.Mtime": "Mtime",
-            "TableScreen.TableHeader.Owner": "Owner",
-            "TableScreen.TableHeader.Group": "Group",
-            "TableScreen.TableHeader.Attributes": "Attributes",
-            "TableScreen.TableHeader.Action": "Action",
+            "TableScreen.Copy": "Kopyala",
+            "TableScreen.Recipe": "Talimat",
+            "TableScreen.Quarantine": "Karantina",
+            "TableScreen.Delete": "Sil",
+            "TableScreen.TableHeader.Flag": "Bayrak",
+            "TableScreen.TableHeader.Name": "Dosya adı",
+            "TableScreen.TableHeader.Size": "Boyutu",
+            "TableScreen.TableHeader.Ctime": "Kurulma zamanı",
+            "TableScreen.TableHeader.Mtime": "Değişiklik yapma zamanı",
+            "TableScreen.TableHeader.Owner": "Sahibi",
+            "TableScreen.TableHeader.Group": "Grubu",
+            "TableScreen.TableHeader.Attributes": "Öznitelikler",
+            "TableScreen.TableHeader.Action": "Eylem",
             "TableScreen.TableHeader.Hash": "Hash",
-            "TableScreen.FilterMenu.Flag": "Flag",
-            "TableScreen.FilterMenu.Flags.NothigFound": "Nothing found",
-            "TableScreen.FilterMenu.Flags.Suspicious": "Suspicious",
-            "TableScreen.FilterMenu.Flags.Malicious": "Malicious",
-            "TableScreen.FilterMenu.Fields": "Visible fields",
-            "TableScreen.FilterMenu.Filepath": "File path",
-            "TableScreen.FilterMenu.TimePeriod": "Time period",
-            "TableScreen.FilterMenu.LoadFilter": "Load filter",
-            "TableScreen.RecipeHint": "Generated recipe can be executed in Manul recipe executor"
+            "TableScreen.FilterMenu.Flag": "Bayrak",
+            "TableScreen.FilterMenu.Flags.NothigFound": "Bulunamadı",
+            "TableScreen.FilterMenu.Flags.Suspicious": "Şüpheli dosya",
+            "TableScreen.FilterMenu.Flags.Malicious": "Kötü amaçlı dosya",
+            "TableScreen.FilterMenu.Fields": "Tablo alanları",
+            "TableScreen.FilterMenu.Filepath": "Dosyaya ulaşım yolu",
+            "TableScreen.FilterMenu.TimePeriod": "Zaman aralığı",
+            "TableScreen.FilterMenu.LoadFilter": "Filtre/Karşılaştırma",
+            "TableScreen.RecipeHint": "Komut dosyasını kopyalayarak 'Virüslerden arındırma' sekmesi üzerinden çalıştırın."
         },            
         "ua": {
-            "Common.Title": "Анализатор логов",
-            "Common.LoadFile": "Загрузить файл",
-            "FirstScreen.LogDescription": "Лог создается при сканировании сайта инструментом и содержит информацию об окружении сайта (данные о вебсервере, интерпретаторе, системах контроля версий) а также файлах. Загружать лог можно как в виде архива, так и в виде распакованного xml.",
-            "FirstScreen.LoadLog": "Загрузите лог для анализа",
-            "Footer.Contact": "Обратная связь",
-            "Footer.Help": "Помощь",
+            "Common.Title": "Аналізатор логів",
+            "Common.LoadFile": "Завантажити файл",
+            "FirstScreen.LogDescription": "Щоб переглянути звіт про перевірку сайту, завантажте лог, створений Манулом під час сканування. Завантажити лог можна як архівом, так і розпакованим xml.",
+            "FirstScreen.LoadLog": "Завантажте лог для аналізу",
+            "Footer.Contact": "Зворотний зв’язок",
+            "Footer.Help": "Допомога",
             "TableScreen.ShowServerEnvironment": "Информация о серверном окружении",
             "TableScreen.File": "Файл",
             "TableScreen.Entries": "Записей",
             "TableScreen.Filtered": "Отфильтровано",
-            "TableScreen.Header": "Manul: Анализатор логов",
-            "TableScreen.HeaderDescription": "Анализатор логов Manul. Для эффективного поиска вредоносных файлов следует добавить вайтлисты или полученные ранее логи. В качестве фильтров можно задать маску имени файлов и дату создания.",
+            "TableScreen.Header": "Manul: Аналізатор логів",
+            "TableScreen.HeaderDescription": "Для відомих версій CMS автоматично застосовується вайтлист, щоб відфільтрувати файли зі стандартної комплектації. За допомогою кнопки «Фільтр/Порівняння» можна завантажити додатковий вайтлист або попередній лог перевірки, щоб порівняти його з поточним. Щоб взяти файл на аналіз, натисніть кнопку «Карантин». Щоб видалити файл, натисніть кнопку «Видалити». Скрипт буде сформовано в полі «Припис» у нижній частині сторінки. Скопіюйте його в буфер обміну і виконайте через вкладку «Лікування» у сканері.",
             "TableScreen.FilterTable.Title": "Подключенные файлы-фильтры:",
-            "TableScreen.Copy": "Копировать",
-            "TableScreen.Recipe": "Предписание",
+            "TableScreen.Copy": "Копіювати",
+            "TableScreen.Recipe": "Припис",
             "TableScreen.Quarantine": "Карантин",
-            "TableScreen.Delete": "Удалить",
-            "TableScreen.TableHeader.Flag": "Флаг",
-            "TableScreen.TableHeader.Name": "Имя файла",
-            "TableScreen.TableHeader.Size": "Размер",
-            "TableScreen.TableHeader.Ctime": "Создан",
-            "TableScreen.TableHeader.Mtime": "Изменен",
-            "TableScreen.TableHeader.Owner": "Владелец",
-            "TableScreen.TableHeader.Group": "Группа",
-            "TableScreen.TableHeader.Attributes": "Атрибуты",
-            "TableScreen.TableHeader.Action": "Действие",
+            "TableScreen.Delete": "Видалити",
+            "TableScreen.TableHeader.Flag": "Прапор",
+            "TableScreen.TableHeader.Name": "Ім'я файлу",
+            "TableScreen.TableHeader.Size": "Розмір",
+            "TableScreen.TableHeader.Ctime": "Створено",
+            "TableScreen.TableHeader.Mtime": "Змінено",
+            "TableScreen.TableHeader.Owner": "Власник",
+            "TableScreen.TableHeader.Group": "Група",
+            "TableScreen.TableHeader.Attributes": "Атрибути",
+            "TableScreen.TableHeader.Action": "Дія",
             "TableScreen.TableHeader.Hash": "Хэш",
-            "TableScreen.FilterMenu.Flag": "Флаг",
-            "TableScreen.FilterMenu.Flags.Clean": "Не найдено",
-            "TableScreen.FilterMenu.Flags.Suspicious": "Подозрительный",
-            "TableScreen.FilterMenu.Flags.Malicious": "Вредоносный",
-            "TableScreen.FilterMenu.Fields": "Поля таблицы",
-            "TableScreen.FilterMenu.Filepath": "Путь к файлу",
-            "TableScreen.FilterMenu.TimePeriod": "Временной интервал",
-            "TableScreen.FilterMenu.LoadFilter": "Фильтр из файла",
-            "TableScreen.RecipeHint": "Созданное предписание можно запустить в выполняторе предписаний Manul"
+            "TableScreen.FilterMenu.Flag": "Прапор",
+            "TableScreen.FilterMenu.Flags.Clean": "Не знайдено",
+            "TableScreen.FilterMenu.Flags.Suspicious": "Підозрілий",
+            "TableScreen.FilterMenu.Flags.Malicious": "Шкідливий",
+            "TableScreen.FilterMenu.Fields": "Поля таблиці",
+            "TableScreen.FilterMenu.Filepath": "Шлях до файлу",
+            "TableScreen.FilterMenu.TimePeriod": "Часовий інтервал",
+            "TableScreen.FilterMenu.LoadFilter": "Фільтр/Порівняння",
+            "TableScreen.RecipeHint": "Скопіюйте скрипт у буфер обміну та виконайте через вкладку «Лікування» у сканері"
         },                        
         
     },
@@ -219,5 +220,20 @@ var localization = {
         $('.filter_timeperiod')._t('TableScreen.FilterMenu.TimePeriod');
         $('.filter_loadfilter')._t('TableScreen.FilterMenu.LoadFilter');
         $('.visible_fields_menu')._t('TableScreen.FilterMenu.Fields');        
+    },
+
+    switchLanguage: function(element) {
+        lang = $(element).attr('language');        
+        console.log(lang);
+        this.init(lang);
+        this.localize();
+        
+        $('.lang_switcher_active').toggleClass('lang_switcher_active');
+        $("a[language='"+lang+"']").toggleClass('lang_switcher_active');
     }
 }
+
+$(document).ready(function() {
+    $('.lang_switcher').bind('click', function(){localization.switchLanguage(this)});
+});
+

@@ -20,13 +20,6 @@
     <script src="js/jquery.i18n.min.js"></script>        
     <script src="js/localization.js"></script>        
     <script src="js/spin.js"></script>        
-
-    <script>
-        $(document).ready(function() {
-            localization.init('en');
-            localization.localize();
-        });
-    </script>
   
   <link rel="stylesheet" href="css/general.css"/> 
   <link rel="stylesheet" href="css/jquery.dataTables.css"/> 
@@ -56,6 +49,14 @@
         </div>
         <div class="body__spacer"></div>
         <div class="footer">
+
+            <div class="language_pane">
+                <a class="lang_switcher lang_switcher_active" language="ru" href="#"><img src="img/ru.png" border=0></a>
+                <a class="lang_switcher" language="en" href="#"><img src="img/uk.png" border=0></a>
+                <a class="lang_switcher" language="ua"  href="#"><img src="img/ua.png" border=0></a>
+                <a class="lang_switcher" language="tr" href="#"><img src="img/tr.png" border=0></a>
+            </div>
+
             <a class="b-link footer__item contact" href="#">Обратная связь</a>
             <a class="b-link footer__item help" href="#">Помощь</a>
             <div class="footer__item footer__item_type_copyright">©&nbsp;2001&mdash;2013</div>
