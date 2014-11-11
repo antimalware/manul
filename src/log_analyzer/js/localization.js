@@ -234,6 +234,7 @@ var localization = {
 }
 
 $(document).ready(function() {
+    localization.init();
     $('.lang_switcher').bind('click', function(){localization.switchLanguage(this)});
 });
 
