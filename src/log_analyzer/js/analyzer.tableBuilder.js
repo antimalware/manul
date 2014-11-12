@@ -145,6 +145,7 @@ function buildTable(data) {
 
        "fnInitComplete": function(oSettings, json) {
            showProgress(false);
+           turnOnTableScreen(); 
        },
 
        "iDisplayLength": 50,
@@ -314,6 +315,14 @@ function displayContents(xmlStr) {
         //loading log from file
         logLoaded = true;	
         var json = parseXMLstrToJSON(xmlStr);
+        if (json ==null) {
+           showProgress(false);
+           alert('Invalid xml file');
+
+           window.location.reload();
+           return;
+        }
+
         data = getFileInfoArray(json);
         buildTable(data);      				
         tryDownloadWhitelist();

@@ -7391,7 +7391,6 @@ client.on("load", function(client) {
 });
 
 function turnOnTableScreen() {
- showProgress(true);
  $('#uploadScreen').hide();		
  $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
  $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
