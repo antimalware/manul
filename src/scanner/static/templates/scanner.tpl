@@ -15,7 +15,7 @@
     <script type="text/javascript" src="static/js/common.js"></script>
 </head>
 <body>
-  <body class="page">
+  <body class="page" id="active_area">
     <div class="body">
       <div class="head">
            <h1 class="header header_type_main">{PS_MAIN_TITLE}</h1>

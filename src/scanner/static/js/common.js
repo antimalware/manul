@@ -7,6 +7,8 @@ var requestDelay = 5;
 var numberFilesScanned = 0;
 var numberFilesToScan = 0;
 
+var clickAtConfig = false;
+
 function showErrorMessage(caption, text) {
 
     text = text.replace(/\n/g, "<br />");
@@ -184,9 +186,27 @@ $(document).ready(function(){
             } else {
                 $('#configPanel').show();
             }        
+
+            event.stopPropagation();
          } 
         );
 
+
+        $("#configPanel").click(function() {        
+            clickAtConfig = ($('#configPanel').is(":visible"));
+        });
+
+        $("#active_area").click(function() {        
+            if (clickAtConfig) {
+               clickAtConfig = false;
+               return true;
+            }
+
+            if ($('#configPanel').is(":visible")) { 
+                $('#configPanel').hide();
+            } 
+        });
+ 
   
        $("#deleteButton").click(function() { 
            if (confirm(PT_STR_DELETE_TOOL)) {

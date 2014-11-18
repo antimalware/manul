@@ -27,6 +27,7 @@ class Auth
          }
 
 
+         define('PS_PASS_SET', file_exists($this->configPath) ? '1' : '0');
          define('PS_AUTH_FORM_MESSAGE', $message);
          define('PS_LANG', $current_lang);
          define('PS_AUTH_FORM_TARGET', $_SERVER['REQUEST_URI']);
