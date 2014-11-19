@@ -53,13 +53,13 @@ define('PS_ERR_DELETE_NOT_EXISTS', 'Ошибка удаления файла: ф
 define('PS_ERR_MALWARE_DB_BROKEN', 'malware_db.xml поврежден');
 define('PS_WAS_DELETED', 'Файл [file.txt] удален');
 define('PS_WAS_QUARANTINED', 'Файл [file.txt] помещен в карантин');
-define('PS_ENTER_PASSWORD', 'Введите пароль');
+define('PS_ENTER_PASSWORD', 'Введите пароль для доступа к инструменту. Если вы забыли пароль, удалите файл ./tmp/config.php.');
 define('PS_DELETE_ARCHIVE', 'Архив уже существует. Удаляем %s');
 define('PS_PASS_OK', 'OK');
-define('PS_CHOOSE_STRONG_PASS', 'Придумайте сложный пароль для доступа к скриптам');
+define('PS_CHOOSE_STRONG_PASS', 'Придумайте пароль для доступа к инструменту. Пароль должен быть не короче 8 символов и включать любые три из четырёх групп символов: строчные и прописные буквы, цифры и спецсимволы.');
 define('PS_ERR_SHORT_PASSWORD', 'Ошибка. Пароль слишком короткий.');
 define('PS_ERR_WEAK_PASSWORD', 'Ошибка. Пароль должен состоять из трех групп символов: заглавных, маленьких букв, цифр и спецсимволов.');
-define('PS_ERR_INVALID_PASSWORD', 'Ошибка. Неверный пароль. Для сброса удалите config.php в каталоге /tmp/.');
+define('PS_ERR_INVALID_PASSWORD', 'Ошибка. Неверный пароль. Для сброса удалите файл настроек ./tmp/config.php.');
 define('PS_ERR_NO_QUARANTINE_FILE', 'Файл карантина не найден. Пожалуйста, выполните "Лечение" еще раз.');
 define('PS_ERR_NO_DOWNLOAD_LOG_FILE', 'Файл xml log не найден. Пожалуйста, выполните сканирование еще раз.');
 define('PS_RECIPE_FILENAME', 'Имя файла');

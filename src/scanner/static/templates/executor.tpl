@@ -28,7 +28,7 @@
            </div>
       </div>
       <div class="body__content">
-         <!-- /container -->
+       <!-- /container -->
          <div class="container">
            <div class="jumbotron">
                <div class="jumbotron">
@@ -40,9 +40,8 @@
                        </form>
                    </div>
                </div>
-
            </div>
-       </div>
+         </div>
        <!-- /container -->
     </div>
      <div class="body__spacer"></div>
