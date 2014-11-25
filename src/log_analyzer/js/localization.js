@@ -26,6 +26,8 @@ var localization = {
             "Footer.Contact": "Обратная связь",
             "Footer.Help": "Помощь",
             "TableScreen.ShowServerEnvironment": "Информация о серверном окружении",
+            "TableScreen.ShowServerEnvironment.Key": "Ключ",
+            "TableScreen.ShowServerEnvironment.Value": "Значение",
             "TableScreen.File": "Файл",
             "TableScreen.Entries": "Записей",
             "TableScreen.Filtered": "Отфильтровано",
@@ -64,6 +66,8 @@ var localization = {
             "Footer.Contact": "Contact us",
             "Footer.Help": "Help",
             "TableScreen.ShowServerEnvironment": "Show server environment data",
+            "TableScreen.ShowServerEnvironment.Key": "Key",
+            "TableScreen.ShowServerEnvironment.Value": "Value",
             "TableScreen.File": "File",
             "TableScreen.Entries": "Entries",
             "TableScreen.Filtered": "Filtered",
@@ -102,6 +106,8 @@ var localization = {
             "Footer.Contact": "Bize ulaşın",
             "Footer.Help": "Kullanıcı yardımı",
             "TableScreen.ShowServerEnvironment": "Show sever environment data",
+            "TableScreen.ShowServerEnvironment.Key": "Anahtar",
+            "TableScreen.ShowServerEnvironment.Value": "Değer",
             "TableScreen.File": "Dosya",
             "TableScreen.Entries": "Entries",
             "TableScreen.Filtered": "Filered",
@@ -140,6 +146,8 @@ var localization = {
             "Footer.Contact": "Зворотний зв’язок",
             "Footer.Help": "Допомога",
             "TableScreen.ShowServerEnvironment": "Информация о серверном окружении",
+            "TableScreen.ShowServerEnvironment.Key": "Ключ",
+            "TableScreen.ShowServerEnvironment.Value": "Значення",
             "TableScreen.File": "Файл",
             "TableScreen.Entries": "Записей",
             "TableScreen.Filtered": "Отфильтровано",
@@ -189,6 +197,9 @@ var localization = {
         $($('#filter_file_list th')[1])._t('TableScreen.Entries');
         $($('#filter_file_list th')[2])._t('TableScreen.Filtered');
         $('#showServerEnvTable')._t('TableScreen.ShowServerEnvironment');
+        $($('table#server_environment_table th')[0])._t('TableScreen.ShowServerEnvironment.Key');
+        $($('table#server_environment_table th')[1])._t('TableScreen.ShowServerEnvironment.Value');
+
         $('div.body__content.body__content_display_block p')._t('TableScreen.RecipeHint');
         $('#copyRecipeButton')._t('TableScreen.Copy');
         $('#tableScreen div div.body__content.body__content_display_block form h3')._t('TableScreen.Recipe');
