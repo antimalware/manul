@@ -32,6 +32,10 @@ class View {
         header('Content-Type: text/html; charset=utf-8');
 
         include ($this->_template);
+
+        // general templates
+        define('PS_FOOTER', $this->meta_replacer(implode('', file($this->_path . 'footer.tpl'))));
+
         echo ($strip) ? $this->_strip($this->meta_replacer(ob_get_clean())) : $this->meta_replacer(ob_get_clean());
     }
 

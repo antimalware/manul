@@ -53,7 +53,7 @@
            </div>
          </div>
      <div class="body__spacer"></div>
-     <div class="footer"><a class="b-link footer__item" href="#"></a><a class="b-link footer__item" href="static/html/help.html">{PS_HELP}</a><div class="footer__item footer__item_type_copyright">&copy; 2013&mdash;2014</div></div>
+     {PS_FOOTER}
     </div>
   </body>
 </html>

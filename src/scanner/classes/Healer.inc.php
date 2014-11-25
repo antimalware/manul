@@ -48,7 +48,7 @@ class Healer {
     function quarantineFile($filename) {
 
         if (!is_file($filename)) {
-            $this->log .= sprintf(PS_ERR_QUARANTINE_NOT_EXISTS, $filename);
+            $this->log .= '<div class="err">' . sprintf(PS_ERR_QUARANTINE_NOT_EXISTS, $filename) . '</div>';
             return false;
         }
 
@@ -65,7 +65,7 @@ class Healer {
 
     function deleteFile($filename) {
         if (!is_file($filename)) {
-            $this->log .= sprintf(PS_ERR_DELETE_NOT_EXISTS, $filename);
+            $this->log .= '<div class="err">' . sprintf(PS_ERR_DELETE_NOT_EXISTS, $filename) . '</div>';
             return false;
         }
          
@@ -113,7 +113,7 @@ class Healer {
         foreach ($quarantine_files as $filename) {
             $absolute_path = $this->web_root_dir . substr($filename, 1); 
             if ($this->quarantineFile($absolute_path)) {
-                $this->log .= sprintf(PS_WAS_QUARANTINED, $filename);
+                $this->log .= sprintf(PS_WAS_QUARANTINED, $filename) . '<br/>';
                 $num_quarantined++;
             } 
         }
@@ -131,7 +131,7 @@ class Healer {
             $this->archiver->close();
 
             if ($this->deleteFile($absolute_path)) {             
-                $this->log .= sprintf(PS_WAS_DELETED, $filename);
+                $this->log .= sprintf(PS_WAS_DELETED, $filename) . '<br/>';
             }
 
         } 

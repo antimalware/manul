@@ -21,6 +21,22 @@ if (!isset($_COOKIE['lang'])) {
   }
 }
 
+switch ($current_lang) {
+      case MANUL_LANG_ID_EN: 
+                             $lang_domain = 'http://help.yandex.com';  
+                             break;
+      case MANUL_LANG_ID_UA: 
+                             $lang_domain = 'http://help.yandex.ua'; 
+                             break;
+      case MANUL_LANG_ID_TR: 
+                             $lang_domain = 'http://yardim.yandex.com.tr'; 
+                             break;
+                    default: 
+                             $lang_domain = 'http://help.yandex.ru';
+   }
+
+define('PS_HELP_URL', $lang_domain);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This part of file is automatically generated
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +44,7 @@ if (!isset($_COOKIE['lang'])) {
 // Lang: ru
 if ($current_lang == "ru") {
 define('PS_SCANNING_FILE', 'Сканируем');
-define('PS_SCANNING_OF', 'N из N');
+define('PS_SCANNING_OF', 'из');
 define('PS_SEND_REPORT_BUTTON', 'Отправить отчет');
 define('PS_ERR_NO_TEMP_FOLDER', 'Невозможно создать временные файлы, так как временный системный каталог и текущий каталог скрипта не доступны для записи.');
 define('PS_ERR_UPLOADING_XML', 'Ошибка загрузки XML файла. Проверьте ваши настройки php (upload_max_filesize)');
@@ -48,11 +64,11 @@ define('PS_ERR_XML_LINE_SPEC', 'в строке %d');
 define('PS_ERR_UNPACK_ARCHIVE', 'Ошибка открытия архива');
 define('PS_ERR_BROKEN_XML_FILE', 'xml файл поврежден');
 define('PS_ERR_EXCEPTION_OCCURED', 'Возник exception:');
-define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Ошибка размещения в карантин: файл [file.txt] не существует');
-define('PS_ERR_DELETE_NOT_EXISTS', 'Ошибка удаления файла: файл [file.txt] не существует');
+define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Ошибка размещения в карантин: файл [%s] не существует');
+define('PS_ERR_DELETE_NOT_EXISTS', 'Ошибка удаления файла: файл [%s] не существует');
 define('PS_ERR_MALWARE_DB_BROKEN', 'malware_db.xml поврежден');
-define('PS_WAS_DELETED', 'Файл [file.txt] удален');
-define('PS_WAS_QUARANTINED', 'Файл [file.txt] помещен в карантин');
+define('PS_WAS_DELETED', 'Файл [%s] удален');
+define('PS_WAS_QUARANTINED', 'Файл [%s] помещен в карантин');
 define('PS_ENTER_PASSWORD', 'Введите пароль для доступа к инструменту. Если вы забыли пароль, удалите файл ./tmp/config.php.');
 define('PS_DELETE_ARCHIVE', 'Архив уже существует. Удаляем %s');
 define('PS_PASS_OK', 'OK');
@@ -76,16 +92,16 @@ define('PS_MAIN_TITLE', 'Manul');
 define('PS_INSERT_RECIPE', 'Вставьте предписание:');
 define('PS_CHECK_RECIPE', 'Действия будут применены только к выбранным файлам:');
 define('PS_EXECUTE', 'Исполнить');
-define('PS_RESULT', 'Журнал операций:');
+define('PS_RESULT', 'Журнал операций');
 define('PS_EXECUTED_RESULT', 'Результат выполнения предписания:');
 define('PS_DOWNLOAD_QUARANTINE', 'Скачать архив с файлами в карантине');
 define('PS_DOWNLOAD_LOG', 'Скачать архив с отчетом');
 define('PS_PRETEXT', 'Давайте найдем вредоносный код!');
 define('PS_PROGRESS', 'Ход исполнения:');
-define('PS_TOTAL_PROGRESS', 'Всего найдено N файлов');
+define('PS_TOTAL_PROGRESS', 'Всего найдено %d файлов');
 define('PS_BODYTEXT', 'Чтобы начать проверку сайта, нажмите кнопку "Начать сканирование”. После окончания сканирования программа предложит скачать файл отчета, который можно проанализировать самостоятельно или отправить на анализ специалисту.');
 define('PS_INTERVAL', 'Интервал запросов:');
-define('PS_SEC', 'N сек');
+define('PS_SEC', 'сек');
 define('PS_SCAN_LABEL', 'Искать вредоносный код:');
 define('PS_SETTINGS', 'Настройки');
 define('PS_FURTHER_INSTRUCTIONS', 'Теперь вы можете скачать отчет и передать его на анализ вирусному аналитику.');
@@ -119,7 +135,7 @@ define('PS_CHECKER_MESSAGE', 'Пожалуйста, исправьте указ�
 // Lang: en
 if ($current_lang == "en") {
 define('PS_SCANNING_FILE', 'Scanning');
-define('PS_SCANNING_OF', 'N out of N');
+define('PS_SCANNING_OF', 'out of');
 define('PS_SEND_REPORT_BUTTON', 'Send report');
 define('PS_ERR_NO_TEMP_FOLDER', 'It\'s not possible to create temporary files because the temporary system directory and the current script directory are not available for writing.');
 define('PS_ERR_UPLOADING_XML', 'An error occurred when downloading the XML file. Check your php settings (upload_max_filesize)');
@@ -139,11 +155,11 @@ define('PS_ERR_XML_LINE_SPEC', 'in line %d');
 define('PS_ERR_UNPACK_ARCHIVE', 'Error occurred opening archive');
 define('PS_ERR_BROKEN_XML_FILE', 'xml file corrupted');
 define('PS_ERR_EXCEPTION_OCCURED', 'An exception occurred:');
-define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Error putting file in quarantine: the file [file.txt] doesn\'t exist');
-define('PS_ERR_DELETE_NOT_EXISTS', 'Error deleting file: the file [file.txt] doesn\'t exist');
+define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Error putting file in quarantine: the file [%s] doesn\'t exist');
+define('PS_ERR_DELETE_NOT_EXISTS', 'Error deleting file: the file [%s] doesn\'t exist');
 define('PS_ERR_MALWARE_DB_BROKEN', 'malware_db.xml corrupted');
-define('PS_WAS_DELETED', '[file.txt] file was deleted');
-define('PS_WAS_QUARANTINED', '[file.txt] file put in quarantine');
+define('PS_WAS_DELETED', '[%s] file was deleted');
+define('PS_WAS_QUARANTINED', '[%s] file put in quarantine');
 define('PS_ENTER_PASSWORD', 'Enter password');
 define('PS_DELETE_ARCHIVE', 'Archive already exists. Deleting %s');
 define('PS_PASS_OK', 'OK');
@@ -173,10 +189,10 @@ define('PS_DOWNLOAD_QUARANTINE', 'Download archive with quarantined files');
 define('PS_DOWNLOAD_LOG', 'Download archive with report');
 define('PS_PRETEXT', 'Let\'s find malware!');
 define('PS_PROGRESS', 'Implementation in progress:');
-define('PS_TOTAL_PROGRESS', 'Found N files total');
+define('PS_TOTAL_PROGRESS', 'Found %d files total');
 define('PS_BODYTEXT', 'To begin site validation, click "Start scan". After scanning is finished, the program will ask if you want to download a report file that you can then analyze yourself or send to a specialist.');
 define('PS_INTERVAL', 'Interval between search requests');
-define('PS_SEC', 'N sec');
+define('PS_SEC', 'sec');
 define('PS_SCAN_LABEL', 'Search for malware:');
 define('PS_SETTINGS', 'Settings');
 define('PS_FURTHER_INSTRUCTIONS', 'Now you can download a report and pass it to a virus analyst for inspection.');
@@ -210,7 +226,7 @@ define('PS_CHECKER_MESSAGE', 'Please fix the specified problem and restart Manul
 // Lang: tr
 if ($current_lang == "tr") {
 define('PS_SCANNING_FILE', 'Taranıyor');
-define('PS_SCANNING_OF', 'Toplam N dosyadan taranan dosya sayısı: N');
+define('PS_SCANNING_OF', 'Toplam dosyadan taranan dosya sayısı: ');
 define('PS_SEND_REPORT_BUTTON', 'Raporu gönder');
 define('PS_ERR_NO_TEMP_FOLDER', 'Sistemin geçici dizini ve geçerli script dizini kayıt yapılamaz durumda olduğundan geçici dosyaların oluşumu mümkün değildir.');
 define('PS_ERR_UPLOADING_XML', 'XML dosyası yükleme hatası yaşandı. Lütfen PHP (upload_max_filesize) ayarlarınızı kontrol ediniz.');
@@ -230,11 +246,11 @@ define('PS_ERR_XML_LINE_SPEC', '%d satırında');
 define('PS_ERR_UNPACK_ARCHIVE', 'Arşiv açma hatası yaşandı');
 define('PS_ERR_BROKEN_XML_FILE', 'XML dosyası bozuk');
 define('PS_ERR_EXCEPTION_OCCURED', 'Bir exception oluştu:');
-define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Karantinaya gönderme hatası yaşandı: [file.txt] dosyası mevcut değildir.');
-define('PS_ERR_DELETE_NOT_EXISTS', 'Dosya silme hatası yaşandı: [file.txt] dosyası mevcut değildir.');
+define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Karantinaya gönderme hatası yaşandı: [%s] dosyası mevcut değildir.');
+define('PS_ERR_DELETE_NOT_EXISTS', 'Dosya silme hatası yaşandı: [%s] dosyası mevcut değildir.');
 define('PS_ERR_MALWARE_DB_BROKEN', 'malware_db.xml bozuktur');
-define('PS_WAS_DELETED', '[file.txt] dosyası silindi');
-define('PS_WAS_QUARANTINED', '[file.txt] karantinaya gönderildi');
+define('PS_WAS_DELETED', '[%s] dosyası silindi');
+define('PS_WAS_QUARANTINED', '[%s] karantinaya gönderildi');
 define('PS_ENTER_PASSWORD', 'Giriş şifrenizi girin');
 define('PS_DELETE_ARCHIVE', 'Arşiv zaten mevcut. %s siliniyor.');
 define('PS_PASS_OK', 'Tamam');
@@ -264,10 +280,10 @@ define('PS_DOWNLOAD_QUARANTINE', 'Karantinaya gönderilen dosyaları içeren ar�
 define('PS_DOWNLOAD_LOG', 'Raporu içeren arşivi yükle');
 define('PS_PRETEXT', 'Kötü amaçlı yazılım kodu bulalım!');
 define('PS_PROGRESS', 'İlerleme grafiği:');
-define('PS_TOTAL_PROGRESS', 'Bulunan dosya sayısı: N');
+define('PS_TOTAL_PROGRESS', 'Bulunan dosya sayısı: %d');
 define('PS_BODYTEXT', 'Site kontrolü işlemini başlatmak için "Taramayı başlat” butonuna tıklayın. Tarama işlemi tamamlandıktan sonra kendiniz veya bir uzman tarafından incelenebilecek bir rapor içerecek bir dosya yüklemeniz önerilecektir.');
 define('PS_INTERVAL', 'Sorgu aralığı:');
-define('PS_SEC', 'N sn.');
+define('PS_SEC', 'sn.');
 define('PS_SCAN_LABEL', 'Kötü amaçlı yazılım kodu bul:');
 define('PS_SETTINGS', 'Ayarlar');
 define('PS_FURTHER_INSTRUCTIONS', 'Tarama raporunu yükleyebilirsiniz. Yüklediğiniz raporu daha sonra incelenmek üzere bir virüs analiz uzmanına gönderebilirsiniz.');
@@ -301,7 +317,7 @@ define('PS_CHECKER_MESSAGE', 'Sıralanan sorunları giderdikten sonra Manul\'u t
 // Lang: uk
 if ($current_lang == "uk") {
 define('PS_SCANNING_FILE', 'Скануємо');
-define('PS_SCANNING_OF', 'N із N');
+define('PS_SCANNING_OF', 'із');
 define('PS_SEND_REPORT_BUTTON', 'Надіслати звіт');
 define('PS_ERR_NO_TEMP_FOLDER', 'Неможливо створити тимчасові файли, оскільки тимчасовий каталог і поточний каталог скрипту недоступні для запису.');
 define('PS_ERR_UPLOADING_XML', 'Помилка завантаження XML-файлу. Перевірте ваші налаштування php (upload_max_filesize)');
@@ -321,11 +337,11 @@ define('PS_ERR_XML_LINE_SPEC', 'у рядку %d');
 define('PS_ERR_UNPACK_ARCHIVE', 'Помилка відкриття архіву');
 define('PS_ERR_BROKEN_XML_FILE', 'xml-файл пошкоджено');
 define('PS_ERR_EXCEPTION_OCCURED', 'Виник exception:');
-define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Помилка розміщення в карантин: файл [file.txt] не існує');
-define('PS_ERR_DELETE_NOT_EXISTS', 'Помилка видалення файлу: файл [file.txt] не існує');
+define('PS_ERR_QUARANTINE_NOT_EXISTS', 'Помилка розміщення в карантин: файл [%s] не існує');
+define('PS_ERR_DELETE_NOT_EXISTS', 'Помилка видалення файлу: файл [%s] не існує');
 define('PS_ERR_MALWARE_DB_BROKEN', 'malware_db.xml пошкоджено');
-define('PS_WAS_DELETED', 'Файл [file.txt] видалено');
-define('PS_WAS_QUARANTINED', 'Файл [file.txt] поміщено в карантин');
+define('PS_WAS_DELETED', 'Файл [%s] видалено');
+define('PS_WAS_QUARANTINED', 'Файл [%s] поміщено в карантин');
 define('PS_ENTER_PASSWORD', 'Введіть пароль');
 define('PS_DELETE_ARCHIVE', 'Архів уже існує. Видаляємо %s');
 define('PS_PASS_OK', 'OK');
@@ -349,16 +365,16 @@ define('PS_MAIN_TITLE', 'Manul');
 define('PS_INSERT_RECIPE', 'Вставте припис:');
 define('PS_CHECK_RECIPE', 'Дії буде застосовано лише до вибраних файлів:');
 define('PS_EXECUTE', 'Виконати');
-define('PS_RESULT', 'Журнал операцій:');
+define('PS_RESULT', 'Журнал операцій');
 define('PS_EXECUTED_RESULT', 'Результат виконання припису:');
 define('PS_DOWNLOAD_QUARANTINE', 'Завантажити архів із файлами в карантині');
 define('PS_DOWNLOAD_LOG', 'Завантажити архів зі звітом');
 define('PS_PRETEXT', 'Давайте знайдемо шкідливий код!');
 define('PS_PROGRESS', 'Хід виконання:');
-define('PS_TOTAL_PROGRESS', 'Усього знайдено N файлів');
+define('PS_TOTAL_PROGRESS', 'Усього знайдено %d файлів');
 define('PS_BODYTEXT', 'Щоб почати перевірку сайту, натисніть кнопку «Почати перевірку». Після закінчення сканування програма запропонує завантажити файл звіту, який можна проаналізувати самостійно або надіслати на аналіз фахівцю.');
 define('PS_INTERVAL', 'Інтервал запитів:');
-define('PS_SEC', 'N с');
+define('PS_SEC', 'с');
 define('PS_SCAN_LABEL', 'Шукати шкідливий код:');
 define('PS_SETTINGS', 'Налаштування');
 define('PS_FURTHER_INSTRUCTIONS', 'Тепер ви можете завантажити звіт і передати його на аналіз вірусному аналітику.');

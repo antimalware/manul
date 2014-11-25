@@ -75,13 +75,6 @@ if ($critical_err)
    define('PS_CHECKER_DOM_FIX', $dom_ok ? 'none' : 'block');
    define('PS_CHECKER_PERM_FIX', $perm_ok ? 'none' : 'block');
 
-   switch ($current_lang) {
-      case MANUL_LANG_ID_EN: $lang_domain = 'http://help.yandex.com'; break;
-      case MANUL_LANG_ID_UA: $lang_domain = 'http://help.yandex.ua'; break;
-      case MANUL_LANG_ID_TR: $lang_domain = 'http://yardim.yandex.com.tr'; break;
-                    default: $lang_domain = 'http://help.yandex.ru';
-   }
-
    define('PS_CHECKER_ROOT_READABLE_LINK', $lang_domain . '/manul/index.xml');
    define('PS_CHECKER_PHPVERSION_LINK', $lang_domain . '/manul/index.xml');
    define('PS_CHECKER_ZIP_LINK', $lang_domain . '/manul/index.xml');

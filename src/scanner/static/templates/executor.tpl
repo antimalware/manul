@@ -13,6 +13,7 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="static/js/bootbox.js"></script>
     <script type="text/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/validate.js"></script>
 </head>
 <body>
   <body class="page">
@@ -31,7 +32,6 @@
        <!-- /container -->
          <div class="container">
            <div class="jumbotron">
-               <div class="jumbotron">
                    <div id="executorForm">
                        <h2>{PS_INSERT_RECIPE}</h2>
                        <form action="index.php?controller=executor" method="POST" onsubmit="return validate_recipe(this);">
@@ -39,13 +39,12 @@
                        <p><input type="submit" class="button_action" value="{PS_EXECUTE}"/></p>
                        </form>
                    </div>
-               </div>
            </div>
          </div>
        <!-- /container -->
     </div>
      <div class="body__spacer"></div>
-     <div class="footer"><a class="b-link footer__item" href="#"></a><a class="b-link footer__item" href="static/html/help.html">{PS_HELP}</a><div class="footer__item footer__item_type_copyright">&copy; 2013&mdash;2014</div></div>
+     {PS_FOOTER}
     </div>
   </body>
 </html>

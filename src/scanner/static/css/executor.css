@@ -1,3 +1,8 @@
+.err
+{
+  color: #900000;
+}
+
 .executor_area
 {
   font-family: Arial;
@@ -51,4 +56,9 @@ margin-left: 25px;
 .executorLog
 {
   margin: 30px 0 0 0;
+}
+
+.button_pane
+{
+  margin: 40px 0 0 0;
 }
