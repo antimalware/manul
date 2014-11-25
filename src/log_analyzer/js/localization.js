@@ -14,6 +14,7 @@ var localization = {
 
         window.locale_dict = jQuery.extend({},  this.locale_dicts[browser_language]);       
         $.i18n.load(locale_dict);
+        this.localize();
     },       
 
     locale_dicts: {
@@ -25,6 +26,8 @@ var localization = {
             "Footer.Contact": "Обратная связь",
             "Footer.Help": "Помощь",
             "TableScreen.ShowServerEnvironment": "Информация о серверном окружении",
+            "TableScreen.ShowServerEnvironment.Key": "Ключ",
+            "TableScreen.ShowServerEnvironment.Value": "Значение",
             "TableScreen.File": "Файл",
             "TableScreen.Entries": "Записей",
             "TableScreen.Filtered": "Отфильтровано",
@@ -63,6 +66,8 @@ var localization = {
             "Footer.Contact": "Contact us",
             "Footer.Help": "Help",
             "TableScreen.ShowServerEnvironment": "Show server environment data",
+            "TableScreen.ShowServerEnvironment.Key": "Key",
+            "TableScreen.ShowServerEnvironment.Value": "Value",
             "TableScreen.File": "File",
             "TableScreen.Entries": "Entries",
             "TableScreen.Filtered": "Filtered",
@@ -101,6 +106,8 @@ var localization = {
             "Footer.Contact": "Bize ulaşın",
             "Footer.Help": "Kullanıcı yardımı",
             "TableScreen.ShowServerEnvironment": "Show sever environment data",
+            "TableScreen.ShowServerEnvironment.Key": "Anahtar",
+            "TableScreen.ShowServerEnvironment.Value": "Değer",
             "TableScreen.File": "Dosya",
             "TableScreen.Entries": "Entries",
             "TableScreen.Filtered": "Filered",
@@ -139,6 +146,8 @@ var localization = {
             "Footer.Contact": "Зворотний зв’язок",
             "Footer.Help": "Допомога",
             "TableScreen.ShowServerEnvironment": "Информация о серверном окружении",
+            "TableScreen.ShowServerEnvironment.Key": "Ключ",
+            "TableScreen.ShowServerEnvironment.Value": "Значення",
             "TableScreen.File": "Файл",
             "TableScreen.Entries": "Записей",
             "TableScreen.Filtered": "Отфильтровано",
@@ -174,7 +183,7 @@ var localization = {
                     
     localize: function() {
 
-        $('.button.button_theme_action.i-bem.button_js_inited.button_hovered')._t('Common.LoadFile');
+        $('label.load_file_button')._t('Common.LoadFile');
         $('title')._t('Common.Title');
 
         $('.sub-header.sub-header_align_left')._t('FirstScreen.LogDescription');
@@ -188,6 +197,9 @@ var localization = {
         $($('#filter_file_list th')[1])._t('TableScreen.Entries');
         $($('#filter_file_list th')[2])._t('TableScreen.Filtered');
         $('#showServerEnvTable')._t('TableScreen.ShowServerEnvironment');
+        $($('table#server_environment_table th')[0])._t('TableScreen.ShowServerEnvironment.Key');
+        $($('table#server_environment_table th')[1])._t('TableScreen.ShowServerEnvironment.Value');
+
         $('div.body__content.body__content_display_block p')._t('TableScreen.RecipeHint');
         $('#copyRecipeButton')._t('TableScreen.Copy');
         $('#tableScreen div div.body__content.body__content_display_block form h3')._t('TableScreen.Recipe');

@@ -42,9 +42,11 @@
             <h2 class="header">Загрузите лог для анализа</h2>
             <p class="sub-header sub-header_align_left">Лог создается при сканировании сайта инструментом и содержит информацию об окружении сайта (данные о вебсервере, интерпретаторе, системах контроля версий) а также файлах. Загружать лог можно как в виде архива, так и в виде распакованного xml.</p>
 
-            <input accept="application/zip, text/xml"  class="upload__screen__button" type="file" name="report" onchange=" showProgress(true); readText(this);">
-            <span class="button button_theme_action i-bem button_js_inited button_hovered" style="margin-top: 40px;">Загрузить файл</span>
-            </input>
+            
+            <span class="button button_theme_action i-bem button_js_inited button_hovered" style="margin-top: 40px;">
+                <input accept="application/zip, text/xml"  class="upload__screen__button" type="file" name="report" onchange=" showProgress(true); readText(this);">
+                <label class="load_file_button">Загрузить файл</label>
+            </span>            
 
         </div>
         <div class="body__spacer"></div>
@@ -186,26 +188,13 @@
                               </li>              
                             </ul>
                           </div>
-                        </div>
-
-                        <input class="filter__file-name filter_path" placeholder="Путь к файлу" id="filePathSearchFilter"/>
-                        <button class="filter__timeslot">
-                        <input id='dateMin' type='hidden' />
-                        <input id='dateMax' type='hidden' />
-                        <span class="filter__text-timeslot filter_timeperiod" id="fileTimeFilterSpan">Временной интервал</span>
-                        <span class="filter__arrow"></span>
+                        </div><input class="filter__file-name filter_path" placeholder="Путь к файлу" id="filePathSearchFilter"/><button class="filter__timeslot"><input id='dateMin' type='hidden' /><input id='dateMax' type='hidden' />
+                        <span class="filter__text-timeslot filter_timeperiod" id="fileTimeFilterSpan">Временной интервал</span><span class="filter__arrow"></span></button><div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
+                        <div class="popup__content"><div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}"></div></div>
+                        </div><input accept="application/zip, text/xml" style="opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);"><button class="filter__filter-button filter__filter-button_theme_action filter_loadfilter">          
+                          Фильтр из файла          
                         </button>
-                        <div class="popup popup_name_timeslot popup_visibility_hidden i-bem" id="fileTimeFilterPopup" data-bem="{&quot;popup&quot;:{}}">
-                           <div class="popup__content">
-                                <div class="m-datepicker m-datepicker_type_month m-datepicker_disable_change i-bem" data-bem="{&quot;m-datepicker&quot;:&quot;true&quot;}">
-                                </div>
-                           </div>
-                        </div>
-
-                        <input accept="application/zip, text/xml" style="width: 90px; opacity:0;position: absolute;" type="file" name="report" onchange="turnOnTableScreen(); readText(this);">
-                             <button class="filter__filter-button filter__filter-button_theme_action filter_loadfilter">Фильтр из файла</button>
                         </input>
-
                     </div>
                 </div>
       </div>
