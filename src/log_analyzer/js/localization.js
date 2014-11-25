@@ -14,6 +14,7 @@ var localization = {
 
         window.locale_dict = jQuery.extend({},  this.locale_dicts[browser_language]);       
         $.i18n.load(locale_dict);
+        this.localize();
     },       
 
     locale_dicts: {
@@ -174,7 +175,7 @@ var localization = {
                     
     localize: function() {
 
-        $('.button.button_theme_action.i-bem.button_js_inited.button_hovered')._t('Common.LoadFile');
+        $('label.load_file_button')._t('Common.LoadFile');
         $('title')._t('Common.Title');
 
         $('.sub-header.sub-header_align_left')._t('FirstScreen.LogDescription');
