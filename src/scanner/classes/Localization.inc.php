@@ -45,6 +45,7 @@ define('PS_HELP_URL', $lang_domain);
 if ($current_lang == "ru") {
 define('PS_SCANNING_FILE', 'Сканируем');
 define('PS_SCANNING_OF', 'из');
+define('PS_CHECKER_ROOT_READABLE', 'Корневой каталог не доступен для чтения');
 define('PS_SEND_REPORT_BUTTON', 'Отправить отчет');
 define('PS_ERR_NO_TEMP_FOLDER', 'Невозможно создать временные файлы, так как временный системный каталог и текущий каталог скрипта не доступны для записи.');
 define('PS_ERR_UPLOADING_XML', 'Ошибка загрузки XML файла. Проверьте ваши настройки php (upload_max_filesize)');
@@ -136,6 +137,7 @@ define('PS_CHECKER_MESSAGE', 'Пожалуйста, исправьте указ�
 if ($current_lang == "en") {
 define('PS_SCANNING_FILE', 'Scanning');
 define('PS_SCANNING_OF', 'out of');
+define('PS_CHECKER_ROOT_READABLE', 'Document Root folder is not readable');
 define('PS_SEND_REPORT_BUTTON', 'Send report');
 define('PS_ERR_NO_TEMP_FOLDER', 'It\'s not possible to create temporary files because the temporary system directory and the current script directory are not available for writing.');
 define('PS_ERR_UPLOADING_XML', 'An error occurred when downloading the XML file. Check your php settings (upload_max_filesize)');
@@ -227,6 +229,7 @@ define('PS_CHECKER_MESSAGE', 'Please fix the specified problem and restart Manul
 if ($current_lang == "tr") {
 define('PS_SCANNING_FILE', 'Taranıyor');
 define('PS_SCANNING_OF', 'Toplam dosyadan taranan dosya sayısı: ');
+define('PS_CHECKER_ROOT_READABLE', 'Document Root folder is not readable');
 define('PS_SEND_REPORT_BUTTON', 'Raporu gönder');
 define('PS_ERR_NO_TEMP_FOLDER', 'Sistemin geçici dizini ve geçerli script dizini kayıt yapılamaz durumda olduğundan geçici dosyaların oluşumu mümkün değildir.');
 define('PS_ERR_UPLOADING_XML', 'XML dosyası yükleme hatası yaşandı. Lütfen PHP (upload_max_filesize) ayarlarınızı kontrol ediniz.');
@@ -318,6 +321,7 @@ define('PS_CHECKER_MESSAGE', 'Sıralanan sorunları giderdikten sonra Manul\'u t
 if ($current_lang == "uk") {
 define('PS_SCANNING_FILE', 'Скануємо');
 define('PS_SCANNING_OF', 'із');
+define('PS_CHECKER_ROOT_READABLE', 'Document Root folder is not readable');
 define('PS_SEND_REPORT_BUTTON', 'Надіслати звіт');
 define('PS_ERR_NO_TEMP_FOLDER', 'Неможливо створити тимчасові файли, оскільки тимчасовий каталог і поточний каталог скрипту недоступні для запису.');
 define('PS_ERR_UPLOADING_XML', 'Помилка завантаження XML-файлу. Перевірте ваші налаштування php (upload_max_filesize)');
