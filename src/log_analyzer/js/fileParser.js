@@ -77,7 +77,7 @@ function checkFileAPI() {
 		var reader = new FileReader();
 		return true; 
 	} else {
-		alert('Браузер не поддерживает FailAPI. Рекомендуется обновить браузер.');
+		alert('Браузер не поддерживает FileAPI. Рекомендуется обновить браузер.');
 		return false;
 	}
 }

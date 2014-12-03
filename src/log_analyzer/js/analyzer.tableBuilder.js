@@ -15,6 +15,9 @@ function parseWebsiteLog(fileDictDict) {
         fileInfoArray.push(fileDict['owner']);
         fileInfoArray.push(fileDict['group']);
         fileInfoArray.push(fileDict['access']);
+        if (!fileDict._pos) fileDict._pos = '0';
+        if (!fileDict.md5) fileDict.md5 = '';
+        if (!fileDict.path) fileDict.path = '';
         extraData = {'md5': fileDict.md5, 'pos': fileDict._pos, 'path': fileDict.path}
         if (fileDict._snippet) {
             extraData['snippet'] = normalizeSnippet(atob(fileDict._snippet));
