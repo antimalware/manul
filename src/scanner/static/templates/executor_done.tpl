@@ -53,5 +53,12 @@
      <div class="body__spacer"></div>
      {PS_FOOTER}
     </div>
+<script language="javascript">
+var url = '{PS_QUARANTINE_URL}';
+if (url == '') {
+  $('#quarantineLink').hide();
+}
+</script>
+
   </body>
 </html>

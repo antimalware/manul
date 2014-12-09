@@ -383,7 +383,7 @@ function showProgress(state) {
        modalWindow.style.display = 'block';
        watchdog = setTimeout(wd_handler, 15000);
      } else {
-       clearTimer(watchdog);
+       clearTimeout(watchdog);
        watchdog = null;
        modalWindow.style.display = 'none';
      }

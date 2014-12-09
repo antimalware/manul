@@ -35,9 +35,9 @@
                    <div id="executorForm">
 
                <h2>{PS_CHECK_RECIPE}</h2>
-               <form action="index.php?controller=executor" method="POST" onsubmit="return validate_recipe(this);">
-               <input type="hidden" name="total_d" value="{PS_EXECUTE_TOTAL_D}">
-               <input type="hidden" name="total_q" value="{PS_EXECUTE_TOTAL_Q}">
+               <form action="index.php?controller=executor" method="POST" onsubmit="return validate_recipe2(this);">
+               <input type="hidden" name="total_d" id="total_d" value="{PS_EXECUTE_TOTAL_D}">
+               <input type="hidden" name="total_q" id="total_q" value="{PS_EXECUTE_TOTAL_Q}">
                <input type="hidden" name="a" value="apply"> 
                
                <div class="recipe_pane">
@@ -57,5 +57,33 @@
      <div class="body__spacer"></div>
      {PS_FOOTER}
     </div>
+
+<script language="javascript">
+function validate_recipe2(f) {
+  var dn = Number(f.total_d.value);
+  var qn = Number(f.total_q.value);
+  var action_num = 0;
+
+  for (i = 0; i < dn; i++) {
+    if (f.elements['d_' + i].checked) {
+       action_num++;  
+    } 
+  }
+
+  for (i = 0; i < qn; i++) {
+    if (f.elements['q_' + i].checked) {
+       action_num++;  
+    } 
+  }
+
+  if (action_num < 1) {
+     alert('Select at least one item');
+     return false;
+  } else {
+     return true;
+  }
+}
+</script>
+
   </body>
 </html>
