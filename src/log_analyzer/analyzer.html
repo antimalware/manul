@@ -26,6 +26,20 @@
   <link rel="stylesheet" href="css/analyzer.table.css"/> 
   
   <meta name="description" content=""/>
+
+  <script language="javascript">
+   function manulErrorHandler (msg, url, line, col, error) {
+      var extra = !col ? '' : '\ncolumn: ' + col;
+      extra += !error ? '' : '\nerror: ' + error;
+
+      alert("Error: " + msg + "\nline: " + line + extra);
+
+       window.location.reload();
+       return true;
+   };
+
+   window.onerror = manulErrorHandler;
+</script>
   </head>
   <body class="page" onload="checkFileAPI();">  
       <div id="modal" class="modal_pane">

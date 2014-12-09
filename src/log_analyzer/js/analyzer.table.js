@@ -7392,6 +7392,7 @@ client.on("load", function(client) {
 
 function turnOnTableScreen() {
  $('#uploadScreen').hide();		
+ $('#tableScreen').show();
  $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
  $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
  $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );

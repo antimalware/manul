@@ -349,6 +349,7 @@
 }));
 
 var spinner, modalWindow;
+var watchdog;
 
 var opts = {
   lines: 15, // The number of lines to draw
@@ -369,12 +370,24 @@ var opts = {
   left: '50%' // Left position relative to parent
 };
 
+function wd_handler() {
+  alert('Timeout error');
+  watchdog = null;
+  window.location.reload();
+  return true;
+}
+
 function showProgress(state) {
   if (modalWindow) {
      if (state) {
        modalWindow.style.display = 'block';
+       watchdog = setTimeout(wd_handler, 15000);
      } else {
+       clearTimer(watchdog);
+       watchdog = null;
        modalWindow.style.display = 'none';
      }
   }
 }
+
+
