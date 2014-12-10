@@ -1,19 +1,25 @@
 var localization = {
 
     browser_language: 'en',
-    locale_dict: '',
+    chosen_language: 'en',
 
     init: function(language) {
         var browser_language = navigator.language;
         if (typeof navigator.language == "undefined")
             browser_language = navigator.systemLanguage; // Works for IE only
 
+        //canonizing en-us ru-RU etc
+        dash_pos = browser_language.indexOf('-');
+        if (dash_pos !== -1) {
+            browser_language = browser_language.substring(0, dash_pos);
+        }
+
         if (language && this.locale_dicts.hasOwnProperty(language)) {
             browser_language = language;    
         }
 
-        window.locale_dict = jQuery.extend({},  this.locale_dicts[browser_language]);       
-        $.i18n.load(locale_dict);
+        this.chosen_language = language || browser_language;
+        $.i18n.load(this.locale_dicts[this.chosen_language]);
         this.localize();
     },       
 
@@ -228,7 +234,7 @@ var localization = {
         $('.flag_notfound')._t('TableScreen.FilterMenu.Flags.NothigFound');
         $('.flag_suspicious')._t('TableScreen.FilterMenu.Flags.Suspicious');
         $('.flag_malicious')._t('TableScreen.FilterMenu.Flags.Malicious');
-        $('.filter_path').attr('placeholder', locale_dict['TableScreen.FilterMenu.Filepath']);
+        $('.filter_path').attr('placeholder', this.locale_dicts[this.chosen_language]['TableScreen.FilterMenu.Filepath']);
         $('.filter_timeperiod')._t('TableScreen.FilterMenu.TimePeriod');
         $('.filter_loadfilter')._t('TableScreen.FilterMenu.LoadFilter');
         $('.visible_fields_menu')._t('TableScreen.FilterMenu.Fields');        
