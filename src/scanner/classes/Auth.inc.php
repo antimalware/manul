@@ -65,6 +65,8 @@ class Auth
                   return ($password_hash_from_cookie == $password_hash);
                } elseif (!empty($_POST['password'])) {
                   $password_hash_from_post = hash('sha256', $_POST['password']);
+echo $password_hash_from_post."<hr>";
+echo $password_hash."<hr>";
                   if ($password_hash_from_post == $password_hash) {
    		     setcookie('antimalware_password_hash', $password_hash_from_post);
                      $_COOKIE['antimalware_password_hash'] = $password_hash_from_post;
@@ -76,7 +78,7 @@ class Auth
             return false;
        }  
 
-       function setNewPassword() {
+       function setNewPassword($password) {
            $password_hash = hash('sha256', $password);
            $config_file_content = '<?php $password_hash = \'' . $password_hash . '\';';
 	   setcookie('antimalware_password_hash', $password_hash);
@@ -101,7 +103,7 @@ class Auth
           } else {
                if ($password_sent) {
                   if ($this->checkPasswordStrength($_POST['password'])) {
-                     $this->setNewPassword();
+                     $this->setNewPassword($_POST['password']);
                      $result = true;
                   } else {
                      $this->templateOutput(PS_CHOOSE_STRONG_PASS, PS_ERR_SHORT_PASSWORD);
