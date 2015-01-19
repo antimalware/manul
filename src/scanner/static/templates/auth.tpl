@@ -33,8 +33,7 @@
                    <div id="executorForm">
                       <form class="form-signin" method="POST" action="{PS_AUTH_FORM_TARGET}">
                       <h2 class="form-signin-heading">{PS_AUTH_FORM_MESSAGE}</h2>
-
-                      <div><div id="passwordStrengthStatus" class="form__error"></div></div>
+                      <div><div id="passwordStrengthStatus" class="form__error">{PS_AUTH_FORM_ERROR}</div></div>
                       <div class="textarea">
                         <input type="password" id="passwordTextBox" name="password" class="textarea__input" placeholder="{PS_PASSWORD}">
                       </div>

@@ -14,8 +14,13 @@ function switchTo(lang) {
 }
 
 $(document).ready(function(){  
-    var widget = $('#passwordStrengthStatus'); 
-    widget.hide();
+    var widget = $('#passwordStrengthStatus');
+
+    if (widget.text() == '') {
+       widget.hide();
+    } else {
+       widget.show();
+    }
 
     $('#sendPasswordButton').on('click', function() { 
             var field = $('#passwordTextBox'); 
