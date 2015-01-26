@@ -19,13 +19,16 @@ var localization = {
         }
 
         this.chosen_language = language || browser_language;
-        $.i18n.load(this.locale_dicts[this.chosen_language]);
+        var current_dict = JSON.parse(JSON.stringify( this.locale_dicts[this.chosen_language] ));
+        $.i18n.load(current_dict);
+
         this.localize();
     },       
 
     locale_dicts: {
         "ru": {
             "Common.Title": "Анализатор логов",
+            "Common.SubHeader": "Анализ",
             "Common.LoadFile": "Загрузить файл",
             "FirstScreen.LogDescription": "Чтобы просмотреть отчет о проверке сайта, загрузите лог, созданный Манулом при сканировании. Загрузить лог можно как в виде архива, так и в виде распакованного xml.",
             "FirstScreen.LoadLog": "Загрузите лог для анализа",
@@ -66,6 +69,7 @@ var localization = {
         },
         "en": {
             "Common.Title": "Log analyzer",        
+            "Common.SubHeader": "Analysis",
             "Common.LoadFile": "Load file",
             "FirstScreen.LogDescription": "Please upload the log file created by Manul during scanning to view the site scan report. You can upload it either as an archive, or as an unpacked xml file.",
             "FirstScreen.LoadLog": "Load log for analysis",
@@ -106,6 +110,7 @@ var localization = {
         },             
         "tr": {
             "Common.Title": "Kayıt denetleyicisi",
+            "Common.SubHeader": "Analysis",
             "Common.LoadFile": "Dosyayı yükle",
             "FirstScreen.LogDescription": "Site kontrol raporunu görmek için Manul tarafından tarama işlemi sırasında oluşturulan kayıt dosyasını yükleyiniz. Anılan kayıt dosyasını ister bir arşiv olarak isterse açılmış bir XML dosyası olarak yükleyebilirsiniz.",
             "FirstScreen.LoadLog": "Denetlenecek kayıt dosyasını (log) yükleyin",
@@ -146,6 +151,7 @@ var localization = {
         },            
         "ua": {
             "Common.Title": "Аналізатор логів",
+            "Common.SubHeader": "Аналіз",
             "Common.LoadFile": "Завантажити файл",
             "FirstScreen.LogDescription": "Щоб переглянути звіт про перевірку сайту, завантажте лог, створений Манулом під час сканування. Завантажити лог можна як архівом, так і розпакованим xml.",
             "FirstScreen.LoadLog": "Завантажте лог для аналізу",
@@ -197,6 +203,7 @@ var localization = {
         $('a.b-link.footer__item.contact')._t('Footer.Contact');
         $('a.b-link.footer__item.help')._t('Footer.Help');
         $('.header.header_type_main')._t('TableScreen.Header');
+        $('.head__menu-item.head__menu-item_active_yes')._t('Common.SubHeader');
         $('.head__description')._t('TableScreen.HeaderDescription');
         $('div.filter_list h4')._t('TableScreen.FilterTable.Title');
         $($('#filter_file_list th')[0])._t('TableScreen.File');
