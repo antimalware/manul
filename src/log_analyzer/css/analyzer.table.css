@@ -4,6 +4,11 @@
    display: none;
 }
 
+#button_drop_timespan_filter {
+    margin-left: 25%;
+    width: 50%;
+}
+
 .page
 {
     font-family: Arial;

@@ -3,6 +3,8 @@ var localization = {
     browser_language: 'en',
     chosen_language: 'en',
 
+    locale_dict: null,
+
     init: function(language) {
         var browser_language = navigator.language;
         if (typeof navigator.language == "undefined")
@@ -19,8 +21,9 @@ var localization = {
         }
 
         this.chosen_language = language || browser_language;
-        var current_dict = JSON.parse(JSON.stringify( this.locale_dicts[this.chosen_language] ));
-        $.i18n.load(current_dict);
+        this.locale_dict = JSON.parse(JSON.stringify(this.locale_dicts[this.chosen_language]));
+
+        $.i18n.load(this.locale_dict);
 
         this.localize();
     },       
@@ -64,8 +67,49 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Поля таблицы",
             "TableScreen.FilterMenu.Filepath": "Путь к файлу",
             "TableScreen.FilterMenu.TimePeriod": "Временной интервал",
+            "TableScreen.FilterMenu.DropTimePeriod": "Сбросить",
             "TableScreen.FilterMenu.LoadFilter": "Фильтр/Сравнение",
-            "TableScreen.RecipeHint": "Скопируйте скрипт в буфер обмена и выполните через вкладку “Лечение” в Мануле"
+            "TableScreen.RecipeHint": "Скопируйте скрипт в буфер обмена и выполните через вкладку “Лечение” в Мануле",
+            "calendar": {
+                months: {
+                    1: 'Январь',
+                    2: 'Февраль',
+                    3: 'Март',
+                    4: 'Апрель',
+                    5: 'Май',
+                    6: 'Июнь',
+                    7: 'Июль',
+                    8: 'Август',
+                    9: 'Сентябрь',
+                    10: 'Октябрь',
+                    11: 'Ноябрь',
+                    12: 'Декабрь'
+                },
+                shortMonth: {
+                    1: 'Янв',
+                    2: 'Фев',
+                    3: 'Мрт',
+                    4: 'Апр',
+                    5: 'Май',
+                    6: 'Июн',
+                    7: 'Июл',
+                    8: 'Авг',
+                    9: 'Сен',
+                    10: 'Окт',
+                    11: 'Ноя',
+                    12: 'Дек'
+                },
+                weekDays: {
+                    1: 'Пн',
+                    2: 'Вт',
+                    3: 'Ср',
+                    4: 'Чт',
+                    5: 'Пт',
+                    6: 'Сб',
+                    7: 'Вс'
+                }
+    
+            } 
         },
         "en": {
             "Common.Title": "Log analyzer",        
@@ -105,8 +149,50 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Visible fields",
             "TableScreen.FilterMenu.Filepath": "Path to file",
             "TableScreen.FilterMenu.TimePeriod": "Time interval",
+            "TableScreen.FilterMenu.DropTimePeriod": "Cancel",
             "TableScreen.FilterMenu.LoadFilter": "Filter/Compare",
-            "TableScreen.RecipeHint": "Copy the script to the clipboard and execute it via the Treatment tab in Manul"
+            "TableScreen.RecipeHint": "Copy the script to the clipboard and execute it via the Treatment tab in Manul",
+            "calendar": {
+                months: {
+                    1: 'January',
+                    2: 'February',
+                    3: 'March',
+                    4: 'April',
+                    5: 'May',
+                    6: 'June',
+                    7: 'July',
+                    8: 'August',
+                    9: 'September',
+                    10: 'October',
+                    11: 'November',
+                    12: 'December'
+                },
+                shortMonth: {
+                    1: 'Jan',
+                    2: 'Feb',
+                    3: 'Mar',
+                    4: 'Apr',
+                    5: 'May',
+                    6: 'Jun',
+                    7: 'Jul',
+                    8: 'Aug',
+                    9: 'Sep',
+                    10: 'Oct',
+                    11: 'Nov',
+                    12: 'Dec'
+                },
+                weekDays: {
+                    1: 'Mo',
+                    2: 'Tu',
+                    3: 'We',
+                    4: 'Th',
+                    5: 'Fr',
+                    6: 'Sa',
+                    7: 'Su'
+                }
+    
+            } 
+
         },             
         "tr": {
             "Common.Title": "Kayıt denetleyicisi",
@@ -146,8 +232,49 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Tablo alanları",
             "TableScreen.FilterMenu.Filepath": "Dosyaya ulaşım yolu",
             "TableScreen.FilterMenu.TimePeriod": "Zaman aralığı",
+            "TableScreen.FilterMenu.DropTimePeriod": "Iptal etmek",
             "TableScreen.FilterMenu.LoadFilter": "Filtre/Karşılaştırma",
-            "TableScreen.RecipeHint": "Komut dosyasını kopyalayarak 'Virüslerden arındırma' sekmesi üzerinden çalıştırın."
+            "TableScreen.RecipeHint": "Komut dosyasını kopyalayarak 'Virüslerden arındırma' sekmesi üzerinden çalıştırın.",
+            "calendar": {
+                months: {
+                    1: 'Ocak',
+                    2: 'Şubat',
+                    3: 'Mart',
+                    4: 'Nisan',
+                    5: 'Mayıs',
+                    6: 'Haziran',
+                    7: 'Temmuz',
+                    8: 'Ağustos',
+                    9: 'Eylül',
+                    10: 'Ekim',
+                    11: 'Kasım',
+                    12: 'Aralık'
+                },
+                shortMonth: {
+                    1: 'Oca',
+                    2: 'Şub',
+                    3: 'Mar',
+                    4: 'Nis',
+                    5: 'May',
+                    6: 'Haz',
+                    7: 'Tem',
+                    8: 'Ağu',
+                    9: 'Eyl',
+                    10: 'Eki',
+                    11: 'Kas',
+                    12: 'Ara'
+                },
+                weekDays: {
+                    1: 'Pt',
+                    2: 'Sa',
+                    3: 'Ça',
+                    4: 'Pe',
+                    5: 'Cu',
+                    6: 'Ct',
+                    7: 'Pr'
+                }
+    
+            } 
         },            
         "ua": {
             "Common.Title": "Аналізатор логів",
@@ -187,8 +314,49 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Поля таблиці",
             "TableScreen.FilterMenu.Filepath": "Шлях до файлу",
             "TableScreen.FilterMenu.TimePeriod": "Часовий інтервал",
+            "TableScreen.FilterMenu.DropTimePeriod": "Скасувати",
             "TableScreen.FilterMenu.LoadFilter": "Фільтр/Порівняння",
-            "TableScreen.RecipeHint": "Скопіюйте скрипт у буфер обміну та виконайте через вкладку «Лікування» у сканері"
+            "TableScreen.RecipeHint": "Скопіюйте скрипт у буфер обміну та виконайте через вкладку «Лікування» у сканері",
+            "calendar": {
+                months: { 
+                    1: 'Січень', 
+                    2: 'Лютий', 
+                    3: 'Березень', 
+                    4: 'Квітень', 
+                    5: 'Травень', 
+                    6: 'Червень', 
+                    7: 'Липень', 
+                    8: 'Серпень', 
+                    9: 'Вересень', 
+                    10: 'Жовтень', 
+                    11: 'Листопад', 
+                    12: 'Грудень' 
+                }, 
+                shortMonth: { 
+                    1: 'Січ', 
+                    2: 'Лют', 
+                    3: 'Бер', 
+                    4: 'Кві', 
+                    5: 'Тра', 
+                    6: 'Чер', 
+                    7: 'Лип', 
+                    8: 'Сер', 
+                    9: 'Вер', 
+                    10: 'Жов', 
+                    11: 'Лис', 
+                    12: 'Гру' 
+                }, 
+                weekDays: { 
+                    1: 'Пн', 
+                    2: 'Вт', 
+                    3: 'Ср', 
+                    4: 'Чт', 
+                    5: 'Пт', 
+                    6: 'Сб', 
+                    7: 'Нд' 
+                }     
+            } 
+
         },                        
         
     },
@@ -241,8 +409,10 @@ var localization = {
         $('.flag_notfound')._t('TableScreen.FilterMenu.Flags.NothigFound');
         $('.flag_suspicious')._t('TableScreen.FilterMenu.Flags.Suspicious');
         $('.flag_malicious')._t('TableScreen.FilterMenu.Flags.Malicious');
-        $('.filter_path').attr('placeholder', this.locale_dicts[this.chosen_language]['TableScreen.FilterMenu.Filepath']);
+        $('.filter_path').attr('placeholder', this.locale_dict['TableScreen.FilterMenu.Filepath']);
         $('.filter_timeperiod')._t('TableScreen.FilterMenu.TimePeriod');
+        $('#button_drop_timespan_filter')._t('TableScreen.FilterMenu.DropTimePeriod');
+
         $('.filter_loadfilter')._t('TableScreen.FilterMenu.LoadFilter');
         $('.visible_fields_menu')._t('TableScreen.FilterMenu.Fields');        
     },

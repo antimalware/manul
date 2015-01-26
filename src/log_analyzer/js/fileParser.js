@@ -32,6 +32,8 @@ function readZip(blob, callback) {
 	
 }
 
+
+
 function readText(fileInput) {
 		var file = fileInput.files[0];
 
@@ -66,6 +68,7 @@ function getFileInfoArray(json) {
 		fileInfoArray.push(fileDict['group']);
 		fileInfoArray.push(fileDict['access']);
 		fileInfoArray.push({'md5': fileDict.md5, 'pos': fileDict._pos, 'snippet': fileDict._snippet, 'path': fileDict.path});
+		fileInfoArray.push(fileDict.md5);
 
 		fileInfoArrayArray.push(fileInfoArray);
 	}
@@ -88,3 +91,35 @@ function parseXMLstrToJSON(XMLstr) {
     json = x2js.xml_str2json(XMLstr);
     return json;
 }
+
+function loadjscssfile(filename, filetype){
+ if (filetype=="js"){ //if filename is a external JavaScript file
+  var fileref=document.createElement('script')
+  fileref.setAttribute("type","text/javascript")
+  fileref.setAttribute("src", filename)
+ }
+ else if (filetype=="css"){ //if filename is an external CSS file
+  var fileref=document.createElement("link")
+  fileref.setAttribute("rel", "stylesheet")
+  fileref.setAttribute("type", "text/css")
+  fileref.setAttribute("href", filename)
+ }
+ if (typeof fileref!="undefined")
+  document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+
+
+function turnOnTableScreen() {
+    $('#uploadScreen').hide();		
+    $('#tableScreen').show();
+
+    loadjscssfile("js/analyzer.table.js", "js");
+
+    $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
+    $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
+    $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+    $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+    $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);}); 
+}
+
+

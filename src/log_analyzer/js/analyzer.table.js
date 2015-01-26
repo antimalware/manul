@@ -5536,6 +5536,7 @@ modules.define('i-bem__dom', function (provide, DOM) {
                     var self = this;
                     this.bindTo('timeslot', 'click tap', function () {
                         this.toggleMod(this.elem('timeslot'), 'open', 'yes');
+                       
                         var popupTimeslot = this.findBlockInside({block: 'popup', modName: 'name', modVal: 'timeslot'}),
                             calendar = popupTimeslot.findBlockInside('m-datepicker'),
                             text = this.elem('text-timeslot');
@@ -5546,9 +5547,6 @@ modules.define('i-bem__dom', function (provide, DOM) {
                             $('#dateMin').val(dateFrame[0]).trigger('change');
                             $('#dateMax').val(dateFrame[1]).trigger('change');
                             text.text(timeslot);
-                                                        
-                            console.log(timeslot);
-
                         })
 
                         popupTimeslot.domElem.on('hide', function () {
@@ -5587,7 +5585,7 @@ modules.define('i-bem__dom', function (provide, DOM) {
                 to = date.to,
                 string = '';
 
-            string += from.getFullYear() + '-' + this._addZero(from.getMonth()) + '-' + this._addZero(from.getDate()) + ' — ' + to.getFullYear() + '-' + this._addZero(to.getMonth()) + '-' + this._addZero(to.getDate());
+            string += from.getFullYear() + '-' + this._addZero(from.getMonth() + 1) + '-' + this._addZero(from.getDate()) + ' — ' + to.getFullYear() + '-' + this._addZero(to.getMonth() + 1) + '-' + this._addZero(to.getDate());
             return string
         },
         _addZero: function (num) {
@@ -6167,45 +6165,13 @@ modules.define('i-bem__dom', function (provide, DOM) {
 ;
 /* ../../desktop.blocks/m-datepicker/m-datepicker.browser.js begin */
 modules.define('i-bem__dom', ['BEMHTML'], function (provide, BEMHTML, DOM) {
+
     DOM.decl('m-datepicker', {
-        months: {
-            1: 'Январь',
-            2: 'Февраль',
-            3: 'Март',
-            4: 'Апрель',
-            5: 'Май',
-            6: 'Июнь',
-            7: 'Июль',
-            8: 'Август',
-            9: 'Сентябрь',
-            10: 'Октябрь',
-            11: 'Ноябрь',
-            12: 'Декабрь'
-        },
-        shortMonth: {
-            1: 'Янв',
-            2: 'Фев',
-            3: 'Мрт',
-            4: 'Апр',
-            5: 'Май',
-            6: 'Июн',
-            7: 'Июл',
-            8: 'Авг',
-            9: 'Сен',
-            10: 'Окт',
-            11: 'Ноя',
-            12: 'Дек'
-        },
-        weekDays: {
-            1: 'Пн',
-            2: 'Вт',
-            3: 'Ср',
-            4: 'Чт',
-            5: 'Пт',
-            6: 'Сб',
-            7: 'Вс'
-        },
-        getDateFromHumanString: function (humanString) {
+        months: localization.locale_dict.calendar.months,
+        shortMonth: localization.locale_dict.calendar.shortMonth,
+        weekDays: localization.locale_dict.calendar.weekDays,
+
+        getDateFromHumanString: function (humanString) {            
             // Parse X from XXXX-XX-XXTXX:XX:XX.ZXXXX || XXXX-XX-XXTXX:XX:XXZXXXX
             var date,
                 dotIndex = Math.abs(~humanString.search(/\./) || ~humanString.search('Z'));
@@ -6816,6 +6782,7 @@ modules.define('i-bem__dom', ['BEMHTML'], function (provide, BEMHTML, DOM) {
          * @return {BEMJSON}
          */
         _getDatePickerBEMJSON: function () {
+            
             var clearBEMJSON,
                 datePickerBEMJSON = [
                     {
@@ -7390,18 +7357,18 @@ client.on("load", function(client) {
   });
 });
 
-function turnOnTableScreen() {
- $('#uploadScreen').hide();		
- $('#tableScreen').show();
- $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
- $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
- $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
- $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
- $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);}); 
-}
 
 function buildEnvTable(data) {
     $.each( data, function( key, value ) {
         $('#server_environment_table tr:last').after( '<tr><td>' + key + '</td><td>' + value + '</td></tr>' );
     });
 }
+
+$('#button_drop_timespan_filter').click(function(){
+     localized_text = localization.locale_dicts[localization.chosen_language]['TableScreen.FilterMenu.TimePeriod'];
+     $('#fileTimeFilterSpan').text(localized_text);
+     $('.m-datepicker__day_first_yes').removeClass('m-datepicker__day_first_yes');
+     $('.m-datepicker__day_last_yes').removeClass('m-datepicker__day_last_yes');
+     $('#dateMin').val(null).trigger('change');
+     $('#dateMax').val(null).trigger('change');            
+});
