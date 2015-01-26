@@ -67,6 +67,7 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Поля таблицы",
             "TableScreen.FilterMenu.Filepath": "Путь к файлу",
             "TableScreen.FilterMenu.TimePeriod": "Временной интервал",
+            "TableScreen.FilterMenu.DropTimePeriod": "Сбросить",
             "TableScreen.FilterMenu.LoadFilter": "Фильтр/Сравнение",
             "TableScreen.RecipeHint": "Скопируйте скрипт в буфер обмена и выполните через вкладку “Лечение” в Мануле",
             "calendar": {
@@ -148,6 +149,7 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Visible fields",
             "TableScreen.FilterMenu.Filepath": "Path to file",
             "TableScreen.FilterMenu.TimePeriod": "Time interval",
+            "TableScreen.FilterMenu.DropTimePeriod": "Cancel",
             "TableScreen.FilterMenu.LoadFilter": "Filter/Compare",
             "TableScreen.RecipeHint": "Copy the script to the clipboard and execute it via the Treatment tab in Manul",
             "calendar": {
@@ -230,6 +232,7 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Tablo alanları",
             "TableScreen.FilterMenu.Filepath": "Dosyaya ulaşım yolu",
             "TableScreen.FilterMenu.TimePeriod": "Zaman aralığı",
+            "TableScreen.FilterMenu.DropTimePeriod": "Iptal etmek",
             "TableScreen.FilterMenu.LoadFilter": "Filtre/Karşılaştırma",
             "TableScreen.RecipeHint": "Komut dosyasını kopyalayarak 'Virüslerden arındırma' sekmesi üzerinden çalıştırın.",
             "calendar": {
@@ -311,6 +314,7 @@ var localization = {
             "TableScreen.FilterMenu.Fields": "Поля таблиці",
             "TableScreen.FilterMenu.Filepath": "Шлях до файлу",
             "TableScreen.FilterMenu.TimePeriod": "Часовий інтервал",
+            "TableScreen.FilterMenu.DropTimePeriod": "Скасувати",
             "TableScreen.FilterMenu.LoadFilter": "Фільтр/Порівняння",
             "TableScreen.RecipeHint": "Скопіюйте скрипт у буфер обміну та виконайте через вкладку «Лікування» у сканері",
             "calendar": {
@@ -407,6 +411,8 @@ var localization = {
         $('.flag_malicious')._t('TableScreen.FilterMenu.Flags.Malicious');
         $('.filter_path').attr('placeholder', this.locale_dict['TableScreen.FilterMenu.Filepath']);
         $('.filter_timeperiod')._t('TableScreen.FilterMenu.TimePeriod');
+        $('#button_drop_timespan_filter')._t('TableScreen.FilterMenu.DropTimePeriod');
+
         $('.filter_loadfilter')._t('TableScreen.FilterMenu.LoadFilter');
         $('.visible_fields_menu')._t('TableScreen.FilterMenu.Fields');        
     },

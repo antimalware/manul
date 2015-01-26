@@ -68,6 +68,7 @@ function getFileInfoArray(json) {
 		fileInfoArray.push(fileDict['group']);
 		fileInfoArray.push(fileDict['access']);
 		fileInfoArray.push({'md5': fileDict.md5, 'pos': fileDict._pos, 'snippet': fileDict._snippet, 'path': fileDict.path});
+		fileInfoArray.push(fileDict.md5);
 
 		fileInfoArrayArray.push(fileInfoArray);
 	}
