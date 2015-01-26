@@ -5585,7 +5585,7 @@ modules.define('i-bem__dom', function (provide, DOM) {
                 to = date.to,
                 string = '';
 
-            string += from.getFullYear() + '-' + this._addZero(from.getMonth()) + '-' + this._addZero(from.getDate()) + ' — ' + to.getFullYear() + '-' + this._addZero(to.getMonth()) + '-' + this._addZero(to.getDate());
+            string += from.getFullYear() + '-' + this._addZero(from.getMonth() + 1) + '-' + this._addZero(from.getDate()) + ' — ' + to.getFullYear() + '-' + this._addZero(to.getMonth() + 1) + '-' + this._addZero(to.getDate());
             return string
         },
         _addZero: function (num) {
