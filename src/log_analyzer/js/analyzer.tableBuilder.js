@@ -2,6 +2,33 @@ var logLoaded = false;
 var filesDataTable = null;
 var numberItemsInFilter;
 
+var data = "";
+var new_data = "";
+var filters = {};
+function displayContents(xmlStr) {
+    if (logLoaded) {
+        //loading filters from files		        
+        var new_json = parseXMLstrToJSON(xmlStr);		        
+        getFilter(new_json);							
+    } else {
+        //loading log from file
+        logLoaded = true;	
+        var json = parseXMLstrToJSON(xmlStr);
+        if (json ==null) {
+           showProgress(false);
+           alert('Invalid xml file');
+
+           window.location.reload();
+           return;
+        }
+
+        data = getFileInfoArray(json);
+        buildTable(data);      				
+        tryDownloadWhitelist();
+    }					
+};
+
+
 function parseWebsiteLog(fileDictDict) {
     var fileInfoArrayArray = new Array;
     for(var fileDictName in fileDictDict) {
@@ -308,31 +335,6 @@ function applyFilter(filter_name, filter) {
     $(document.getElementById('fb_' + filter_name)).text(filter_stat[filter_name]['filtered']);
 }
 
-var data = "";
-var new_data = "";
-var filters = {};
-function displayContents(xmlStr) {
-    if (logLoaded) {
-        //loading filters from files		        
-        var new_json = parseXMLstrToJSON(xmlStr);		        
-        getFilter(new_json);							
-    } else {
-        //loading log from file
-        logLoaded = true;	
-        var json = parseXMLstrToJSON(xmlStr);
-        if (json ==null) {
-           showProgress(false);
-           alert('Invalid xml file');
-
-           window.location.reload();
-           return;
-        }
-
-        data = getFileInfoArray(json);
-        buildTable(data);      				
-        tryDownloadWhitelist();
-    }					
-};
 
 $('#filter_file_list').on('click', 'input[type="button"]', function(e){
     row = $(this).closest('tr');
