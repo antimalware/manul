@@ -5536,7 +5536,7 @@ modules.define('i-bem__dom', function (provide, DOM) {
                     var self = this;
                     this.bindTo('timeslot', 'click tap', function () {
                         this.toggleMod(this.elem('timeslot'), 'open', 'yes');
-                        console.log(this);
+                       
                         var popupTimeslot = this.findBlockInside({block: 'popup', modName: 'name', modVal: 'timeslot'}),
                             calendar = popupTimeslot.findBlockInside('m-datepicker'),
                             text = this.elem('text-timeslot');
