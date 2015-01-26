@@ -237,41 +237,41 @@ var localization = {
             "TableScreen.RecipeHint": "Komut dosyasını kopyalayarak 'Virüslerden arındırma' sekmesi üzerinden çalıştırın.",
             "calendar": {
                 months: {
-                    1: 'January',
-                    2: 'February',
-                    3: 'March',
-                    4: 'April',
-                    5: 'May',
-                    6: 'June',
-                    7: 'July',
-                    8: 'August',
-                    9: 'September',
-                    10: 'October',
-                    11: 'November',
-                    12: 'December'
+                    1: 'Ocak',
+                    2: 'Şubat',
+                    3: 'Mart',
+                    4: 'Nisan',
+                    5: 'Mayıs',
+                    6: 'Haziran',
+                    7: 'Temmuz',
+                    8: 'Ağustos',
+                    9: 'Eylül',
+                    10: 'Ekim',
+                    11: 'Kasım',
+                    12: 'Aralık'
                 },
                 shortMonth: {
-                    1: 'Jan',
-                    2: 'Feb',
+                    1: 'Oca',
+                    2: 'Şub',
                     3: 'Mar',
-                    4: 'Apr',
+                    4: 'Nis',
                     5: 'May',
-                    6: 'Jun',
-                    7: 'Jul',
-                    8: 'Aug',
-                    9: 'Sep',
-                    10: 'Oct',
-                    11: 'Nov',
-                    12: 'Dec'
+                    6: 'Haz',
+                    7: 'Tem',
+                    8: 'Ağu',
+                    9: 'Eyl',
+                    10: 'Eki',
+                    11: 'Kas',
+                    12: 'Ara'
                 },
                 weekDays: {
-                    1: 'Mo',
-                    2: 'Tu',
-                    3: 'We',
-                    4: 'Th',
-                    5: 'Fr',
-                    6: 'Sa',
-                    7: 'Su'
+                    1: 'Pt',
+                    2: 'Sa',
+                    3: 'Ça',
+                    4: 'Pe',
+                    5: 'Cu',
+                    6: 'Ct',
+                    7: 'Pr'
                 }
     
             } 
