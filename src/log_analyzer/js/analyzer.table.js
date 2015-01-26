@@ -7405,3 +7405,11 @@ function buildEnvTable(data) {
         $('#server_environment_table tr:last').after( '<tr><td>' + key + '</td><td>' + value + '</td></tr>' );
     });
 }
+
+$('#button_drop_timespan_filter').click(function(){
+     $('#fileTimeFilterSpan').text('Временной интервал');
+     $('.m-datepicker__day_first_yes').removeClass('m-datepicker__day_first_yes');
+     $('.m-datepicker__day_last_yes').removeClass('m-datepicker__day_last_yes');
+     $('#dateMin').val(null).trigger('change');
+     $('#dateMax').val(null).trigger('change');            
+});
