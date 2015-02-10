@@ -5,10 +5,18 @@ var numberItemsInFilter;
 var data = "";
 var new_data = "";
 var filters = {};
+
 function displayContents(xmlStr) {
     if (logLoaded) {
-        //loading filters from files		        
-        var new_json = parseXMLstrToJSON(xmlStr);		        
+        //loading filters from files		               
+        new_json = "";
+        signature = xmlStr.substring(0, 16).replace(/\s/, '');
+        //if xmlStr is json file
+        if (signature.indexOf('":{"') >= 0)                
+            new_json = JSON.parse(xmlStr);
+        else {
+            new_json = parseXMLstrToJSON(xmlStr);		        
+        }
         getFilter(new_json);							
     } else {
         //loading log from file
@@ -92,15 +100,23 @@ function getFileInfoArray(json) {
 function getFilter(json) {		    
     if (json.hasOwnProperty('website_info')) {                 
         //another log
+        log_name = 'websitelog';
+        try {
+            scan_date = json.website_info.server_environment.time.split(' ')[0].replace(/\./g,'-');
+            host_name = json.website_info.server_environment.http_host;
+            log_name = localization.locale_dict['TableScreen.Log'] + ': ' + host_name + ' ' + scan_date; 
+        } catch (ex) {
+            console.log(ex);
+        }
         var website_log_filter = parseWhitelist(json.website_info.files.file);
-        applyFilter('websitelog', website_log_filter);
+        applyFilter(log_name, website_log_filter);
         return true;
     } else if (json.hasOwnProperty('whitelist')) {
         //whitelist file
         var whitelist_name = json.whitelist.meta.name + "_" + json.whitelist.meta.version;
         console.log('Whitelist ' + whitelist_name + ' was loaded.');
         var whitelist_filter = parseWhitelist(json.whitelist.files);
-        applyFilter(whitelist_name, whitelist_filter)
+        applyFilter(localization.locale_dict['TableScreen.Whitelist'] + ': ' + whitelist_name, whitelist_filter)
         return true;
     } 
 }
