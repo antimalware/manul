@@ -61,6 +61,7 @@ function parseWebsiteLog(fileDictDict) {
         } else {
             extraData['snippet'] = '-';
         }
+
         fileInfoArray.push(extraData);
         fileInfoArray.push(fileDict.md5);
         fileInfoArrayArray.push(fileInfoArray);
@@ -184,6 +185,62 @@ function escapeHtml(text) {
             .replace(/'/g, "&#039;");
 }
 
+function base64_decode(data) {
+  if (!data)
+     return "";
+
+  //  discuss at: http://phpjs.org/functions/base64_decode/
+  // original by: Tyler Akins (http://rumkin.com)
+  // improved by: Thunder.m
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  //    input by: Aman Gupta
+  //    input by: Brett Zamir (http://brett-zamir.me)
+  // bugfixed by: Onno Marsman
+  // bugfixed by: Pellentesque Malesuada
+  // bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  //   example 1: base64_decode('S2V2aW4gdmFuIFpvbm5ldmVsZA==');
+  //   returns 1: 'Kevin van Zonneveld'
+  //   example 2: base64_decode('YQ===');
+  //   returns 2: 'a'
+
+  var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+  var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+    ac = 0,
+    dec = '',
+    tmp_arr = [];
+
+  if (!data) {
+    return data;
+  }
+
+  data += '';
+
+  do { // unpack four hexets into three octets using index points in b64
+    h1 = b64.indexOf(data.charAt(i++));
+    h2 = b64.indexOf(data.charAt(i++));
+    h3 = b64.indexOf(data.charAt(i++));
+    h4 = b64.indexOf(data.charAt(i++));
+
+    bits = h1 << 18 | h2 << 12 | h3 << 6 | h4;
+
+    o1 = bits >> 16 & 0xff;
+    o2 = bits >> 8 & 0xff;
+    o3 = bits & 0xff;
+
+    if (h3 == 64) {
+      tmp_arr[ac++] = String.fromCharCode(o1);
+    } else if (h4 == 64) {
+      tmp_arr[ac++] = String.fromCharCode(o1, o2);
+    } else {
+      tmp_arr[ac++] = String.fromCharCode(o1, o2, o3);
+    }
+  } while (i < data.length);
+
+  dec = tmp_arr.join('');
+
+  return dec.replace(/\0+$/, '');
+}
 
 function buildTable(data) {
     window.filesDataTable = $('#filesTable').dataTable({
@@ -294,8 +351,8 @@ function buildTable(data) {
                 "sWidth" : "100px",
                 "bAutoWidth": false,
                 "sClass": "table__item",
-                "mRender": function (detectionInfo, type, full) {                        
-                    var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + detectionInfo.snippet + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text quarantine\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Quarantine" ] + "</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text delete\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Delete"] + "</span></button></div>";
+                "mRender": function (detectionInfo, type, full) {   
+                    var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + normalizeSnippet(base64_decode(detectionInfo.snippet)) + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text quarantine\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Quarantine" ] + "</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text delete\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Delete"] + "</span></button></div>";
                     return buttons;
                 }
             },
@@ -310,6 +367,8 @@ function buildTable(data) {
 
 
 }
+
+
 
 function filterColumns() {
     $('.popup_name_columns').find('.list__line').each(function(){
