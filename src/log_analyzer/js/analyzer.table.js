@@ -3948,6 +3948,17 @@ modules.define('button', function (provide, DOM) {
                         popupMore.domElem.on('hide', function () {
                             self.setMod('active', '');
                         })
+
+                        var closeButton = this.findBlockOutside('button-group').findBlockInside('popup__close');
+			if (closeButton) {
+                           closeButton.bindTo('click', function () {
+                        var popupMore = this.findBlockOutside('button-group').findBlockInside('popup'), self = this;
+                               console.log(popupMore);
+                               this.toggleMod('active', 'no');
+                               popupMore.toggle()
+                           }) 
+                        }
+
                     }
 
                     if (this.hasMod('type', 'close-error-log')) {
