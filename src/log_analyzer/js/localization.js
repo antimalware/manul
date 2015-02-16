@@ -63,7 +63,7 @@ var localization = {
             "TableScreen.TableHeader.Action": "Действие",
             "TableScreen.TableHeader.Hash": "Хэш",
             "TableScreen.FilterMenu.Flag": "Флаг",
-            "TableScreen.FilterMenu.Flags.Clean": "Не найдено",
+            "TableScreen.FilterMenu.Flags.NothingFound": "Не найдено",
             "TableScreen.FilterMenu.Flags.Suspicious": "Подозрительный",
             "TableScreen.FilterMenu.Flags.Malicious": "Вредоносный",
             "TableScreen.FilterMenu.Fields": "Поля таблицы",
@@ -147,7 +147,7 @@ var localization = {
             "TableScreen.TableHeader.Action": "Action",
             "TableScreen.TableHeader.Hash": "Hash",
             "TableScreen.FilterMenu.Flag": "Flag",
-            "TableScreen.FilterMenu.Flags.NothigFound": "Nothing found",
+            "TableScreen.FilterMenu.Flags.NothingFound": "Nothing found",
             "TableScreen.FilterMenu.Flags.Suspicious": "Suspicious",
             "TableScreen.FilterMenu.Flags.Malicious": "Malicious",
             "TableScreen.FilterMenu.Fields": "Visible fields",
@@ -232,7 +232,7 @@ var localization = {
             "TableScreen.TableHeader.Action": "Eylem",
             "TableScreen.TableHeader.Hash": "Hash",
             "TableScreen.FilterMenu.Flag": "Bayrak",
-            "TableScreen.FilterMenu.Flags.NothigFound": "Bulunamadı",
+            "TableScreen.FilterMenu.Flags.NothingFound": "Bulunamadı",
             "TableScreen.FilterMenu.Flags.Suspicious": "Şüpheli dosya",
             "TableScreen.FilterMenu.Flags.Malicious": "Kötü amaçlı dosya",
             "TableScreen.FilterMenu.Fields": "Tablo alanları",
@@ -316,7 +316,7 @@ var localization = {
             "TableScreen.TableHeader.Action": "Дія",
             "TableScreen.TableHeader.Hash": "Хэш",
             "TableScreen.FilterMenu.Flag": "Прапор",
-            "TableScreen.FilterMenu.Flags.Clean": "Не знайдено",
+            "TableScreen.FilterMenu.Flags.NothingFound": "Не знайдено",
             "TableScreen.FilterMenu.Flags.Suspicious": "Підозрілий",
             "TableScreen.FilterMenu.Flags.Malicious": "Шкідливий",
             "TableScreen.FilterMenu.Fields": "Поля таблиці",
@@ -414,7 +414,7 @@ var localization = {
         $('.field_attributes')._t('TableScreen.TableHeader.Attributes');
 
         $('.filter__text-flag')._t('TableScreen.FilterMenu.Flag');
-        $('.flag_notfound')._t('TableScreen.FilterMenu.Flags.NothigFound');
+        $('.flag_notfound')._t('TableScreen.FilterMenu.Flags.NothingFound');
         $('.flag_suspicious')._t('TableScreen.FilterMenu.Flags.Suspicious');
         $('.flag_malicious')._t('TableScreen.FilterMenu.Flags.Malicious');
         $('.filter_path').attr('placeholder', this.locale_dict['TableScreen.FilterMenu.Filepath']);

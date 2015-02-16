@@ -92,34 +92,31 @@ function parseXMLstrToJSON(XMLstr) {
     return json;
 }
 
-function loadjscssfile(filename, filetype){
- if (filetype=="js"){ //if filename is a external JavaScript file
-  var fileref=document.createElement('script')
-  fileref.setAttribute("type","text/javascript")
-  fileref.setAttribute("src", filename)
- }
- else if (filetype=="css"){ //if filename is an external CSS file
-  var fileref=document.createElement("link")
-  fileref.setAttribute("rel", "stylesheet")
-  fileref.setAttribute("type", "text/css")
-  fileref.setAttribute("href", filename)
- }
- if (typeof fileref!="undefined")
-  document.getElementsByTagName("head")[0].appendChild(fileref)
+function loadJS(src, callback) {
+    var s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.onreadystatechange = s.onload = function() {
+        var state = s.readyState;
+        if (!callback.done && (!state || /loaded|complete/.test(state))) {
+            callback.done = true;
+            callback();
+        }
+    };
+    document.getElementsByTagName('head')[0].appendChild(s);
 }
-
 
 function turnOnTableScreen() {
     $('#uploadScreen').hide();		
     $('#tableScreen').show();
 
-    loadjscssfile("js/analyzer.table.js", "js");
-
-    $('.popup_name_flag').find('.list_js_inited').change(filterByFlags);
-    $('.popup_name_columns').find('.list_js_inited').change(filterColumns);
-    $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
-    $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
-    $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);}); 
+    loadJS("js/analyzer.table.js", function() {                
+        $('.popup_name_flag').find('.list').change(function(){filesDataTable.DataTable().draw();});
+        $('.popup_name_columns').find('.list').change(filterColumns);
+        $('#dateMin').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+        $('#dateMax').change( function() { console.log(this.value); filesDataTable.DataTable().draw(); } );
+        $('#filePathSearchFilter').keyup(function(){filesDataTable.fnFilter($('#filePathSearchFilter').val(), 1);});  
+    });
 }
 
 
