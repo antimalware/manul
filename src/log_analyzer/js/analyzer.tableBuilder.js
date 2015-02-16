@@ -369,7 +369,6 @@ function buildTable(data) {
 }
 
 
-
 function filterColumns() {
     $('.popup_name_columns').find('.list__line').each(function(){
         var column = filesDataTable.DataTable().column( this.getAttribute('val') );
@@ -378,14 +377,6 @@ function filterColumns() {
     });
 }
 
-function filterByFlags() {
-
-    var flags = [];
-    $('.popup_name_flag').find('.list__line_checked_yes').each(function(){flags.push(this.getAttribute('val'))});
-    console.log($('.popup_name_flag').find('.list__line_checked_yes'));
-    console.log(flags);
-    filesDataTable.DataTable().draw();
-}	
 
 function applyFilter(filter_name, filter) {
     filters[filter_name] = filter;
