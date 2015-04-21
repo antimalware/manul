@@ -1,3 +1,55 @@
+H1
+{
+  margin: 0;
+  padding: 0;
+}
+
+.head__menu
+{
+    margin: 10px 0 0 0px;
+}
+
+.head__menu-item
+{
+    font-size: 15px;
+
+    display: inline-block;
+
+    margin-right: 20px;
+    padding-top: 16px;
+
+    text-decoration: none;
+
+    color: #2b4494;
+}
+
+a.head__menu-item:hover
+{
+    color: red;
+}
+
+.head__menu-item_active_yes
+{
+    padding-top: 13px;
+
+    color: #000;
+    border-top: 3px solid;
+}
+
+.header
+{
+    font-size: 22px;
+    font-weight: normal;
+}
+
+.header_type_main
+{
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+
 .language_pane
 {
    position: relative;
@@ -74,30 +126,6 @@
     right: 0;
 }
 
-.head__menu
-{
-    margin: 10px 0 0 15px;
-}
-
-.head__menu-item
-{
-    font-size: 15px;
-
-    display: inline-block;
-
-    margin-right: 20px;
-    padding-top: 16px;
-
-    text-decoration: none;
-
-    color: #2b4494;
-}
-
-a.head__menu-item:hover
-{
-    color: red;
-}
-
 .head__menu-item_active_yes
 {
     padding-top: 13px;
@@ -106,27 +134,12 @@ a.head__menu-item:hover
     border-top: 3px solid;
 }
 
-.header
-{
-    font-size: 22px;
-    font-weight: normal;
-}
-
-.header_type_main
-{
-    font-size: 28px;
-    font-weight: 700;
-
-    margin: 0;
-}
-
 h2 {
     font-size: 22px;
     font-weight: normal;
 }
 
-.page,
-html
+.page, html
 {
     height: 100%;
 }
@@ -436,14 +449,10 @@ button::-moz-focus-inner
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header, .marketing, .footer {
+.marketing, .footer {
     padding-left: 15px;
     padding-right: 15px;
 }
-/* Custom page header */
-.header {
-}
-
 .footer
 {
     font-size: 13px;
@@ -536,7 +545,7 @@ a, .b-link:hover
     }
     /* Space out the masthead */
     .header {
-        margin-bottom: 30px;
+       // margin-bottom: 30px;
     }
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {

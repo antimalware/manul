@@ -242,6 +242,42 @@ function base64_decode(data) {
   return dec.replace(/\0+$/, '');
 }
 
+function base64_encode( data ) {	// Encodes data with MIME base64
+	// 
+	// +   original by: Tyler Akins (http://rumkin.com)
+	// +   improved by: Bayron Guevara
+
+	var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+	var o1, o2, o3, h1, h2, h3, h4, bits, i=0, enc='';
+
+	do { // pack three octets into four hexets
+		o1 = data.charCodeAt(i++);
+		o2 = data.charCodeAt(i++);
+		o3 = data.charCodeAt(i++);
+
+		bits = o1<<16 | o2<<8 | o3;
+
+		h1 = bits>>18 & 0x3f;
+		h2 = bits>>12 & 0x3f;
+		h3 = bits>>6 & 0x3f;
+		h4 = bits & 0x3f;
+
+		// use hexets to index into b64, and append result to encoded string
+		enc += b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+	} while (i < data.length);
+
+	switch( data.length % 3 ){
+		case 1:
+			enc = enc.slice(0, -2) + '==';
+		break;
+		case 2:
+			enc = enc.slice(0, -1) + '=';
+		break;
+	}
+
+	return enc;
+}
+
 function buildTable(data) {
     window.filesDataTable = $('#filesTable').dataTable({
        "order": [[ 0, "desc" ]],
@@ -352,7 +388,7 @@ function buildTable(data) {
                 "bAutoWidth": false,
                 "sClass": "table__item",
                 "mRender": function (detectionInfo, type, full) {   
-                    var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + detectionInfo.md5 + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + detectionInfo.md5 + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + normalizeSnippet(base64_decode(detectionInfo.snippet)) + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text quarantine\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Quarantine" ] + "</span></button><button id=\"d_" + detectionInfo.md5 + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + detectionInfo.md5 + "', '" + detectionInfo.path + "')\"><span class=\"button__text delete\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Delete"] + "</span></button></div>";
+                    var buttons = "<div class=\"button-group i-bem button-group_js_inited\" hash='" + base64_encode(detectionInfo.path) + "'><div class=\"popup popup_visibility_hidden i-bem popup_js_inited\" data-bem=\"{&quot;popup&quot;:{&quot;0&quot;:&quot;t&quot;,&quot;1&quot;:&quot;r&quot;,&quot;2&quot;:&quot;u&quot;,&quot;3&quot;:&quot;e&quot;}}\"><div class=\"popup__close\"></div><div class=\"popup__content\"><table class=\"table\"><tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Hash </td><td class=\"table__item\">" + base64_encode(detectionInfo.path) + "</td></tr></tbody><tr class=\"table__line\"><td class=\"table__item table__item_bold_yes\"> Snippet </td><td class=\"table__item\">" + normalizeSnippet(base64_decode(detectionInfo.snippet)) + "</td></tr></table></div></div><button class=\"button_more_yes button i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" type=\"button\"><div class=\"button__arrow\"></div></button><button id=\"q_" + base64_encode(detectionInfo.path) + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_quarantine('" + base64_encode(detectionInfo.path) + "', '" + detectionInfo.path + "')\"><span class=\"button__text quarantine\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Quarantine" ] + "</span></button><button id=\"d_" + base64_encode(detectionInfo.path) + "\" class=\"button button_size_s i-bem\" data-bem=\"{&quot;button&quot;:{}}\" role=\"button\" onclick=\"return add_delete('" + base64_encode(detectionInfo.path) + "', '" + detectionInfo.path + "')\"><span class=\"button__text delete\">" + localization.locale_dicts[localization.chosen_language]["TableScreen.Delete"] + "</span></button></div>";
                     return buttons;
                 }
             },

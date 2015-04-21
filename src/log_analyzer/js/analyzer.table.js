@@ -6741,6 +6741,12 @@ modules.define('i-bem__dom', ['BEMHTML'], function (provide, BEMHTML, DOM) {
             var target = $(e.target)
             var first,
                 last;
+
+            // if click at empty cell
+            if (!target.attr('data-content')) {
+               return false;  
+            }
+
             // run this._buildDatepicker(current year, current month, target text node) if target is 'm-datepicker__day'
             if (!this._dateChoosingState) {
                 this.selectingDates = {};
