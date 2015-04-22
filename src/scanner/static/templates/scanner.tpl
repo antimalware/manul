@@ -22,6 +22,7 @@
            <div class="head__uninstall">
                 <button class="button small_button_font" id="deleteButton">{PS_DELETE_TOOL_BUTTON_TITLE}</button>
            </div>
+
            <div class="head__menu">
                 <a class="head__menu-item head__menu-item_active_yes" href="index.php?controller=scanner">{PS_TITLE_SCANNER}</span>
                 <a class="head__menu-item" href="index.php?controller=executor">{PS_TITLE_EXECUTOR}</a>
@@ -52,7 +53,9 @@
                 </div>
                 <p class="lead" id="scannerDescription">{PS_BODYTEXT}</p>
                 <div id="result_area">
-                    <div class="instructions">{PS_FURTHER_INSTRUCTIONS}</div>
+                    <div class="instructions"><b>{PS_FURTHER_INSTRUCTIONS_TITLE}</b></div>
+                    <div class="instructions">{PS_FURTHER_INSTRUCTIONS_1}</div>
+                    <div class="instructions">{PS_FURTHER_INSTRUCTIONS_2}</div>
                     <a class="button_action" href="{PS_ARCHIVE_DOWNLOAD_URL}">{PS_DOWNLOAD_LOG}</a>
                 </div>
                 <div class="header">
