@@ -178,19 +178,10 @@ $(document).ready(function(){
 
         sendRequest("index.php?controller=scanner&a=cleanUp", function() {console.log('Cleanup sent')});
 
-
-        $("#settingsLink").click(function() {        
-            if ($('#configPanel').is(":visible")) { 
-                $('#configPanel').hide();
-
-            } else {
-                $('#configPanel').show();
-            }        
-
+        $("#settingsLink").click(function(event) {        
+            $('#configPanel').toggle();
             event.stopPropagation();
-         } 
-        );
-
+        });
 
         $("#configPanel").click(function() {        
             clickAtConfig = ($('#configPanel').is(":visible"));
