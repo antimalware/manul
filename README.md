@@ -2,6 +2,8 @@ Manul: a simple extensible antimalware tool for websites
 ====================
 An utility which allows to analyze website logs made by Manul.
 
+Warning: there is no auto-update in scanner. It is strongly recommended to remove the scanner from the server after scanning due to possible security issues.
+
 ====================
 Log example:
 
