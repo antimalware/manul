@@ -7,6 +7,14 @@ ob_end_clean();
 
 class DownloadController {
 
+     function __construct() {      
+	$authenticator = new Auth();
+	if (!$authenticator->auth()) {
+             header("HTTP/1.0 403 Forbidden");
+             die(); 
+        }
+    }
+
     function streamFileContent($filename, $need_to_delete = false) {
         header("Pragma: public");
         header("Expires: 0");
