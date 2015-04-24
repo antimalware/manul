@@ -48,25 +48,14 @@ class DownloadController
         $archiver = new Archiver($packedLogFilename, 'a');
         $archiver->createFile(basename($logFilename), $xml_data);
 
-        // make it a bit safer
-        $_COOKIE['qarc_filename'] = trim($_COOKIE['qarc_filename']);
-
-        if (strpos(realpath($_COOKIE['qarc_filename']), $projectTmpDir) !== 0) {
-            die('Fatal: Invalid cookie value [' . $_COOKIE['qarc_filename'] . ']');
-        }
-
-        if (isset($_COOKIE['qarc_filename'])) {
-            $archiver->addFile($_COOKIE['qarc_filename'], basename($_COOKIE['qarc_filename']));
+        $quarantineFilepathFilepath = $projectTmpDir . '/malware_quarantine_filepath.tmp.txt';
+        if (file_exists($quarantineFilepathFilepath)) {
+            $quarantineFilepath = file_get_contents($quarantineFilepathFilepath);
+            $archiver->addFile($quarantineFilepath, basename($quarantineFilepath));
+            unlink($quarantineFilepathFilepath);
         }
 
         $archiver->close();
-
-        // unlink needs to be after $archiver->close() to zip it properly
-        if (isset($_COOKIE['qarc_filename'])) {
-            unlink($_COOKIE['qarc_filename']);
-            unset($_COOKIE['qarc_filename']);
-            setcookie('qarc_filename', -1, -1, '/', $_SERVER['HTTP_HOST'], false, true);
-        }
 
         $this->streamFileContent($packedLogFilename, true);
         unlink($logFilename);
