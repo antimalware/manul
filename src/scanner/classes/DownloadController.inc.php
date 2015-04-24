@@ -40,7 +40,7 @@ class DownloadController {
         // make it a bit safer
         $_COOKIE['qarc_filename'] = trim($_COOKIE['qarc_filename']);
 
-        if (strpos($_COOKIE['qarc_filename'], $project_tmp_dir) !== 0) {
+        if (strpos(realpath($_COOKIE['qarc_filename']), $project_tmp_dir) !== 0) {
            die("Fatal: Invalid cookie value [" . $_COOKIE['qarc_filename'] . "]"); 
         }
 
