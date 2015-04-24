@@ -1,11 +1,14 @@
 <?php
-#ZipArchive requies PHP above 5.2
-class Archiver {
 
+#ZipArchive requies PHP above 5.2
+class Archiver
+{
     private $filename = "";
     private $mode = "";
     private $archive = NULL;
-    public function __construct($filename, $mode = "r") {
+
+    public function __construct($filename, $mode = "r")
+    {
         $this->filename = $filename;
         $this->mode = $mode;
         $result = false;
@@ -22,8 +25,11 @@ class Archiver {
         $this->archive = $archive;
     }
 
-    public function addFile($filename, $target_filename = NULL) {
-        if ($this->mode === "r") die(PS_ERR_ARCHIVE_WRITE_INCORRECT_MODE);
+    public function addFile($filename, $target_filename = NULL)
+    {
+        if ($this->mode === "r") {
+            die(PS_ERR_ARCHIVE_WRITE_INCORRECT_MODE);
+        }
         if (!$target_filename) {
             $this->archive->addFile($filename);
         } else {
@@ -31,11 +37,13 @@ class Archiver {
         }
     }
 
-    public function createFile($filename, $str) {
+    public function createFile($filename, $str)
+    {
         $this->archive->addFromString($filename, $str);
     }
 
-    public function close() {
+    public function close()
+    {
         $this->archive->close();
     }
 }

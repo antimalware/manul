@@ -1,4 +1,5 @@
 <?php
+
 define('MANUL_LANG_ID_RU', 'ru');
 define('MANUL_LANG_ID_EN', 'en');
 define('MANUL_LANG_ID_UA', 'uk');
@@ -9,31 +10,31 @@ define('MANUL_LANG_ID_DEFAULT', MANUL_LANG_ID_EN);
 $locals = array(MANUL_LANG_ID_RU, MANUL_LANG_ID_EN, MANUL_LANG_ID_UA, MANUL_LANG_ID_TR);
 
 if (!isset($_COOKIE['lang'])) {
-  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-     $current_lang = @substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-  } else {
-     $current_lang = MANUL_LANG_ID_DEFAULT;
-  }
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $current_lang = @substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    } else {
+        $current_lang = MANUL_LANG_ID_DEFAULT;
+    }
 } else {
-  $current_lang = @substr($_COOKIE['lang'], 0, 2);
-  if (!in_array($current_lang, $locals)) {
-     $current_lang = MANUL_LANG_ID_DEFAULT;
-  }
+    $current_lang = @substr($_COOKIE['lang'], 0, 2);
+    if (!in_array($current_lang, $locals)) {
+        $current_lang = MANUL_LANG_ID_DEFAULT;
+    }
 }
 
 switch ($current_lang) {
-      case MANUL_LANG_ID_EN: 
-                             $lang_domain = 'http://help.yandex.com';  
-                             break;
-      case MANUL_LANG_ID_UA: 
-                             $lang_domain = 'http://help.yandex.ua'; 
-                             break;
-      case MANUL_LANG_ID_TR: 
-                             $lang_domain = 'http://yardim.yandex.com.tr'; 
-                             break;
-                    default: 
-                             $lang_domain = 'http://help.yandex.ru';
-   }
+    case MANUL_LANG_ID_EN:
+        $lang_domain = 'http://help.yandex.com';
+        break;
+    case MANUL_LANG_ID_UA:
+        $lang_domain = 'http://help.yandex.ua';
+        break;
+    case MANUL_LANG_ID_TR:
+        $lang_domain = 'http://yardim.yandex.com.tr';
+        break;
+    default:
+        $lang_domain = 'http://help.yandex.ru';
+}
 
 define('PS_HELP_URL', $lang_domain);
 
