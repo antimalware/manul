@@ -1,42 +1,44 @@
 <?php
 
-require_once("Archiver.inc.php");
-require_once("FileInfo.inc.php");
+require_once('Archiver.inc.php');
+require_once('FileInfo.inc.php');
 
-class Healer {
+class Healer
+{
 
-    function __construct() {
+    function __construct()
+    {
+        global $projectTmpDir;
 
-        global $project_tmp_dir;
-
-        $time_string = date("Y_m_d_H_i", $_SERVER["REQUEST_TIME"]);
-        $this->quarantine_filename = $project_tmp_dir . '/' . "quarantine." . $time_string . ".zip";
-        $this->backup_filename = $project_tmp_dir . '/' .  "manul_deleted_files_backup." . $time_string . ".zip";
+        $timeString = date('Y_m_d_H_i', $_SERVER['REQUEST_TIME']);
+        $this->quarantineFilename = $projectTmpDir . '/quarantine.' . $timeString . '.zip';
+        $this->backupFilename = $projectTmpDir . '/manul_deleted_files_backup.' . $timeString . '.zip';
 
         $this->log = "";
-        
-        $this->web_root_dir = $_SERVER['DOCUMENT_ROOT'];
 
-        if (file_exists($this->quarantine_filename) && (!isset($_COOKIE['quarantine_file']))) {
-            $this->log .= sprintf(PS_DELETE_ARCHIVE, $this->quarantine_filename);
-            unlink($this->quarantine_filename);
+        $this->webRootDir = $_SERVER['DOCUMENT_ROOT'];
+
+        if (file_exists($this->quarantineFilename) && (!isset($_COOKIE['quarantine_file']))) {
+            $this->log .= sprintf(PS_DELETE_ARCHIVE, $this->quarantineFilename);
+            unlink($this->quarantineFilename);
         }
 
         $this->archiver = null;
     }
 
-    function getQuarantineFilename() {
-        return $this->quarantine_filename;
+    function getQuarantineFilename()
+    {
+        return $this->quarantineFilename;
     }
 
-    function parseXmlRecipe($xml_recipe) {
-        $dom;
+    function parseXmlRecipe($xmlRecipe)
+    {
+        $dom = NULL;
         try {
-            $dom = new DOMDocument("1.0", "utf-8");
-	        $dom->formatOutput = true; 
-            $dom->loadXML($xml_recipe);
-        }
-        catch(Exception $e) {
+            $dom = new DOMDocument('1.0', 'utf-8');
+            $dom->formatOutput = true;
+            $dom->loadXML($xmlRecipe);
+        } catch (Exception $e) {
             die(sprintf(PS_ERR_EXCEPTION_OCCURED, $e->getMessage()));
         }
         if (!$dom) {
@@ -45,7 +47,8 @@ class Healer {
         return $dom;
     }
 
-    function quarantineFile($filename) {
+    function quarantineFile($filename)
+    {
 
         if (!is_file($filename)) {
             $this->log .= '<div class="err">' . sprintf(PS_ERR_QUARANTINE_NOT_EXISTS, $filename) . '</div>';
@@ -53,93 +56,95 @@ class Healer {
         }
 
         $fileinfo = new FileInfo($filename);
-        $file_hash = $fileinfo->md5;
+        $fileHash = $fileinfo->md5;
 
-        $this->archiver->addFile($filename, $file_hash);
-        $meta_filename = $file_hash . ".meta";
+        $this->archiver->addFile($filename, $fileHash);
+        $metaFilename = $fileHash . '.meta';
 
-        $this->archiver->createFile($meta_filename, (string)$fileinfo);
+        $this->archiver->createFile($metaFilename, (string)$fileinfo);
 
         return true;
     }
 
-    function deleteFile($filename) {
+    function deleteFile($filename)
+    {
         if (!is_file($filename)) {
             $this->log .= '<div class="err">' . sprintf(PS_ERR_DELETE_NOT_EXISTS, $filename) . '</div>';
             return false;
         }
-         
+
         return unlink($filename);
     }
 
-    function deleteDir($dirname) { 
+    function deleteDir($dirname)
+    {
+        if (!is_dir($dirname) || is_link($dirname)) return unlink($dirname);
+        foreach (scandir($dirname) as $file) {
+            if ($file == '.' || $file == '..') continue;
+            if (!$this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file)) {
+                chmod($dirname . DIRECTORY_SEPARATOR . $file, 0777);
+                $this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file);
+            };
+        }
 
-        if (!is_dir($dirname) || is_link($dirname)) return unlink($dirname); 
-        foreach (scandir($dirname) as $file) { 
-            if ($file == '.' || $file == '..') continue; 
-            if (!$this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file)) { 
-                chmod($dirname . DIRECTORY_SEPARATOR . $file, 0777); 
-                $this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file);                
-            }; 
-        } 
-
-        return rmdir($dirname); 
-    } 
-
-    function prepareList($xml_recipe, &$quarantine_list, &$delete_list) {
-       $recipe = $this->parseXmlRecipe($xml_recipe);
-
-       $quarantine_files = $recipe->getElementsByTagName("quarantine");
-       $delete_files = $recipe->getElementsByTagName("delete");
-
-       foreach ($quarantine_files as $quarantine_file_node) {
-           $filename = trim(str_replace('../', '', $quarantine_file_node->nodeValue));
-           $quarantine_list[] = $filename;
-       }
-
-       foreach ($delete_files as $delete_file_node) {
-           $filename = trim(str_replace('../', '', $delete_file_node->nodeValue));
-           $delete_list[] = $filename;            
-       }                    
+        return rmdir($dirname);
     }
 
-    function executeXmlRecipe($delete_files, $quarantine_files, &$num_quarantined) {
+    function prepareList($xmlRecipe, &$quarantineList, &$deleteList)
+    {
+        $recipe = $this->parseXmlRecipe($xmlRecipe);
+
+        $quarantineFiles = $recipe->getElementsByTagName('quarantine');
+        $deleteFiles = $recipe->getElementsByTagName('delete');
+
+        foreach ($quarantineFiles as $quarantineFileNode) {
+            $filename = trim(str_replace('../', '', $quarantineFileNode->nodeValue));
+            $quarantineList[] = $filename;
+        }
+
+        foreach ($deleteFiles as $deleteFileNode) {
+            $filename = trim(str_replace('../', '', $deleteFileNode->nodeValue));
+            $deleteList[] = $filename;
+        }
+    }
+
+    function executeXmlRecipe($deleteFiles, $quarantineFiles, &$numQuarantined)
+    {
 
         //Put suspicious file in quarantine archive
-        $this->archiver = new Archiver($this->quarantine_filename, "a");
-        
-        $num_quarantined = 0;
+        $this->archiver = new Archiver($this->quarantineFilename, 'a');
 
-        foreach ($quarantine_files as $filename) {
-            $absolute_path = $this->web_root_dir . substr($filename, 1); 
-            if ($this->quarantineFile($absolute_path)) {
+        $numQuarantined = 0;
+
+        foreach ($quarantineFiles as $filename) {
+            $absolutePath = $this->webRootDir . substr($filename, 1);
+            if ($this->quarantineFile($absolutePath)) {
                 $this->log .= sprintf(PS_WAS_QUARANTINED, $filename) . '<br/>';
-                $num_quarantined++;
-            } 
+                $numQuarantined++;
+            }
         }
 
         $this->archiver->close();
 
         //Put malicious files to backup archive and delete them      
-        foreach ($delete_files as $filename) {
-            $this->archiver = new Archiver($this->backup_filename, "a");
+        foreach ($deleteFiles as $filename) {
+            $this->archiver = new Archiver($this->backupFilename, "a");
 
-            $absolute_path = $this->web_root_dir . substr($filename, 1); 
+            $absolutePath = $this->webRootDir . substr($filename, 1);
 
-            $this->quarantineFile($absolute_path);
+            $this->quarantineFile($absolutePath);
 
             $this->archiver->close();
 
-            if ($this->deleteFile($absolute_path)) {             
+            if ($this->deleteFile($absolutePath)) {
                 $this->log .= sprintf(PS_WAS_DELETED, $filename) . '<br/>';
             }
+        }
 
-        } 
-   
 
-        if (file_exists($this->quarantine_filename)) {
-           setcookie('quarantine_file', $this->quarantine_filename, time() + 86400, '/', $_SERVER['HTTP_HOST'], false, true);
-           $_COOKIE['quarantine_file'] = $this->quarantine_filename;
+        if (file_exists($this->quarantineFilename)) {
+            setcookie('quarantine_file', $this->quarantineFilename, time() + 86400, '/', $_SERVER['HTTP_HOST'], false, true);
+            $_COOKIE['quarantine_file'] = $this->quarantineFilename;
         }
 
         return $this->log;
