@@ -29,8 +29,11 @@ define('CMS_VERSION_UNDEFINED', '0.0');
 
 class CmsVersionDetector
 {
+    /** @var string */
     private $root_path;
+    /** @var array */
     private $versions;
+    /** @var array */
     private $types;
 
     public function __construct($root_path = '.')
@@ -138,7 +141,6 @@ class CmsVersionDetector
             if (preg_match('|define\("SM_VERSION","(.+?)"\)|smi', $tmp_content, $tmp_ver)) {
                 $version = $tmp_ver[1];
             }
-
         }
 
         return $res;
@@ -198,7 +200,6 @@ class CmsVersionDetector
                     $version .= '.' . $tmp_ver[1];
                 }
             }
-
         }
 
         return $res;
@@ -275,7 +276,6 @@ class CmsVersionDetector
             if (preg_match('|([0-9\.]+)|smi', $tmp_content, $tmp_ver)) {
                 $version = $tmp_ver[1];
             }
-
         }
 
         return $res;
@@ -293,7 +293,6 @@ class CmsVersionDetector
             if (preg_match('|Drupal\s+([0-9\.]+)|smi', $tmp_content, $tmp_ver)) {
                 $version = $tmp_ver[1];
             }
-
         }
 
         return $res;
@@ -379,7 +378,6 @@ class CmsVersionDetector
             if (preg_match('|STRING_VERSION\',\s*\'(.+?)\'|smi', $tmp_content, $tmp_ver)) {
                 $version = $tmp_ver[1];
             }
-
         }
 
         return $res;
@@ -387,8 +385,6 @@ class CmsVersionDetector
 
     public function getXMLNode()
     {
-
-
         $cmsNames = $this->getCmsList();
         $cmsVersions = $this->getCmsVersions();
 
@@ -403,6 +399,7 @@ class CmsVersionDetector
         }
 
         $dom->appendChild($cms_list_node);
+
         return $dom->getElementsByTagName("cms_list")->item(0);
     }
 }
