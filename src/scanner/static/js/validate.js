@@ -1,7 +1,9 @@
 ﻿function validateXML(txt) {
+    var xmlDoc;
+
     // code for IE
     if (window.ActiveXObject) {
-        var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
         xmlDoc.async = "false";
         xmlDoc.loadXML(document.all(txt).value);
 
@@ -13,18 +15,11 @@
         } else {
             alert(PT_STR_NO_ERROR_FOUND);
         }
-    }
-    // code for Mozilla, Firefox, Opera, etc.
-    else if (document.implementation.createDocument) {
+    } else if (document.implementation.createDocument) { // code for Mozilla, Firefox, Opera, etc.
         var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(txt, "text/xml");
+        xmlDoc = parser.parseFromString(txt, "text/xml");
 
-        if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-            //checkErrorXML(xmlDoc.getElementsByTagName("parsererror")[0]);
-            return false;
-        } else {
-            return true;
-        }
+        return xmlDoc.getElementsByTagName("parsererror").length <= 0;
     } else {
         alert(PT_STR_NO_XML_SUPPORT);
         return false;
@@ -32,9 +27,7 @@
 }
 
 function validate_recipe(form) {
-
     var recipe = form.recipe.value;
-    var deletes = false;
     var valid_recipe = true;
 
     if (recipe.indexOf('<recipe>') == -1 || !validateXML(recipe)) {
