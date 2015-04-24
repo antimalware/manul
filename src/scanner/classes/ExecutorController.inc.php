@@ -26,7 +26,7 @@ class ExecutorController
             if (get_magic_quotes_gpc()) $xmlRecipe = stripslashes($xmlRecipe);
 
             //TODO: immplement proper XXE prevention or switch to JSON instead
-            if (strpos($xmlRecipe, '<!ENTITY') !== false) {
+            if (strpos(strtoupper($xmlRecipe), '<!ENTITY') !== false) {
                 die('XXE detected');
             }
 
