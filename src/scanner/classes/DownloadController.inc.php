@@ -10,7 +10,7 @@ class DownloadController {
      function __construct() {      
 	$authenticator = new Auth();
 	if (!$authenticator->auth()) {
-             header("403 Forbidden");
+             header("HTTP/1.0 403 Forbidden");
              die(); 
         }
     }
