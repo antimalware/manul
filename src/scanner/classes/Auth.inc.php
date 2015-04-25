@@ -91,7 +91,7 @@ class Auth
         setcookie('antimalware_password_hash', $passwordHash, $cookieExpirationTimestamp,
                    $cookiePath, null, null, $httpOnly);
         $_COOKIE['antimalware_password_hash'] = $passwordHash;
-        file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden');\n" . $passwordHash);
+        file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden'); ?>\n" . $passwordHash);
     }
 
     function auth()
