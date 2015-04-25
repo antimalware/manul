@@ -16,14 +16,14 @@ ob_end_clean();
 class ScannerController
 {
 
-    function templateOutput($interval)
+    private function templateOutput($interval)
     {
         $view = new View();
         define('PS_REQUEST_DELAY', $interval);
         $view->display('scanner.tpl');
     }
 
-    function removeTempFiles()
+    private function removeTempFiles()
     {
         global $projectTmpDir;
         @unlink($projectTmpDir . '/scan_log.xml');
@@ -31,7 +31,7 @@ class ScannerController
         array_map('unlink', glob($projectTmpDir . '/*.manul.tmp'));
     }
 
-    function getXMLReport()
+    private function getXMLReport()
     {
         $fileScanner = new FileList();
 
@@ -61,13 +61,11 @@ class ScannerController
         return $dom->saveXML();
     }
 
-    function start()
+    public function start()
     {
-
         global $projectTmpDir, $php_errormsg;
 
         $authenticator = new Auth();
-
         if ($authenticator->auth()) {
 
             ob_start();
@@ -79,36 +77,34 @@ class ScannerController
                 $fileScanner = new FileList();
                 $fileScanner->setInterval($interval);
 
-                if ($action == 'cleanUp') {
+                if ($action === 'cleanUp') {
 
                     $this->removeTempFiles();
                     print(json_encode(array('type' => 'cleanUp', 'status' => 'ok', 'phpError' => $php_errormsg)));
 
-                } else if ($action == 'getFileList') {
+                } else if ($action === 'getFileList') {
 
                     echo $fileScanner->performScanning();
 
-                } else if ($action == 'getSignatureScanResult') {
+                } else if ($action === 'getSignatureScanResult') {
 
                     $this->detector = new MalwareDetector();
                     $this->detector->setRequestDelay($interval);
                     print $this->detector->malwareScanRound();
 
-                } else if ($action == 'getWebsiteLog') {
+                } else if ($action === 'getWebsiteLog') {
                     //REPORTING
                     $xmlLog = $this->getXMLReport();
                     $logFilename = $projectTmpDir . '/scan_log.xml';
                     file_put_contents2($logFilename, $xmlLog);
 
                     print json_encode(array('type' => 'getWebsiteLog', 'status' => 'ok', 'phpError' => $php_errormsg));
-
                 }
             } else {
                 //GENERATE INTERFACE
                 $fileScanner = new FileList();
                 define('PS_ARCHIVE_DOWNLOAD_URL', $_SERVER['PHP_SELF'] . '?controller=download&f=report');
                 $this->templateOutput($fileScanner->getInterval());
-
             }
         }
     }

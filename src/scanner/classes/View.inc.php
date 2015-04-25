@@ -12,7 +12,7 @@ class View
         $this->_path = $projectRootDir . '/static/templates/' . $path;
     }
 
-    function setTemplateDirAbsolutePath($path)
+    public function setTemplateDirAbsolutePath($path)
     {
         $this->_path = $path;
     }
@@ -52,7 +52,7 @@ class View
                 if (defined($constantName)) {
                     $content = str_replace('{' . $constantName . '}', constant($constantName), $content);
                 } else {
-                    $content = str_replace('{' . $constantName . '}', "", $content);
+                    $content = str_replace('{' . $constantName . '}', '', $content);
                 }
             }
         }
@@ -62,7 +62,7 @@ class View
 
     private function _strip($data)
     {
-        $lit = array("\\t", "\\n", "\\n\\r", "\\r\\n", "  ");
+        $lit = array("\\t", "\\n", "\\n\\r", "\\r\\n", '  ');
         $sp = array('', '', '', '', '');
         return str_replace($lit, $sp, $data);
     }

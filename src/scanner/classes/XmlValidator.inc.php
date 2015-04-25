@@ -2,7 +2,7 @@
 
 class XmlValidator
 {
-    function libxmlDisplayError($error)
+    private function libxmlDisplayError($error)
     {
         $return = "<br/>\n";
         switch ($error->level) {
@@ -24,7 +24,7 @@ class XmlValidator
         return $return;
     }
 
-    function libxmlDisplayErrors()
+    private function libxmlDisplayErrors()
     {
         $errors = libxml_get_errors();
         foreach ($errors as $error) {
@@ -33,7 +33,7 @@ class XmlValidator
         libxml_clear_errors();
     }
 
-    function validate($xmlStr, $schemaPath)
+    public function validate($xmlStr, $schemaPath)
     {
         libxml_use_internal_errors(true);
         $xml = new DOMDocument();

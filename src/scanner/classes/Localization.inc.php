@@ -1,4 +1,5 @@
 <?php
+
 define('MANUL_LANG_ID_RU', 'ru');
 define('MANUL_LANG_ID_EN', 'en');
 define('MANUL_LANG_ID_UA', 'uk');
@@ -42,7 +43,7 @@ define('PS_HELP_URL', $langDomain);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Lang: ru
-if ($currentLang === "ru") {
+if ($currentLang === 'ru') {
     define('PS_SCANNING_FILE', 'Сканируем');
     define('PS_SCANNING_OF', 'из');
     define('PS_SEND_REPORT_BUTTON', 'Отправить отчет');
@@ -138,7 +139,7 @@ if ($currentLang === "ru") {
 }
 
 // Lang: en
-if ($currentLang === "en") {
+if ($currentLang === 'en') {
     define('PS_SCANNING_FILE', 'Scanning');
     define('PS_SCANNING_OF', 'out of');
     define('PS_SEND_REPORT_BUTTON', 'Send report');
@@ -234,7 +235,7 @@ if ($currentLang === "en") {
 }
 
 // Lang: tr
-if ($currentLang === "tr") {
+if ($currentLang === 'tr') {
     define('PS_SCANNING_FILE', 'Taranıyor');
     define('PS_SCANNING_OF', 'Toplam dosyadan taranan dosya sayısı: ');
     define('PS_CHECKER_ROOT_READABLE', 'Ana klasör salt okunur:');
@@ -330,7 +331,7 @@ if ($currentLang === "tr") {
 }
 
 // Lang: uk
-if ($currentLang === "uk") {
+if ($currentLang === 'uk') {
     define('PS_SCANNING_FILE', 'Скануємо');
     define('PS_SCANNING_OF', 'із');
     define('PS_CHECKER_ROOT_READABLE', 'Кореневий каталог доступний для читання:');

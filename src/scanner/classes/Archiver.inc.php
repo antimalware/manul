@@ -2,10 +2,9 @@
 #ZipArchive requies PHP above 5.2
 class Archiver
 {
-
     private $filename = '';
     private $mode = '';
-    private $archive = NULL;
+    private $archive = null;
 
     public function __construct($filename, $mode = 'r')
     {
@@ -25,7 +24,7 @@ class Archiver
         $this->archive = $archive;
     }
 
-    public function addFile($filename, $targetFilename = NULL)
+    public function addFile($filename, $targetFilename = null)
     {
         if ($this->mode === 'r') die(PS_ERR_ARCHIVE_WRITE_INCORRECT_MODE);
         if (!$targetFilename) {
@@ -45,3 +44,4 @@ class Archiver
         $this->archive->close();
     }
 }
+

@@ -1,7 +1,9 @@
 <?php
 
+ob_start();
 require_once('Localization.inc.php');
-require_once("View.inc.php");
+require_once('View.inc.php');
+ob_end_clean();
 
 ini_set('track_errors', 1);
 error_reporting(0);
@@ -81,7 +83,17 @@ if ($isCriticalErr) {
     define('PS_CHECKER_DOM_LINK', $langDomain . '/manul/index.xml');
     define('PS_CHECKER_PERM_LINK', $langDomain . '/manul/index.xml');
 
-    $view->display("start_check.tpl");
+    $view->display('start_check.tpl');
     die();
+}
+
+function escapedHexToHex($escaped)
+{
+    return chr(hexdec($escaped[1]));
+}
+
+function escapedOctDec($escaped)
+{
+    return chr(octdec($escaped[1]));
 }
 

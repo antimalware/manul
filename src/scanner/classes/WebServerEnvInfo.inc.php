@@ -3,7 +3,7 @@
 class WebServerEnvInfo
 {
 
-    function getServerVar($serverVarName)
+    private function getServerVar($serverVarName)
     {
         return empty($_SERVER[$serverVarName]) ? 'None' : $_SERVER[$serverVarName];
     }
@@ -15,7 +15,7 @@ class WebServerEnvInfo
         $this->documentRoot = $this->getServerVar('DOCUMENT_ROOT');
         $this->httpHost = $this->getServerVar('HTTP_HOST');
         $this->adminEmail = $this->getServerVar('SERVER_ADMIN');
-        $this->time = date("Y.m.d H:i:s", $this->getServerVar('REQUEST_TIME'));
+        $this->time = date('Y.m.d H:i:s', $this->getServerVar('REQUEST_TIME'));
         $this->serverAddr = $this->getServerVar('SERVER_ADDR');
         $this->serverSoftware = $this->getServerVar('SERVER_SOFTWARE');
         $this->serverGateway = $this->getServerVar('GATEWAY_INTERFACE');
@@ -52,14 +52,14 @@ class WebServerEnvInfo
         return $dom->getElementsByTagName('server_environment')->item(0);
     }
 
-    function extractValue(&$parStr, $parName)
+    private function extractValue(&$parStr, $parName)
     {
         if (preg_match('|<tr><td class="e">\s*' . $parName . '\s*</td><td class="v">(.+?)</td>|sm', $parStr, $lResult)) {
             return str_replace('no value', '', strip_tags($lResult[1]));
         }
     }
 
-    function getCompactPhpInfo()
+    private function getCompactPhpInfo()
     {
         if (function_exists('phpinfo') && is_callable('phpinfo')) {
             ob_start();
@@ -90,26 +90,26 @@ class WebServerEnvInfo
             $disabledFunction = ($disabledFunction == '' ? '-?-' : $disabledFunction);
             $openBaseDir = ($openBaseDir == '' ? '-?-' : $openBaseDir);
 
-            $result = 'Version: ' . phpversion() . "<br/>";
-            $result .= 'System Version: ' . $phpInfoSystem . "<br/>";
-            $result .= 'PHP API: ' . $phpPHPAPI . "<br/>";
-            $result .= 'allow_url_fopen: ' . $allowUrlFOpen . "<br/>";
-            $result .= 'allow_url_include: ' . $allowUrlInclude . "<br/>";
-            $result .= 'disable_functions: ' . str_replace('&nbsp;', ' ', $disabledFunction) . "<br/>";
-            $result .= 'display_errors: ' . $displayErrors . "<br/>";
-            $result .= 'error_reporting: ' . $errorReporting . "<br/>";
-            $result .= 'expose_php: ' . $exposePHP . "<br/>";
-            $result .= 'log_errors: ' . $logErrors . "<br/>";
-            $result .= 'magic_quotes_gpc: ' . $MQGPC . "<br/>";
-            $result .= 'magic_quotes_runtime: ' . $MQRT . "<br/>";
-            $result .= 'register_globals: ' . $registerGlobals . "<br/>";
-            $result .= 'open_basedir: ' . $openBaseDir . "<br/>";
-            $result .= 'Ini Path: ' . $iniPath . "<br/>";
-            $result .= 'CGI.FixPathInfo: ' . $fixPath . "<br/>";
+            $result = 'Version: ' . phpversion() . '<br/>';
+            $result .= 'System Version: ' . $phpInfoSystem . '<br/>';
+            $result .= 'PHP API: ' . $phpPHPAPI . '<br/>';
+            $result .= 'allow_url_fopen: ' . $allowUrlFOpen . '<br/>';
+            $result .= 'allow_url_include: ' . $allowUrlInclude . '<br/>';
+            $result .= 'disable_functions: ' . str_replace('&nbsp;', ' ', $disabledFunction) . '<br/>';
+            $result .= 'display_errors: ' . $displayErrors . '<br/>';
+            $result .= 'error_reporting: ' . $errorReporting . '<br/>';
+            $result .= 'expose_php: ' . $exposePHP . '<br/>';
+            $result .= 'log_errors: ' . $logErrors . '<br/>';
+            $result .= 'magic_quotes_gpc: ' . $MQGPC . '<br/>';
+            $result .= 'magic_quotes_runtime: ' . $MQRT . '<br/>';
+            $result .= 'register_globals: ' . $registerGlobals . '<br/>';
+            $result .= 'open_basedir: ' . $openBaseDir . '<br/>';
+            $result .= 'Ini Path: ' . $iniPath . '<br/>';
+            $result .= 'CGI.FixPathInfo: ' . $fixPath . '<br/>';
 
-            $result .= 'safe_mode: ' . $safeMode . "<br/>";
+            $result .= 'safe_mode: ' . $safeMode . '<br/>';
         } else {
-            $result = 'phpinfo() is disabled' . "<br/>";
+            $result = 'phpinfo() is disabled' . '<br/>';
         }
 
         $cmdList = explode(',', 'popen,exec,ftp_exec,system,passthru,get_current_user,proc_open,shell_exec,ini_restore,getmygid,dl,symlink,chgrp,ini_set,putenv,extension_loaded,getmyuid,fsockopen,posix_setuid,posix_setsid,posix_setpgid,posix_kill,apache_child_terminate,chmod,chdir,pcntl_exec,phpinfo,virtual,proc_close,proc_get_status,proc_terminate,proc_nice,proc_getstatus,proc_close,escapeshellcmd,escapeshellarg,show_source,pclose,safe_dir,dl,ini_restore,chown,chgrp,shown_source,mysql_list_dbs,get_current_user,getmyid,leak,pfsockopen');
@@ -121,7 +121,7 @@ class WebServerEnvInfo
             }
         }
 
-        $result .= "<br/>List of disabled functions: ";
+        $result .= '<br/>List of disabled functions: ';
         foreach ($cmdList as $F) {
             if (!(function_exists($F) && is_callable($F))) {
                 $result .= $F . ' ';

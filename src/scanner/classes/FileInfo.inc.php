@@ -4,7 +4,6 @@ class FileInfo
 {
     public function __construct($filePath)
     {
-
         $this->web_root_dir = $_SERVER['DOCUMENT_ROOT'];
         $this->getInfoByName($filePath);
     }
@@ -52,7 +51,7 @@ class FileInfo
     public function getXMLNode()
     {
         $dom = new DOMDocument('1.0', 'utf-8');
-        $fileinfoNode = $dom->createElement("file");
+        $fileinfoNode = $dom->createElement('file');
         $fileinfoNode->appendChild($dom->createElement('path', $this->name));
         $fileinfoNode->appendChild($dom->createElement('size', $this->size));
         $fileinfoNode->appendChild($dom->createElement('ctime', $this->ctime));

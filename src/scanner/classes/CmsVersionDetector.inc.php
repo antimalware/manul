@@ -199,7 +199,6 @@ class CmsVersionDetector
                     $version .= '.' . $tmpVer[1];
                 }
             }
-
         }
 
         return $res;
@@ -222,7 +221,6 @@ class CmsVersionDetector
             if (preg_match('|\'version_id\'\s*=>\s*"(.+?)"|smi', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -240,7 +238,6 @@ class CmsVersionDetector
             if (preg_match('|IP.Board\s+v([0-9\.]+)|si', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -258,7 +255,6 @@ class CmsVersionDetector
             if (preg_match('|v([0-9\.]+)|si', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -276,7 +272,6 @@ class CmsVersionDetector
             if (preg_match('|([0-9\.]+)|smi', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -294,7 +289,6 @@ class CmsVersionDetector
             if (preg_match('|Drupal\s+([0-9\.]+)|smi', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -307,7 +301,6 @@ class CmsVersionDetector
 
         if (file_exists($this->rootPath . '/manager/assets')) {
             $res = true;
-
             // no way to pick up version
         }
 
@@ -360,7 +353,6 @@ class CmsVersionDetector
             if (preg_match('|vBulletin\s+([0-9\.x]+)|smi', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -378,7 +370,6 @@ class CmsVersionDetector
             if (preg_match('|STRING_VERSION\',\s*\'(.+?)\'|smi', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -402,6 +393,5 @@ class CmsVersionDetector
         $dom->appendChild($cmsListNode);
         return $dom->getElementsByTagName('cms_list')->item(0);
     }
-
-
 }
+

@@ -13,7 +13,7 @@ ob_end_clean();
 class ExecutorController
 {
 
-    function startExecutor()
+    private function startExecutor()
     {
         $view = new View();
         $healer = new Healer();
@@ -25,7 +25,7 @@ class ExecutorController
 
             if (get_magic_quotes_gpc()) $xmlRecipe = stripslashes($xmlRecipe);
 
-            //TODO: immplement proper XXE prevention or switch to JSON instead
+            //TODO: implement proper XXE prevention or switch to JSON instead
             if (strpos(strtoupper($xmlRecipe), '<!ENTITY') !== false) {
                 die('XXE detected');
             }
@@ -48,7 +48,6 @@ class ExecutorController
                 $itemTemplate->set('FILENAME', $this->getShortFilename($deleteFiles[$i]));
                 $itemTemplate->set('FILENAME_B64', base64_encode($deleteFiles[$i]));
                 $executeList .= $itemTemplate->get();
-
             }
 
             for ($i = 0; $i < count($quarantineFiles); $i++) {
@@ -74,7 +73,7 @@ class ExecutorController
             $quarantineFiles = array();
 
             for ($i = 0; $i < $deleteTotal; $i++) {
-                if (!empty($_POST["d_" . $i]) && $_POST['d_' . $i] === 'on') {
+                if (!empty($_POST['d_' . $i]) && $_POST['d_' . $i] === 'on') {
                     $deleteFiles[] = base64_decode($_POST['fn_d_' . $i]);
                 }
             }
@@ -88,17 +87,12 @@ class ExecutorController
             $numQuarantined = 0;
             define('PS_EXECUTOR_LOG', $healer->executeXmlRecipe($deleteFiles, $quarantineFiles, $numQuarantined));
 
-            if (!empty($_COOKIE['quarantine_file']) && is_file($_COOKIE['quarantine_file']) && $numQuarantined) {
-                $quarantineFilename = $_SERVER['PHP_SELF'] . '?controller=download&f=quarantine';
-            } else {
-                $quarantineFilename = "";
-            }
+            $quarantineUrl = $_SERVER['PHP_SELF'] . '?controller=download&f=quarantine';
+            define('PS_QUARANTINE_URL', $quarantineUrl);
 
-            define('PS_QUARANTINE_URL', $quarantineFilename);
+            $view->display('executor_done.tpl');
 
-            $view->display("executor_done.tpl");
-
-        } else if (isset($_REQUEST["a"]) && ($_REQUEST["a"] == 'selfDelete')) {
+        } else if (isset($_REQUEST['a']) && ($_REQUEST['a'] == 'selfDelete')) {
 
             global $projectRootDir, $projectTmpDir;
             if ($projectTmpDir == sys_get_temp_dir()) {
@@ -120,16 +114,7 @@ class ExecutorController
         }
     }
 
-    function start()
-    {
-        $authenticator = new Auth();
-
-        if ($authenticator->auth()) {
-            $this->startExecutor();
-        }
-    }
-
-    function getShortFileName($in_name)
+    private function getShortFileName($in_name)
     {
         define('MAX_PRINTABLE_FILENAME_LEN', 70);
         $outName = $in_name;
@@ -142,4 +127,13 @@ class ExecutorController
 
         return $outName;
     }
-}                       
+
+    public function start()
+    {
+        $authenticator = new Auth();
+        if ($authenticator->auth()) {
+            $this->startExecutor();
+        }
+    }
+}
+
