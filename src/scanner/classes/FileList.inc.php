@@ -84,7 +84,7 @@ class FileList
 
         global $php_errormsg;
 
-        if ($fHandle = fopen($this->AJAX_TMP_FILE, "a")) {
+        if ($fHandle = fopen($this->AJAX_TMP_FILE, 'a')) {
 
             $nodeList = $this->filesNode->childNodes;
             $num = $nodeList->length;
@@ -125,7 +125,7 @@ class FileList
     {
         global $php_errormsg;
 
-        $dirs = ".";
+        $dirs = '.';
 
         if (file_exists($this->DIRLIST_TMP_FILENAME))
             $dirs = file_get_contents($this->DIRLIST_TMP_FILENAME);
@@ -167,7 +167,7 @@ class FileList
 
     private function folderWalker($path, &$files_found)
     {
-        if ($path === ".")
+        if ($path === '.')
             $path = $_SERVER['DOCUMENT_ROOT'];
 
         $dirList = array();

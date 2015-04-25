@@ -394,3 +394,4 @@ class CmsVersionDetector
         return $dom->getElementsByTagName('cms_list')->item(0);
     }
 }
+

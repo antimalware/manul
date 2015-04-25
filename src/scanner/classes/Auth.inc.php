@@ -122,3 +122,4 @@ class Auth
         return $result;
     }
 }
+
