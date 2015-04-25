@@ -1,15 +1,15 @@
 <?php
 
+ob_start();
 require_once('XmlValidator.inc.php');
 require_once('FileInfo.inc.php');
 require_once('Writer.inc.php');
+ob_end_clean();
 
 class FileList
 {
-
     function __construct()
     {
-
         global $projectTmpDir;
 
         $this->DIRLIST_TMP_FILENAME = $projectTmpDir . '/dirlist.manul.tmp.txt';
@@ -45,17 +45,16 @@ class FileList
 
     }
 
-    function throwTimeout()
+    private function throwTimeout()
     {
         echo $this->AJAX_HEADER_ERROR . "\n";
         echo 'File listing timeout. Try to increase an interval in settings.' . "\n";
         exit;
     }
 
-    function fileExecutor($filePath, $type, $actionType)
+    private function fileExecutor($filePath, $type, $actionType)
     {
-
-        if ($actionType == $this->ACTION_PROCESS) {
+        if ($actionType === $this->ACTION_PROCESS) {
             $fileinfo = new FileInfo($filePath);
             $fileinfoNode = $fileinfo->getXMLNode();
 
@@ -66,14 +65,13 @@ class FileList
 
             $this->dom->documentElement->appendChild($this->dom->importNode($fileinfoNode, true));
             $this->filesFound++;
-        } else if ($actionType == $this->ACTION_SKIP) {
+        } else if ($actionType === $this->ACTION_SKIP) {
             // TODO: Do something with skipped item
             // fputs($file_handle, "* SKIPPED *************************************** " . $file_path);
-
         }
     }
 
-    function getXMLFilelist()
+    public function getXMLFilelist()
     {
         $result = implode('', file($this->AJAX_TMP_FILE));
         $this->cleanUp();
@@ -81,7 +79,7 @@ class FileList
         return $result;
     }
 
-    function finalizeRound()
+    private function finalizeRound()
     {
 
         global $php_errormsg;
@@ -112,7 +110,7 @@ class FileList
         }
     }
 
-    function cleanUp()
+    private function cleanUp()
     {
         @unlink($this->DIRLIST_TMP_FILENAME);
         @unlink($this->FILELIST_OFFSET_FILENAME);
@@ -123,7 +121,7 @@ class FileList
     {
     }
 
-    function performScanning()
+    public function performScanning()
     {
         global $php_errormsg;
 
@@ -157,17 +155,17 @@ class FileList
         return $result;
     }
 
-    function getInterval()
+    public function getInterval()
     {
         return $this->MAX_EXECUTION_DURATION;
     }
 
-    function setInterval($val)
+    public function setInterval($val)
     {
         $this->MAX_EXECUTION_DURATION = $val;
     }
 
-    function folderWalker($path, &$files_found)
+    private function folderWalker($path, &$files_found)
     {
         if ($path === ".")
             $path = $_SERVER['DOCUMENT_ROOT'];
@@ -176,7 +174,7 @@ class FileList
 
         if ($currentDir = opendir($path)) {
             while ($file = readdir($currentDir)) {
-                if ($file == '.' || $file == '..' || is_link($path) || $file == basename($this->homedir)) continue;
+                if ($file === '.' || $file === '..' || is_link($path) || $file === basename($this->homedir)) continue;
                 $name = $file;
                 $file = $path . '/' . $file;
                 // skip path entries from the list
@@ -199,7 +197,7 @@ class FileList
             closedir($currentDir);
         }
 
-        if (!is_file($this->tmpQueueFilename) && count($dirList) == 0) {
+        if (!is_file($this->tmpQueueFilename) && count($dirList) === 0) {
             $response['meta'] = array('type' => 'getFileList', 'status' => 'finished', 'phpError' => PS_ERR_NO_FILES_IN_WEB_ROOT);
             $report = json_encode($response);
             die($report);

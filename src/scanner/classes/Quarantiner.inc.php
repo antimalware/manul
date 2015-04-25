@@ -1,7 +1,9 @@
 <?php
 
-require_once("Archiver.inc.php");
-require_once("FileInfo.inc.php");
+ob_start();
+require_once('Archiver.inc.php');
+require_once('FileInfo.inc.php');
+ob_end_clean();
 
 class Quarantiner
 {
@@ -12,8 +14,8 @@ class Quarantiner
         $this->quarantineList = array();
 
         if (!$defaultFilename) {
-            $timeString = date("Y_m_d_H_i", $_SERVER["REQUEST_TIME"]);
-            $this->quarantineFilename = $projectTmpDir . '/' . "quarantine." . $timeString . ".zip";
+            $timeString = date('Y_m_d_H_i', $_SERVER['REQUEST_TIME']);
+            $this->quarantineFilename = $projectTmpDir . '/quarantine.' . $timeString . '.zip';
         } else {
             $this->quarantineFilename = $defaultFilename;
         }
@@ -37,13 +39,13 @@ class Quarantiner
 
     function getArchive()
     {
-        $this->archiver = new Archiver($this->quarantineFilename, "a");
+        $this->archiver = new Archiver($this->quarantineFilename, 'a');
 
         foreach ($this->quarantineList as $filename) {
             $fileinfo = new FileInfo($filename);
             $fileHash = $fileinfo->md5;
             $this->archiver->addFile($filename, $fileHash);
-            $metaFilename = $fileHash . ".meta";
+            $metaFilename = $fileHash . '.meta';
 
             $this->archiver->createFile($metaFilename, (string)$fileinfo);
         }

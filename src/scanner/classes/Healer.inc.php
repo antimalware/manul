@@ -1,37 +1,39 @@
 <?php
 
+ob_start();
 require_once('Archiver.inc.php');
 require_once('FileInfo.inc.php');
+ob_end_clean();
 
 class Healer
 {
-
-    function __construct()
+    public function __construct()
     {
         global $projectTmpDir;
 
         $timeString = date('Y_m_d_H_i', $_SERVER['REQUEST_TIME']);
-        $this->quarantineFilename = $projectTmpDir . '/quarantine.' . $timeString . '.zip';
-        $this->backupFilename = $projectTmpDir . '/manul_deleted_files_backup.' . $timeString . '.zip';
+        $this->quarantineFilepath = $projectTmpDir . '/quarantine.' . $timeString . '.zip';
+        $this->quarantineFilepathFilepath = $projectTmpDir . '/malware_quarantine_filepath.tmp.txt';
+        $this->backupFilepath = $projectTmpDir . '/manul_deleted_files_backup.' . $timeString . '.zip';
 
-        $this->log = "";
+        $this->log = '';
 
         $this->webRootDir = $_SERVER['DOCUMENT_ROOT'];
 
-        if (file_exists($this->quarantineFilename) && (!isset($_COOKIE['quarantine_file']))) {
-            $this->log .= sprintf(PS_DELETE_ARCHIVE, $this->quarantineFilename);
-            unlink($this->quarantineFilename);
+        if (file_exists($this->quarantineFilepath)) {
+            $this->log .= sprintf(PS_DELETE_ARCHIVE, $this->quarantineFilepath);
+            unlink($this->quarantineFilepath);
         }
 
         $this->archiver = null;
     }
 
-    function getQuarantineFilename()
+    private function getQuarantineFilename()
     {
-        return $this->quarantineFilename;
+        return $this->quarantineFilepath;
     }
 
-    function parseXmlRecipe($xmlRecipe)
+    private function parseXmlRecipe($xmlRecipe)
     {
         $dom = NULL;
         try {
@@ -47,7 +49,7 @@ class Healer
         return $dom;
     }
 
-    function quarantineFile($filename)
+    private function quarantineFile($filename)
     {
 
         if (!is_file($filename)) {
@@ -66,7 +68,7 @@ class Healer
         return true;
     }
 
-    function deleteFile($filename)
+    private function deleteFile($filename)
     {
         if (!is_file($filename)) {
             $this->log .= '<div class="err">' . sprintf(PS_ERR_DELETE_NOT_EXISTS, $filename) . '</div>';
@@ -76,11 +78,11 @@ class Healer
         return unlink($filename);
     }
 
-    function deleteDir($dirname)
+    public function deleteDir($dirname)
     {
         if (!is_dir($dirname) || is_link($dirname)) return unlink($dirname);
         foreach (scandir($dirname) as $file) {
-            if ($file == '.' || $file == '..') continue;
+            if ($file === '.' || $file === '..') continue;
             if (!$this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file)) {
                 chmod($dirname . DIRECTORY_SEPARATOR . $file, 0777);
                 $this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file);
@@ -90,7 +92,7 @@ class Healer
         return rmdir($dirname);
     }
 
-    function prepareList($xmlRecipe, &$quarantineList, &$deleteList)
+    public function prepareList($xmlRecipe, &$quarantineList, &$deleteList)
     {
         $recipe = $this->parseXmlRecipe($xmlRecipe);
 
@@ -108,11 +110,10 @@ class Healer
         }
     }
 
-    function executeXmlRecipe($deleteFiles, $quarantineFiles, &$numQuarantined)
+    public function executeXmlRecipe($deleteFiles, $quarantineFiles, &$numQuarantined)
     {
-
         //Put suspicious file in quarantine archive
-        $this->archiver = new Archiver($this->quarantineFilename, 'a');
+        $this->archiver = new Archiver($this->quarantineFilepath, 'a');
 
         $numQuarantined = 0;
 
@@ -128,7 +129,7 @@ class Healer
 
         //Put malicious files to backup archive and delete them      
         foreach ($deleteFiles as $filename) {
-            $this->archiver = new Archiver($this->backupFilename, "a");
+            $this->archiver = new Archiver($this->backupFilepath, 'a');
 
             $absolutePath = $this->webRootDir . substr($filename, 1);
 
@@ -141,10 +142,8 @@ class Healer
             }
         }
 
-
-        if (file_exists($this->quarantineFilename)) {
-            setcookie('quarantine_file', $this->quarantineFilename, time() + 86400, '/', $_SERVER['HTTP_HOST'], false, true);
-            $_COOKIE['quarantine_file'] = $this->quarantineFilename;
+        if (file_exists($this->quarantineFilepath)) {
+            file_put_contents2($this->quarantineFilepathFilepath, $this->quarantineFilepath);
         }
 
         return $this->log;

@@ -1,4 +1,5 @@
 <?php
+
 define('MANUL_LANG_ID_RU', 'ru');
 define('MANUL_LANG_ID_EN', 'en');
 define('MANUL_LANG_ID_UA', 'uk');

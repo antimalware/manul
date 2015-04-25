@@ -16,7 +16,7 @@ class Auth
         $this->answerSentFlag = false;
     }
 
-    function templateOutput($message, $error = '')
+    private function templateOutput($message, $error = '')
     {
         global $locals, $currentLang;
         $view = new View();
@@ -36,7 +36,7 @@ class Auth
         $view->display('auth.tpl');
     }
 
-    function checkPasswordStrength($password)
+    private function checkPasswordStrength($password)
     {
         if (strlen($password) < 8) {
             return false;
@@ -56,7 +56,17 @@ class Auth
         return true;
     }
 
-    function tryToAuthenticate()
+    private function setPasswordHashCookie($passwordHash) {
+        $cookieExpirationTimestamp = time() + 86400;
+        //TODO: apply cookie path to manul dir
+        $cookiePath = '/';
+        $httpOnly = true;
+        setcookie('antimalware_password_hash', $passwordHash, $cookieExpirationTimestamp,
+            $cookiePath, null, null, $httpOnly);
+        $_COOKIE['antimalware_password_hash'] = $passwordHash;
+    }
+
+    private function tryToAuthenticate()
     {
         if (is_file($this->passwordHashFilepath)) {
             $passwordHash = file_get_contents($this->passwordHashFilepath);
@@ -66,13 +76,7 @@ class Auth
             } elseif (!empty($_POST['password'])) {
                 $passwordHashFromPost = hash('sha256', $_POST['password']);
                 if ($passwordHashFromPost === $passwordHash) {
-                    $cookieExpirationTimestamp = time() + 86400;
-                    //TODO: apply cookie path to manul dir
-                    $cookiePath = '/';
-                    $httpOnly = true;
-                    setcookie('antimalware_password_hash', $passwordHash, $cookieExpirationTimestamp,
-                              $cookiePath, null, null, $httpOnly);
-                    $_COOKIE['antimalware_password_hash'] = $passwordHash;
+                    $this->setPasswordHashCookie($passwordHash);
                     return true;
                 }
             }
@@ -80,20 +84,14 @@ class Auth
         return false;
     }
 
-    function setNewPassword($password)
+    private function setNewPassword($password)
     {
         $passwordHash = hash('sha256', $password);
-        $cookieExpirationTimestamp = time() + 86400;
-        //TODO: apply cookie path to manul dir
-        $cookiePath = '/';
-        $httpOnly = true;
-        setcookie('antimalware_password_hash', $passwordHash, $cookieExpirationTimestamp,
-                   $cookiePath, null, null, $httpOnly);
-        $_COOKIE['antimalware_password_hash'] = $passwordHash;
+        $this->setPasswordHashCookie($passwordHash);
         file_put_contents2($this->passwordHashFilepath, $passwordHash);
     }
 
-    function auth()
+    public function auth()
     {
         $result = false;
         $isPasswordSet = is_file($this->passwordHashFilepath);

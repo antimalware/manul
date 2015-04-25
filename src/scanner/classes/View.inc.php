@@ -12,7 +12,7 @@ class View
         $this->_path = $projectRootDir . '/static/templates/' . $path;
     }
 
-    function setTemplateDirAbsolutePath($path)
+    public function setTemplateDirAbsolutePath($path)
     {
         $this->_path = $path;
     }

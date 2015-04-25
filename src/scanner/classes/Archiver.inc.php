@@ -2,7 +2,6 @@
 #ZipArchive requies PHP above 5.2
 class Archiver
 {
-
     private $filename = '';
     private $mode = '';
     private $archive = NULL;

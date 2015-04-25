@@ -3,7 +3,7 @@
 class WebServerEnvInfo
 {
 
-    function getServerVar($serverVarName)
+    private function getServerVar($serverVarName)
     {
         return empty($_SERVER[$serverVarName]) ? 'None' : $_SERVER[$serverVarName];
     }
@@ -52,14 +52,14 @@ class WebServerEnvInfo
         return $dom->getElementsByTagName('server_environment')->item(0);
     }
 
-    function extractValue(&$parStr, $parName)
+    private function extractValue(&$parStr, $parName)
     {
         if (preg_match('|<tr><td class="e">\s*' . $parName . '\s*</td><td class="v">(.+?)</td>|sm', $parStr, $lResult)) {
             return str_replace('no value', '', strip_tags($lResult[1]));
         }
     }
 
-    function getCompactPhpInfo()
+    private function getCompactPhpInfo()
     {
         if (function_exists('phpinfo') && is_callable('phpinfo')) {
             ob_start();

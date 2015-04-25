@@ -7,16 +7,7 @@ ob_end_clean();
 
 class DownloadController
 {
-    function __construct()
-    {
-        $authenticator = new Auth();
-        if (!$authenticator->auth()) {
-            header('HTTP/1.0 403 Forbidden');
-            die();
-        }
-    }
-
-    function streamFileContent($filename, $needToDelete = false)
+    private function streamFileContent($filename, $needToDelete = false)
     {
         header('Pragma: public');
         header('Expires: 0');
@@ -33,7 +24,7 @@ class DownloadController
         }
     }
 
-    function getPackedArchive()
+    private function getPackedArchive()
     {
         global $projectTmpDir;
 
@@ -61,20 +52,19 @@ class DownloadController
         unlink($logFilename);
     }
 
-    function getQuarantine()
+    private function getQuarantine()
     {
-        $quarantineFilename = $_COOKIE['quarantine_file'];
-        if (!is_file($quarantineFilename)) {
-            die(PS_ERR_NO_QUARANTINE_FILE);
-        }
+        global $projectTmpDir;
 
-        $this->streamFileContent($quarantineFilename, true);
-        unset($_COOKIE['quarantine_file']);
-        setcookie('quarantine_file', -1, -1, '/', $_SERVER['HTTP_HOST'], false, true);
-        exit;
+        $quarantineFilepathFilepath = $projectTmpDir . '/malware_quarantine_filepath.tmp.txt';
+        if (file_exists($quarantineFilepathFilepath)) {
+            $quarantineFilepath = file_get_contents($quarantineFilepathFilepath);
+            $this->streamFileContent($quarantineFilepath, true);
+            unlink($quarantineFilepathFilepath);
+        }
     }
 
-    function start()
+    private function startDownload()
     {
         switch ($_GET['f']) {
             case 'report':
@@ -85,4 +75,13 @@ class DownloadController
                 break;
         }
     }
+
+    public function start()
+    {
+        $authenticator = new Auth();
+        if ($authenticator->auth()) {
+            $this->startDownload();
+        }
+    }
+
 }

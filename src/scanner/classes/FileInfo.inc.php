@@ -4,7 +4,6 @@ class FileInfo
 {
     public function __construct($filePath)
     {
-
         $this->web_root_dir = $_SERVER['DOCUMENT_ROOT'];
         $this->getInfoByName($filePath);
     }
