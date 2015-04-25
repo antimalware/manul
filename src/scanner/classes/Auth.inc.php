@@ -59,7 +59,8 @@ class Auth
     function tryToAuthenticate()
     {
         if (is_file($this->passwordHashFilepath)) {
-            $passwordHash = file_get_contents($this->passwordHashFilepath);
+            $passwordHashArr = file($this->passwordHashFilepath);
+            $passwordHash = $passwordHashArr[1];
             if (!empty($_COOKIE['antimalware_password_hash'])) {
                 $passwordHashFromCookie = $_COOKIE['antimalware_password_hash'];
                 return ($passwordHashFromCookie === $passwordHash);
@@ -90,7 +91,7 @@ class Auth
         setcookie('antimalware_password_hash', $passwordHash, $cookieExpirationTimestamp,
                    $cookiePath, null, null, $httpOnly);
         $_COOKIE['antimalware_password_hash'] = $passwordHash;
-        file_put_contents2($this->passwordHashFilepath, $passwordHash);
+        file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden'); ?>\n" . $passwordHash);
     }
 
     function auth()
@@ -107,7 +108,7 @@ class Auth
                 }
             } else {
                 $result = true;
-            }
+            }                                    
         } else {
             if ($isPasswordSent) {
                 if ($this->checkPasswordStrength($_POST['password'])) {
