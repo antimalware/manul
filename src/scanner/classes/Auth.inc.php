@@ -6,7 +6,6 @@ require_once('View.inc.php');
 require_once('Writer.inc.php');
 ob_end_clean();
 
-
 class Auth
 {
     function __construct()
@@ -56,7 +55,8 @@ class Auth
         return true;
     }
 
-    private function setPasswordHashCookie($passwordHash) {
+    private function setPasswordHashCookie($passwordHash)
+    {
         $cookieExpirationTimestamp = time() + 86400;
         //TODO: apply cookie path to manul dir
         $cookiePath = '/';
@@ -69,7 +69,8 @@ class Auth
     private function tryToAuthenticate()
     {
         if (is_file($this->passwordHashFilepath)) {
-            $passwordHash = file_get_contents($this->passwordHashFilepath);
+            $passwordHashFileLines = file($this->passwordHashFilepath);
+            $passwordHash = $passwordHashFileLines[1];
             if (!empty($_COOKIE['antimalware_password_hash'])) {
                 $passwordHashFromCookie = $_COOKIE['antimalware_password_hash'];
                 return ($passwordHashFromCookie === $passwordHash);
@@ -86,9 +87,12 @@ class Auth
 
     private function setNewPassword($password)
     {
-        $passwordHash = hash('sha256', $password);
-        $this->setPasswordHashCookie($passwordHash);
-        file_put_contents2($this->passwordHashFilepath, $passwordHash);
+        if (!file_exists($this->passwordHashFilepath)) {
+            $passwordHash = hash('sha256', $password);
+            file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden'); ?>\n" . $passwordHash);
+            $this->setPasswordHashCookie($passwordHash);
+            die($passwordHash);
+        }
     }
 
     public function auth()
