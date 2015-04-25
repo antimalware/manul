@@ -91,7 +91,6 @@ class Auth
             $passwordHash = hash('sha256', $password);
             file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden'); ?>\n" . $passwordHash);
             $this->setPasswordHashCookie($passwordHash);
-            die($passwordHash);
         }
     }
 
