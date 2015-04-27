@@ -93,30 +93,29 @@ class CmsVersionDetector
         if ($this->checkPhpShopScript($version)) {
             $this->addCms(CMS_SHOPSCRIPT, $version);
         }
-
     }
 
-    function getCmsList()
+    public function getCmsList()
     {
         return $this->types;
     }
 
-    function getCmsVersions()
+    public function getCmsVersions()
     {
         return $this->versions;
     }
 
-    function getCmsNumber()
+    public function getCmsNumber()
     {
         return count($this->types);
     }
 
-    function getCmsName($index = 0)
+    public function getCmsName($index = 0)
     {
         return $this->types[$index];
     }
 
-    function getCmsVersion($index = 0)
+    public function getCmsVersion($index = 0)
     {
         return $this->versions[$index];
     }
@@ -139,7 +138,6 @@ class CmsVersionDetector
             if (preg_match('|define\("SM_VERSION","(.+?)"\)|smi', $tmpContent, $tmpVer)) {
                 $version = $tmpVer[1];
             }
-
         }
 
         return $res;
@@ -394,4 +392,3 @@ class CmsVersionDetector
         return $dom->getElementsByTagName('cms_list')->item(0);
     }
 }
-

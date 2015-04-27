@@ -23,7 +23,9 @@ class ExecutorController
             $validator = new XmlValidator();
             global $projectRootDir;
 
-            if (get_magic_quotes_gpc()) $xmlRecipe = stripslashes($xmlRecipe);
+            if (get_magic_quotes_gpc()) {
+                $xmlRecipe = stripslashes($xmlRecipe);
+            }
 
             //TODO: implement proper XXE prevention or switch to JSON instead
             if (strpos(strtoupper($xmlRecipe), '<!ENTITY') !== false) {
@@ -65,7 +67,7 @@ class ExecutorController
             define('PS_EXECUTE_TOTAL_Q', count($quarantineFiles));
 
             $view->display('executor_changes.tpl');
-        } else if (isset($_POST['a']) && ($_POST['a'] === 'apply')) {
+        } elseif (isset($_POST['a']) && ($_POST['a'] === 'apply')) {
             $deleteTotal = (int)$_POST['total_d'];
             $quarantineTotal = (int)$_POST['total_q'];
 
@@ -91,9 +93,7 @@ class ExecutorController
             define('PS_QUARANTINE_URL', $quarantineUrl);
 
             $view->display('executor_done.tpl');
-
-        } else if (isset($_REQUEST['a']) && ($_REQUEST['a'] == 'selfDelete')) {
-
+        } elseif (isset($_REQUEST['a']) && ($_REQUEST['a'] == 'selfDelete')) {
             global $projectRootDir, $projectTmpDir;
             if ($projectTmpDir == sys_get_temp_dir()) {
                 @unlink($projectTmpDir . '/scan_log.xml');
@@ -136,4 +136,3 @@ class ExecutorController
         }
     }
 }
-

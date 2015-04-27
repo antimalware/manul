@@ -10,7 +10,6 @@ class WebServerEnvInfo
 
     public function __construct()
     {
-
         $this->scriptFilename = $this->getServerVar('SCRIPT_FILENAME');
         $this->documentRoot = $this->getServerVar('DOCUMENT_ROOT');
         $this->httpHost = $this->getServerVar('HTTP_HOST');

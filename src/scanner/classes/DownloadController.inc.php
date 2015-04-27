@@ -83,6 +83,4 @@ class DownloadController
             $this->startDownload();
         }
     }
-
 }
-
