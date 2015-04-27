@@ -8,7 +8,7 @@ ob_end_clean();
 class Quarantiner
 {
 
-    function __construct($defaultFilename = null)
+    public function __construct($defaultFilename = null)
     {
         global $projectTmpDir;
         $this->quarantineList = array();
@@ -27,7 +27,7 @@ class Quarantiner
         }
     }
 
-    function add($filename)
+    public function add($filename)
     {
         if (file_exists($filename)) {
             $this->quarantineList[] = $filename;
@@ -37,7 +37,7 @@ class Quarantiner
         return false;
     }
 
-    function getArchive()
+    public function getArchive()
     {
         $this->archiver = new Archiver($this->quarantineFilename, 'a');
 
@@ -54,5 +54,4 @@ class Quarantiner
 
         return $this->quarantineFilename;
     }
-
 }

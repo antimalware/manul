@@ -24,14 +24,18 @@ class View
 
     public function __get($name)
     {
-        if (isset($this->_var[$name])) return $this->_var[$name];
+        if (isset($this->_var[$name])) {
+            return $this->_var[$name];
+        }
         return '';
     }
 
     public function display($template, $strip = true)
     {
         $this->_template = $this->_path . $template;
-        if (!file_exists($this->_template)) die(sprintf(PS_ERR_TEMPLATE_DOESNT_EXISTS, $this->_template));
+        if (!file_exists($this->_template)) {
+            die(sprintf(PS_ERR_TEMPLATE_DOESNT_EXISTS, $this->_template));
+        }
 
         ob_start();
         header('Content-Type: text/html; charset=utf-8');
@@ -41,7 +45,7 @@ class View
         // general templates
         define('PS_FOOTER', $this->meta_replacer(implode('', file($this->_path . 'footer.tpl'))));
 
-        echo ($strip) ? $this->_strip($this->meta_replacer(ob_get_clean())) : $this->meta_replacer(ob_get_clean());
+        echo($strip) ? $this->_strip($this->meta_replacer(ob_get_clean())) : $this->meta_replacer(ob_get_clean());
     }
 
     private function meta_replacer($content)
@@ -66,5 +70,4 @@ class View
         $sp = array('', '', '', '', '');
         return str_replace($lit, $sp, $data);
     }
-
 }

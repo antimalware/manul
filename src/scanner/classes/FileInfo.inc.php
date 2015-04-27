@@ -70,5 +70,3 @@ class FileInfo
         return implode(';', $data);
     }
 }
-
-

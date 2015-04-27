@@ -14,10 +14,14 @@ class Archiver
         $archive = new ZipArchive;
         if ($this->mode === 'r') {
             $result = $archive->open($this->filename, ZipArchive::OPEN);
-            if (!$result) die(PS_ERR_ARCHIVE_OPENING);
-        } else if ($this->mode === 'w' || $this->mode === 'a') {
+            if (!$result) {
+                die(PS_ERR_ARCHIVE_OPENING);
+            }
+        } elseif ($this->mode === 'w' || $this->mode === 'a') {
             $result = $archive->open($this->filename, ZipArchive::CREATE);
-            if (!$result) die(sprintf(PS_ERR_ARCHIVE_CREATION, $this->filename));
+            if (!$result) {
+                die(sprintf(PS_ERR_ARCHIVE_CREATION, $this->filename));
+            }
         } else {
             die(PS_ERR_WRONG_ARCHIVE_MODE);
         }
@@ -26,7 +30,9 @@ class Archiver
 
     public function addFile($filename, $targetFilename = null)
     {
-        if ($this->mode === 'r') die(PS_ERR_ARCHIVE_WRITE_INCORRECT_MODE);
+        if ($this->mode === 'r') {
+            die(PS_ERR_ARCHIVE_WRITE_INCORRECT_MODE);
+        }
         if (!$targetFilename) {
             $this->archive->addFile($filename);
         } else {
@@ -44,4 +50,3 @@ class Archiver
         $this->archive->close();
     }
 }
-

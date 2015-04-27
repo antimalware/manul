@@ -8,7 +8,7 @@ ob_end_clean();
 
 class FileList
 {
-    function __construct()
+    public function __construct()
     {
         global $projectTmpDir;
 
@@ -42,7 +42,6 @@ class FileList
         #For creating temprorary queue for further antimalware/whitelist scan
         $this->GENERATE_FILE_QUEUE = true;
         $this->tmpQueueFilename = $projectTmpDir . '/scan_queue.manul.tmp.txt';
-
     }
 
     private function throwTimeout()
@@ -65,7 +64,7 @@ class FileList
 
             $this->dom->documentElement->appendChild($this->dom->importNode($fileinfoNode, true));
             $this->filesFound++;
-        } else if ($actionType === $this->ACTION_SKIP) {
+        } elseif ($actionType === $this->ACTION_SKIP) {
             // TODO: Do something with skipped item
             // fputs($file_handle, "* SKIPPED *************************************** " . $file_path);
         }
@@ -81,11 +80,9 @@ class FileList
 
     private function finalizeRound()
     {
-
         global $php_errormsg;
 
         if ($fHandle = fopen($this->AJAX_TMP_FILE, 'a')) {
-
             $nodeList = $this->filesNode->childNodes;
             $num = $nodeList->length;
 
@@ -98,9 +95,7 @@ class FileList
             $response['data'] = array();
             $report = json_encode($response);
             return $report;
-
         } else {
-
             ob_end_clean();
             // output result for ajax processing
             $response['meta'] = array('type' => 'error', 'phpError' => $php_errormsg);
@@ -117,7 +112,7 @@ class FileList
         @unlink($this->AJAX_TMP_FILE);
     }
 
-    function setUp()
+    public function setUp()
     {
     }
 
@@ -127,8 +122,9 @@ class FileList
 
         $dirs = '.';
 
-        if (file_exists($this->DIRLIST_TMP_FILENAME))
+        if (file_exists($this->DIRLIST_TMP_FILENAME)) {
             $dirs = file_get_contents($this->DIRLIST_TMP_FILENAME);
+        }
 
         $dirList = explode("\n", $dirs);
         $startTime = time();
@@ -136,14 +132,15 @@ class FileList
         while (true) {
             $dirList = array_merge($this->folderWalker(array_shift($dirList), $this->filesFound), $dirList);
             $currentTime = time();
-            if (($currentTime - $startTime >= $this->MAX_EXECUTION_DURATION) || (count($dirList) < 1)) break;
+            if (($currentTime - $startTime >= $this->MAX_EXECUTION_DURATION) || (count($dirList) < 1)) {
+                break;
+            }
         }
 
         $result = $this->finalizeRound();
 
 
         if (!$this->filesFound) {
-
             $response['meta'] = array('type' => 'getFileList', 'status' => 'finished', 'phpError' => $php_errormsg);
             $response['data'] = array();
             $report = json_encode($response);
@@ -167,14 +164,17 @@ class FileList
 
     private function folderWalker($path, &$files_found)
     {
-        if ($path === '.')
+        if ($path === '.') {
             $path = $_SERVER['DOCUMENT_ROOT'];
+        }
 
         $dirList = array();
 
         if ($currentDir = opendir($path)) {
             while ($file = readdir($currentDir)) {
-                if ($file === '.' || $file === '..' || is_link($path) || $file === basename($this->homedir)) continue;
+                if ($file === '.' || $file === '..' || is_link($path) || $file === basename($this->homedir)) {
+                    continue;
+                }
                 $name = $file;
                 $file = $path . '/' . $file;
                 // skip path entries from the list
@@ -192,7 +192,6 @@ class FileList
                     $fileType = $this->TYPE_FOLDER;
                 }
                 $this->fileExecutor($file, $fileType, $this->ACTION_PROCESS);
-
             }
             closedir($currentDir);
         }
@@ -206,4 +205,3 @@ class FileList
         return $dirList;
     }
 } // End of class
-

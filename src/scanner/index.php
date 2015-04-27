@@ -3,18 +3,19 @@
 require_once('classes/Initialization.inc.php');
 
 $controllerName = empty($_REQUEST['controller']) ? 'scanner' : $_REQUEST['controller'];
-$controller = NULL;
+$controller = null;
 
 if ($controllerName === 'scanner') {
     require_once('classes/ScannerController.inc.php');
     $controller = new ScannerController();
-} else if ($controllerName === 'executor') {
+} elseif ($controllerName === 'executor') {
     require_once('classes/ExecutorController.inc.php');
     $controller = new ExecutorController();
-} else if ($controllerName === 'download') {
+} elseif ($controllerName === 'download') {
     require_once('classes/DownloadController.inc.php');
     $controller = new DownloadController();
 }
 
-if ($controller)
+if ($controller) {
     $controller->start();
+}

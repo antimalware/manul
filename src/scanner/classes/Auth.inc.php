@@ -8,7 +8,7 @@ ob_end_clean();
 
 class Auth
 {
-    function __construct()
+    public function __construct()
     {
         global $projectTmpDir;
         $this->passwordHashFilepath = $projectTmpDir . '/password_hash.php';
@@ -125,4 +125,3 @@ class Auth
         return $result;
     }
 }
-

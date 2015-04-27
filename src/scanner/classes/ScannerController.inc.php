@@ -67,7 +67,6 @@ class ScannerController
 
         $authenticator = new Auth();
         if ($authenticator->auth()) {
-
             ob_start();
 
             if (!empty($_GET['a'])) {
@@ -78,21 +77,15 @@ class ScannerController
                 $fileScanner->setInterval($interval);
 
                 if ($action === 'cleanUp') {
-
                     $this->removeTempFiles();
                     print(json_encode(array('type' => 'cleanUp', 'status' => 'ok', 'phpError' => $php_errormsg)));
-
-                } else if ($action === 'getFileList') {
-
+                } elseif ($action === 'getFileList') {
                     echo $fileScanner->performScanning();
-
-                } else if ($action === 'getSignatureScanResult') {
-
+                } elseif ($action === 'getSignatureScanResult') {
                     $this->detector = new MalwareDetector();
                     $this->detector->setRequestDelay($interval);
                     print $this->detector->malwareScanRound();
-
-                } else if ($action === 'getWebsiteLog') {
+                } elseif ($action === 'getWebsiteLog') {
                     //REPORTING
                     $xmlLog = $this->getXMLReport();
                     $logFilename = $projectTmpDir . '/scan_log.xml';
@@ -108,6 +101,4 @@ class ScannerController
             }
         }
     }
-
-
 }

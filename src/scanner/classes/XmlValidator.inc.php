@@ -48,4 +48,3 @@ class XmlValidator
         return true;
     }
 }
-

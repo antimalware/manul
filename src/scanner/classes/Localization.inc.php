@@ -425,4 +425,3 @@ if ($currentLang === 'uk') {
     define('PS_CHECKER_FIX', 'Як виправити');
     define('PS_CHECKER_MESSAGE', 'Будь ласка, виправте зазначені проблеми та перезапустіть Manul.');
 }
-

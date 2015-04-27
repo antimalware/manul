@@ -8,4 +8,3 @@ function file_put_contents2($filename, $data, $mode = 'w')
     fclose($file);
     return $bytes;
 }
-

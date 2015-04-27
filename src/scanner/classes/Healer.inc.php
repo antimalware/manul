@@ -51,7 +51,6 @@ class Healer
 
     private function quarantineFile($filename)
     {
-
         if (!is_file($filename)) {
             $this->log .= '<div class="err">' . sprintf(PS_ERR_QUARANTINE_NOT_EXISTS, $filename) . '</div>';
             return false;
@@ -80,9 +79,13 @@ class Healer
 
     public function deleteDir($dirname)
     {
-        if (!is_dir($dirname) || is_link($dirname)) return unlink($dirname);
+        if (!is_dir($dirname) || is_link($dirname)) {
+            return unlink($dirname);
+        }
         foreach (scandir($dirname) as $file) {
-            if ($file === '.' || $file === '..') continue;
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
             if (!$this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file)) {
                 chmod($dirname . DIRECTORY_SEPARATOR . $file, 0777);
                 $this->deleteDir($dirname . DIRECTORY_SEPARATOR . $file);
@@ -127,7 +130,7 @@ class Healer
 
         $this->archiver->close();
 
-        //Put malicious files to backup archive and delete them      
+        //Put malicious files to backup archive and delete them
         foreach ($deleteFiles as $filename) {
             $this->archiver = new Archiver($this->backupFilepath, 'a');
 

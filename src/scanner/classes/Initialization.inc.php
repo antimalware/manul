@@ -96,4 +96,3 @@ function escapedOctDec($escaped)
 {
     return chr(octdec($escaped[1]));
 }
-
