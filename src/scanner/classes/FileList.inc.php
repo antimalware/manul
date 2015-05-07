@@ -10,15 +10,6 @@ class FileList
 {
     function __construct()
     {
-        global $projectTmpDir;
-
-        $this->DIRLIST_TMP_FILENAME = $projectTmpDir . '/dirlist.manul.tmp.txt';
-        $this->FILELIST_OFFSET_FILENAME = $projectTmpDir . '/queue_offset.manul.tmp.txt';
-
-        $this->logFilename = $projectTmpDir . '/scan_log.xml';
-        $this->AJAX_HEADER_DIRS = 'DIRS';
-        $this->AJAX_HEADER_ERROR = 'ERR';
-        $this->AJAX_TMP_FILE = $projectTmpDir . '/ajax_scnnr_tbnj.manul.tmp';
         $this->MAX_EXECUTION_DURATION = 5;
         $this->TYPE_ANY = 0;
         $this->TYPE_FOLDER = 1;
@@ -41,13 +32,11 @@ class FileList
 
         #For creating temprorary queue for further antimalware/whitelist scan
         $this->GENERATE_FILE_QUEUE = true;
-        $this->tmpQueueFilename = $projectTmpDir . '/scan_queue.manul.tmp.txt';
-
     }
 
     private function throwTimeout()
     {
-        echo $this->AJAX_HEADER_ERROR . "\n";
+        echo AJAX_HEADER_ERROR . "\n";
         echo 'File listing timeout. Try to increase an interval in settings.' . "\n";
         exit;
     }
@@ -60,7 +49,7 @@ class FileList
 
             if ($this->GENERATE_FILE_QUEUE && is_file($fileinfo->absoluteName)) {
                 $queue_entry = $fileinfo->absoluteName . ' ' . $fileinfo->md5 . PHP_EOL;
-                file_put_contents2($this->tmpQueueFilename, $queue_entry, 'a');
+                file_put_contents2(TMP_QUEUE_FILEPATH, $queue_entry, 'a');
             }
 
             $this->dom->documentElement->appendChild($this->dom->importNode($fileinfoNode, true));
@@ -73,7 +62,7 @@ class FileList
 
     public function getXMLFilelist()
     {
-        $result = implode('', file($this->AJAX_TMP_FILE));
+        $result = implode('', file(AJAX_TMP_FILEPATH));
         $this->cleanUp();
 
         return $result;
@@ -84,7 +73,7 @@ class FileList
 
         global $php_errormsg;
 
-        if ($fHandle = fopen($this->AJAX_TMP_FILE, 'a')) {
+        if ($fHandle = fopen(AJAX_TMP_FILEPATH, 'a')) {
 
             $nodeList = $this->filesNode->childNodes;
             $num = $nodeList->length;
@@ -104,7 +93,7 @@ class FileList
             ob_end_clean();
             // output result for ajax processing
             $response['meta'] = array('type' => 'error', 'phpError' => $php_errormsg);
-            $response['data'] = array('Cannot write to file ' . $this->logFilename);
+            $response['data'] = array('Cannot write to file ' . XML_LOG_FILEPATH);
             $report = json_encode($response);
             return $report;
         }
@@ -112,9 +101,9 @@ class FileList
 
     private function cleanUp()
     {
-        @unlink($this->DIRLIST_TMP_FILENAME);
-        @unlink($this->FILELIST_OFFSET_FILENAME);
-        @unlink($this->AJAX_TMP_FILE);
+        @unlink(DIRLIST_TMP_FILEPATH);
+        @unlink(FILELIST_OFFSET_FILEPATH);
+        @unlink(AJAX_TMP_FILEPATH);
     }
 
     function setUp()
@@ -127,8 +116,8 @@ class FileList
 
         $dirs = '.';
 
-        if (file_exists($this->DIRLIST_TMP_FILENAME))
-            $dirs = file_get_contents($this->DIRLIST_TMP_FILENAME);
+        if (file_exists(DIRLIST_TMP_FILEPATH))
+            $dirs = file_get_contents(DIRLIST_TMP_FILEPATH);
 
         $dirList = explode("\n", $dirs);
         $startTime = time();
@@ -150,7 +139,7 @@ class FileList
             return $report;
         }
 
-        file_put_contents2($this->DIRLIST_TMP_FILENAME, implode("\n", $dirList));
+        file_put_contents2(DIRLIST_TMP_FILEPATH, implode("\n", $dirList));
 
         return $result;
     }
@@ -175,7 +164,6 @@ class FileList
         if ($currentDir = opendir($path)) {
             while ($file = readdir($currentDir)) {
                 if ($file === '.' || $file === '..' || is_link($path) || $file === basename($this->homedir)) continue;
-                $name = $file;
                 $file = $path . '/' . $file;
                 // skip path entries from the list
                 foreach ($this->scanSkipPathWildcard as $item) {
@@ -197,7 +185,7 @@ class FileList
             closedir($currentDir);
         }
 
-        if (!is_file($this->tmpQueueFilename) && count($dirList) === 0) {
+        if (!is_file(TMP_QUEUE_FILEPATH) && count($dirList) === 0) {
             $response['meta'] = array('type' => 'getFileList', 'status' => 'finished', 'phpError' => PS_ERR_NO_FILES_IN_WEB_ROOT);
             $report = json_encode($response);
             die($report);

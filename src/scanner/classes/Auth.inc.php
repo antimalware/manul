@@ -8,10 +8,8 @@ ob_end_clean();
 
 class Auth
 {
-    function __construct()
+    public function __construct()
     {
-        global $projectTmpDir;
-        $this->passwordHashFilepath = $projectTmpDir . '/password_hash.php';
         $this->answerSentFlag = false;
     }
 
@@ -26,7 +24,7 @@ class Auth
             define('PS_ACTIVE_' . strtoupper($lang), 'passive');
         }
 
-        define('PS_PASS_SET', file_exists($this->passwordHashFilepath) ? '1' : '0');
+        define('PS_PASS_SET', file_exists(PASSWORD_HASH_FILEPATH) ? '1' : '0');
         define('PS_AUTH_FORM_MESSAGE', $message);
         define('PS_AUTH_FORM_ERROR', $error);
         define('PS_LANG', $currentLang);
@@ -68,8 +66,8 @@ class Auth
 
     private function tryToAuthenticate()
     {
-        if (is_file($this->passwordHashFilepath)) {
-            $passwordHashFileLines = file($this->passwordHashFilepath);
+        if (is_file(PASSWORD_HASH_FILEPATH)) {
+            $passwordHashFileLines = file(PASSWORD_HASH_FILEPATH);
             $passwordHash = $passwordHashFileLines[1];
             if (!empty($_COOKIE['antimalware_password_hash'])) {
                 $passwordHashFromCookie = $_COOKIE['antimalware_password_hash'];
@@ -87,9 +85,9 @@ class Auth
 
     private function setNewPassword($password)
     {
-        if (!file_exists($this->passwordHashFilepath)) {
+        if (!file_exists(PASSWORD_HASH_FILEPATH)) {
             $passwordHash = hash('sha256', $password);
-            file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden'); ?>\n" . $passwordHash);
+            file_put_contents2(PASSWORD_HASH_FILEPATH, "<?php die('Forbidden'); ?>\n" . $passwordHash);
             $this->setPasswordHashCookie($passwordHash);
         }
     }
@@ -97,7 +95,7 @@ class Auth
     public function auth()
     {
         $result = false;
-        $isPasswordSet = is_file($this->passwordHashFilepath);
+        $isPasswordSet = is_file(PASSWORD_HASH_FILEPATH);
         $isPasswordSent = !empty($_POST['password']);
         if ($isPasswordSet) {
             if (!$this->tryToAuthenticate()) {

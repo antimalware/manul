@@ -12,7 +12,6 @@ ob_end_clean();
 
 class ExecutorController
 {
-
     private function startExecutor()
     {
         $view = new View();
@@ -21,7 +20,6 @@ class ExecutorController
         if (!empty($_POST) && !empty($_POST['recipe'])) {
             $xmlRecipe = $_POST['recipe'];
             $validator = new XmlValidator();
-            global $projectRootDir;
 
             if (get_magic_quotes_gpc()) $xmlRecipe = stripslashes($xmlRecipe);
 
@@ -30,7 +28,7 @@ class ExecutorController
                 die('XXE detected');
             }
 
-            if (!$validator->validate($xmlRecipe, $projectRootDir . '/static/xsd/recipe.xsd')) {
+            if (!$validator->validate($xmlRecipe, RECIPE_XML_SCHEME_FILEPATH)) {
                 die(PS_ERR_BROKEN_XML_FILE);
             }
 

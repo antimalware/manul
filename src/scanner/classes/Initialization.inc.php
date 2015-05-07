@@ -57,6 +57,24 @@ if (!is_writable($projectTmpDir)) {
     }
 }
 
+define('MALWARE_LOG_FILEPATH', "$projectTmpDir/malware_log.manul.tmp.txt");
+define('XML_LOG_FILEPATH', "$projectTmpDir/scan_log.xml");
+
+define('TMP_QUARANTINE_FILEPATH_FILEPATH', "$projectTmpDir/malware_quarantine_filepath.tmp.txt");
+define('TMP_QUEUE_FILEPATH', "$projectTmpDir/scan_queue.manul.tmp.txt");
+define('TEMPLATES_DIRPATH', "$projectRootDir/static/templates/");
+define('AJAX_TMP_FILEPATH', "$projectTmpDir/ajax_scnnr_tbnj.manul.tmp");
+define('FILELIST_OFFSET_FILEPATH', "$projectTmpDir/queue_offset.manul.tmp.txt");
+define('DIRLIST_TMP_FILEPATH', "$projectTmpDir/dirlist.manul.tmp.txt");
+define('MALWARE_QUARANTINE_FILEPATH', "$projectTmpDir/malware_quarantine.manul.tmp.txt");
+define('SIGNATURE_FILEPATH', "$projectRootDir/static/signatures/malware_db.xml");
+define('SIGNATURE_XML_SCHEME_FILEPATH', "$projectRootDir/static/xsd/malware_db.xsd");
+define('RECIPE_XML_SCHEME_FILEPATH', "$projectRootDir/static/xsd/recipe.xsd");
+define('PASSWORD_HASH_FILEPATH', "$projectTmpDir/password_hash.php");
+
+define('AJAX_HEADER_DIRS', 'DIRS');
+define('AJAX_HEADER_ERROR', 'ERR');
+
 if ($isCriticalErr) {
     $view = new View();
     define('PS_CHECKER_ROOT_READABLE_STATUS', $isPhpRootReadable ? PS_CHECKER_PASSED : PS_CHECKER_FAILED);

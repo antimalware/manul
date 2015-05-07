@@ -6,8 +6,7 @@ class Template
 
     public function __construct($name = '')
     {
-        global $projectRootDir;
-        $this->_path = $projectRootDir . '/static/templates/';
+        $this->_path = TEMPLATES_DIRPATH;
         $this->_name = $name;
         if (!file_exists($this->_path . $this->_name)) die(sprintf(PS_ERR_TEMPLATE_DOESNT_EXISTS, $this->_template));
 

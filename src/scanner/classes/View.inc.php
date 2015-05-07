@@ -8,8 +8,7 @@ class View
 
     public function __construct($path = '')
     {
-        global $projectRootDir;
-        $this->_path = $projectRootDir . '/static/templates/' . $path;
+        $this->_path = TEMPLATES_DIRPATH . $path;
     }
 
     public function setTemplateDirAbsolutePath($path)
@@ -68,3 +67,4 @@ class View
     }
 
 }
+

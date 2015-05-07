@@ -13,7 +13,6 @@ class Healer
 
         $timeString = date('Y_m_d_H_i', $_SERVER['REQUEST_TIME']);
         $this->quarantineFilepath = $projectTmpDir . '/quarantine.' . $timeString . '.zip';
-        $this->quarantineFilepathFilepath = $projectTmpDir . '/malware_quarantine_filepath.tmp.txt';
         $this->backupFilepath = $projectTmpDir . '/manul_deleted_files_backup.' . $timeString . '.zip';
 
         $this->log = '';
@@ -143,9 +142,10 @@ class Healer
         }
 
         if (file_exists($this->quarantineFilepath)) {
-            file_put_contents2($this->quarantineFilepathFilepath, $this->quarantineFilepath);
+            file_put_contents2(TMP_QUARANTINE_FILEPATH_FILEPATH, $this->quarantineFilepath);
         }
 
         return $this->log;
     }
 }
+

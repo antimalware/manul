@@ -26,41 +26,34 @@ class DownloadController
 
     private function getPackedArchive()
     {
-        global $projectTmpDir;
+        $packedLogFilename = XML_LOG_FILEPATH . '.zip';
 
-        $logFilename = $projectTmpDir . '/scan_log.xml';
-        $packedLogFilename = $logFilename . '.zip';
-
-        if (!is_file($logFilename)) {
+        if (!is_file(XML_LOG_FILEPATH)) {
             die(PS_ERR_NO_DOWNLOAD_LOG_FILE);
         }
 
-        $xml_data = file_get_contents($logFilename);
+        $xml_data = file_get_contents(XML_LOG_FILEPATH);
         $archiver = new Archiver($packedLogFilename, 'a');
-        $archiver->createFile(basename($logFilename), $xml_data);
+        $archiver->createFile(basename(XML_LOG_FILEPATH), $xml_data);
 
-        $quarantineFilepathFilepath = $projectTmpDir . '/malware_quarantine_filepath.tmp.txt';
-        if (file_exists($quarantineFilepathFilepath)) {
-            $quarantineFilepath = file_get_contents($quarantineFilepathFilepath);
+        if (file_exists(TMP_QUARANTINE_FILEPATH_FILEPATH)) {
+            $quarantineFilepath = file_get_contents(TMP_QUARANTINE_FILEPATH_FILEPATH);
             $archiver->addFile($quarantineFilepath, basename($quarantineFilepath));
-            unlink($quarantineFilepathFilepath);
+            unlink(TMP_QUARANTINE_FILEPATH_FILEPATH);
         }
 
         $archiver->close();
 
         $this->streamFileContent($packedLogFilename, true);
-        unlink($logFilename);
+        unlink(XML_LOG_FILEPATH);
     }
 
     private function getQuarantine()
     {
-        global $projectTmpDir;
-
-        $quarantineFilepathFilepath = $projectTmpDir . '/malware_quarantine_filepath.tmp.txt';
-        if (file_exists($quarantineFilepathFilepath)) {
-            $quarantineFilepath = file_get_contents($quarantineFilepathFilepath);
+        if (file_exists(TMP_QUARANTINE_FILEPATH_FILEPATH)) {
+            $quarantineFilepath = file_get_contents(TMP_QUARANTINE_FILEPATH_FILEPATH);
             $this->streamFileContent($quarantineFilepath, true);
-            unlink($quarantineFilepathFilepath);
+            unlink(TMP_QUARANTINE_FILEPATH_FILEPATH);
         }
     }
 

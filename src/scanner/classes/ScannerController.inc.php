@@ -26,7 +26,7 @@ class ScannerController
     private function removeTempFiles()
     {
         global $projectTmpDir;
-        @unlink($projectTmpDir . '/scan_log.xml');
+        @unlink(XML_LOG_FILEPATH);
         array_map('unlink', glob($projectTmpDir . '/*.manul.tmp.txt'));
         array_map('unlink', glob($projectTmpDir . '/*.manul.tmp'));
     }
@@ -95,8 +95,7 @@ class ScannerController
                 } else if ($action === 'getWebsiteLog') {
                     //REPORTING
                     $xmlLog = $this->getXMLReport();
-                    $logFilename = $projectTmpDir . '/scan_log.xml';
-                    file_put_contents2($logFilename, $xmlLog);
+                    file_put_contents2(XML_LOG_FILEPATH, $xmlLog);
 
                     print json_encode(array('type' => 'getWebsiteLog', 'status' => 'ok', 'phpError' => $php_errormsg));
                 }
@@ -111,3 +110,4 @@ class ScannerController
 
 
 }
+
