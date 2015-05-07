@@ -13,7 +13,7 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="static/js/bootbox.js"></script>
     <script type="text/javascript" src="static/js/common.js"></script>
-    <script type="text/javascript" src="static/js/validate.js"></script>
+    <script type="text/javascript" src="static/js/executor.js"></script>
 </head>
 <body>
   <body class="page">
@@ -57,33 +57,5 @@
      <div class="body__spacer"></div>
      {PS_FOOTER}
     </div>
-
-<script language="javascript">
-function validate_recipe2(f) {
-  var dn = Number(f.total_d.value);
-  var qn = Number(f.total_q.value);
-  var action_num = 0;
-
-  for (i = 0; i < dn; i++) {
-    if (f.elements['d_' + i].checked) {
-       action_num++;  
-    } 
-  }
-
-  for (i = 0; i < qn; i++) {
-    if (f.elements['q_' + i].checked) {
-       action_num++;  
-    } 
-  }
-
-  if (action_num < 1) {
-     alert('Select at least one item');
-     return false;
-  } else {
-     return true;
-  }
-}
-</script>
-
   </body>
 </html>

@@ -1,4 +1,4 @@
-﻿var ajaxErrorCounter = 0;
+var ajaxErrorCounter = 0;
 var maxAjaxErrors = 5;
 
 var scanForMalware = true;
@@ -29,20 +29,20 @@ function showErrorMessage(caption, text) {
     $('#errorFormErrorCaption').attr('value', caption);
 
     $('#errorText').text(text);
-    $('#errorFormErrorText').attr('value', text);    
+    $('#errorFormErrorText').attr('value', text);
 
     console.log(caption + ' ' + text);
 }
 
-$(document).ready(function(){  
+$(document).ready(function () {
 
     try {
 
-        $('#scanForMalwareCheckbox').change(function() {      
+        $('#scanForMalwareCheckbox').change(function () {
             scanForMalware = this.checked;
         });
 
-        $('#requestDelayTextbox').on('change keypress paste focus textInput input', function() {              
+        $('#requestDelayTextbox').on('change keypress paste focus textInput input', function () {
             requestDelay = parseInt(this.value);
         });
 
@@ -74,153 +74,154 @@ $(document).ready(function(){
 
         function handleSignatureScan(response) {
 
-               if (response.phpError || ( response.meta && response.meta.phpError)) {
-                   errorInfo = response.phpError ? response.phpError : response.meta.phpError;
-                   showErrorMessage('PHP error', errorInfo);
-                   return -1;
-               }
+            if (response.phpError || ( response.meta && response.meta.phpError)) {
+                errorInfo = response.phpError ? response.phpError : response.meta.phpError;
+                showErrorMessage('PHP error', errorInfo);
+                return -1;
+            }
 
-               if (response.status == 'inProcess')
-               { 
-                   lastScannedFile = response.data.lastFile;
-                   numberFilesScannedThisTime = parseInt(response.data.filesScannedThisTime)
-                   numberFilesLeft = parseInt(response.data.filesLeft)
-                   numberFilesScanned += numberFilesScannedThisTime;
-                   
-                   if (!numberFilesToScan) {
-                       numberFilesToScan = numberFilesLeft + numberFilesScannedThisTime;
-                   }
-          
-                   signatureScanProgress = numberFilesScanned * 100 / numberFilesToScan;
-                   progressBarWidth = Math.round(signatureScanProgress) + '%';
-                   
-                   $('#progressbar_inner').css('width', progressBarWidth);
+            if (response.status == 'inProcess') {
+                lastScannedFile = response.data.lastFile;
+                numberFilesScannedThisTime = parseInt(response.data.filesScannedThisTime)
+                numberFilesLeft = parseInt(response.data.filesLeft)
+                numberFilesScanned += numberFilesScannedThisTime;
 
-                   $('#progressbar_text').show();
-                   $('#current_folder').text(lastScannedFile);
-                   $('#files_found').text(numberFilesScanned);
-                   $('#files_total').text(numberFilesToScan);
+                if (!numberFilesToScan) {
+                    numberFilesToScan = numberFilesLeft + numberFilesScannedThisTime;
+                }
 
-                   sendRequest("index.php?controller=scanner&a=getSignatureScanResult&delay=" + requestDelay, handleSignatureScan);
+                signatureScanProgress = numberFilesScanned * 100 / numberFilesToScan;
+                progressBarWidth = Math.round(signatureScanProgress) + '%';
 
-               } else if (response.status == 'finished') {
-                                  
-                   finish();
-                                  
-               } else if (response.type == 'error') {
+                $('#progressbar_inner').css('width', progressBarWidth);
 
-                   showErrorMessage('Server side error', response.data);
+                $('#progressbar_text').show();
+                $('#current_folder').text(lastScannedFile);
+                $('#files_found').text(numberFilesScanned);
+                $('#files_total').text(numberFilesToScan);
 
-               }
-                         
+                sendRequest("index.php?controller=scanner&a=getSignatureScanResult&delay=" + requestDelay, handleSignatureScan);
+
+            } else if (response.status == 'finished') {
+
+                finish();
+
+            } else if (response.type == 'error') {
+
+                showErrorMessage('Server side error', response.data);
+
+            }
+
             console.log(response);
         }
 
         function handleGetFileList(response) {
 
-               if (response.phpError || ( response.meta && response.meta.phpError)) {
-                   errorInfo = response.phpError ? response.phpError : response.meta.phpError;
-                   showErrorMessage('PHP error', errorInfo);
-                   return -1;
-               }
+            if (response.phpError || ( response.meta && response.meta.phpError)) {
+                errorInfo = response.phpError ? response.phpError : response.meta.phpError;
+                showErrorMessage('PHP error', errorInfo);
+                return -1;
+            }
 
-               if (response.meta.status == 'inProcess')
-               { 
-                   console.log('num_dirs=' + response.data.length);
+            if (response.meta.status == 'inProcess') {
+                console.log('num_dirs=' + response.data.length);
 
-                   sendRequest("index.php?controller=scanner&a=getFileList&delay=" + requestDelay, handleGetFileList);
+                sendRequest("index.php?controller=scanner&a=getFileList&delay=" + requestDelay, handleGetFileList);
 
-               } else if (response.meta.status == 'finished') {
-                   
-                   sendRequest("index.php?controller=scanner&a=getWebsiteLog&delay=" + requestDelay, function() {finishGetFileList();});
-                                  
-               } else if (response.meta.type == 'error') {
-                   
-                   showErrorMessage('Server side error', response.data);
-               }
-                         
+            } else if (response.meta.status == 'finished') {
+
+                sendRequest("index.php?controller=scanner&a=getWebsiteLog&delay=" + requestDelay, function () {
+                    finishGetFileList();
+                });
+
+            } else if (response.meta.type == 'error') {
+
+                showErrorMessage('Server side error', response.data);
+            }
+
             console.log(response);
         }
 
-        function sendRequest(url, handleResponse) {        
+        function sendRequest(url, handleResponse) {
 
-            $.getJSON(url, function(responseJSON) { 
+            $.getJSON(url, function (responseJSON) {
 
-               handleResponse(responseJSON);
-               ajaxErrorCounter = 0;           
-               
+                handleResponse(responseJSON);
+                ajaxErrorCounter = 0;
+
             })
-              .fail(function(response) {
-                ajaxErrorCounter++;                
-                if (ajaxErrorCounter <= maxAjaxErrors) {                    
-                    delay = ajaxErrorCounter * 1000;
-                    console.log('Ajax error ' + ajaxErrorCounter + ' ' + JSON.stringify(response) + ' delay before new request = ' + delay/1000);
-                    setTimeout(sendRequest(url, handleResponse), delay);
-                } else {                
-                   showErrorMessage('Ajax critical error', 'Could not properly handle AJAX request ' + JSON.stringify(response));
-                }
-            })
+                .fail(function (response) {
+                    ajaxErrorCounter++;
+                    if (ajaxErrorCounter <= maxAjaxErrors) {
+                        delay = ajaxErrorCounter * 1000;
+                        console.log('Ajax error ' + ajaxErrorCounter + ' ' + JSON.stringify(response) + ' delay before new request = ' + delay / 1000);
+                        setTimeout(sendRequest(url, handleResponse), delay);
+                    } else {
+                        showErrorMessage('Ajax critical error', 'Could not properly handle AJAX request ' + JSON.stringify(response));
+                    }
+                })
         }
-            
-        $("#startButton").click(function() {
-        
+
+        $("#startButton").click(function () {
             //prevent going away after scan is started
-            $(window).on('beforeunload', function(){                
-                return PT_STR_CANCEL_SCAN_CONFIRM; 
+            $(window).on('beforeunload', function () {
+                return PT_STR_CANCEL_SCAN_CONFIRM;
             });
 
-            $('#spinner_gif').show();        
+            $('#spinner_gif').show();
             $(this).attr('value', PT_STR_BUTTON_CANCEL);
             console.log("getFileList");
             sendRequest("index.php?controller=scanner&a=getFileList&delay=" + requestDelay, handleGetFileList);
             $(this).hide();
         });
 
-        sendRequest("index.php?controller=scanner&a=cleanUp", function() {console.log('Cleanup sent')});
+        sendRequest("index.php?controller=scanner&a=cleanUp", function () {
+            console.log('Cleanup sent')
+        });
 
-        $("#settingsLink").click(function(event) {        
+        $("#settingsLink").click(function (event) {
             $('#configPanel').toggle();
             event.stopPropagation();
         });
 
-        $("#configPanel").click(function() {        
+        $("#configPanel").click(function () {
             clickAtConfig = ($('#configPanel').is(":visible"));
         });
 
-        $("#active_area").click(function() {        
+        $("#active_area").click(function () {
             if (clickAtConfig) {
-               clickAtConfig = false;
-               return true;
+                clickAtConfig = false;
+                return true;
             }
 
-            if ($('#configPanel').is(":visible")) { 
+            if ($('#configPanel').is(":visible")) {
                 $('#configPanel').hide();
-            } 
+            }
         });
- 
-  
-       $("#deleteButton").click(function() { 
-           if (confirm(PT_STR_DELETE_TOOL)) {
-              deleteTool();
-           } 
-       });
-      
-      function deleteTool() {
-          $.post( "index.php?controller=executor", { "a": "selfDelete" })
-           .done(function( data ) {
-               console.log( "Data Loaded: " + data );
-               var response = JSON.parse(data);
-               if (response.result == "ok") { 
-                   bootbox.alert(PT_STR_TOOL_DELETED); 
-               } else if (response.result == "error") {
-                   bootbox.alert(PT_STR_TOOL_DELETED + ": " + response.details); 
-               } else {
-                   bootbox.alert(PT_STR_TOOL_DELETED); 
-               }               
-           });
-      }
 
-    } catch(err) {
+
+        $("#deleteButton").click(function () {
+            if (confirm(PT_STR_DELETE_TOOL)) {
+                deleteTool();
+            }
+        });
+
+        function deleteTool() {
+            $.post("index.php?controller=executor", {"a": "selfDelete"})
+                .done(function (data) {
+                    console.log("Data Loaded: " + data);
+                    var response = JSON.parse(data);
+                    if (response.result == "ok") {
+                        bootbox.alert(PT_STR_TOOL_DELETED);
+                    } else if (response.result == "error") {
+                        bootbox.alert(PT_STR_TOOL_DELETED + ": " + response.details);
+                    } else {
+                        bootbox.alert(PT_STR_TOOL_DELETED);
+                    }
+                });
+        }
+
+    } catch (err) {
         showErrorMessage('Javascript error', err);
     }
 
