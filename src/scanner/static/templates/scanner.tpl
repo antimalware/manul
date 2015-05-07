@@ -25,9 +25,8 @@
         </div>
 
         <div class="head__menu">
-            <a class="head__menu-item head__menu-item_active_yes"
-               href="index.php?controller=scanner">{PS_TITLE_SCANNER}</span>
-                <a class="head__menu-item" href="index.php?controller=executor">{PS_TITLE_EXECUTOR}</a>
+            <a class="head__menu-item head__menu-item_active_yes" href="index.php?controller=scanner">{PS_TITLE_SCANNER}</a>
+            <a class="head__menu-item" href="index.php?controller=executor">{PS_TITLE_EXECUTOR}</a>
         </div>
     </div>
     <div class="body__content">
@@ -49,11 +48,8 @@
 
                 <div id="progress_area">
                     <b>{PS_PROGRESS}</b>
-
                     <div id="progress">{PS_TOTAL_PROGRESS}</div>
-                    <pre>
-                       <div id="debug"></div>
-                    </pre>
+                    <div id="debug"></div>
                 </div>
                 <p class="lead" id="scannerDescription">{PS_BODYTEXT}</p>
 
@@ -82,13 +78,12 @@
                 <div id="configPanel" class="popup popup_name_setting">
                     <div class="popup__tail"></div>
                     <form name="config">
-                        <div>{PS_INTERVAL}<input type="text" class="textarea__input text_interval" name="interval"
-                                                 id="requestDelayTextbox" value="{PS_REQUEST_DELAY}" maxlength=2 size=3>&nbsp; {PS_SEC}
+                        <div>{PS_INTERVAL} <input type="text" class="textarea__input text_interval" name="interval"
+                                   id="requestDelayTextbox" value="{PS_REQUEST_DELAY}" maxlength=2 size=3>&nbsp; {PS_SEC}
                         </div>
 
                         <div class="setting__checkbox">
-                             <span class="b-checkbox b-checkbox_size_s i-bem" name="malware" id="scanForMalwareCheckbox"
-                                   checked>
+                             <span class="b-checkbox b-checkbox_size_s i-bem" name="malware" id="scanForMalwareCheckbox" checked>
                                  <span class="xb-checkbox__box">
                                      <input class="xb-checkbox__control" type="checkbox" id="scan" checked/>
                                      <span class="xb-checkbox__tick"></span>

@@ -24,7 +24,7 @@
                 <button class="button small_button_font" id="deleteButton">{PS_DELETE_TOOL_BUTTON_TITLE}</button>
            </div>
            <div class="head__menu">
-                <a class="head__menu-item" href="index.php?controller=scanner">{PS_TITLE_SCANNER}</span>
+                <a class="head__menu-item" href="index.php?controller=scanner">{PS_TITLE_SCANNER}</a>
                 <a class="head__menu-item head__menu-item_active_yes" href="index.php?controller=executor">{PS_TITLE_EXECUTOR}</a>
            </div>
       </div>
