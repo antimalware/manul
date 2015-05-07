@@ -9,6 +9,14 @@
         } else {
             $('#resultDiv').show();             
         }        
+        
+        $(".check_executor[name=all]").change(function() {
+            if(this.checked) {
+                $(".check_executor[name!=all]").prop('checked', true);
+            } else {
+                $(".check_executor[name!=all]").removeAttr('checked');
+            }
+        });
 
 });
 
