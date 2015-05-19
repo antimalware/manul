@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -63,7 +63,7 @@
                     <img id="spinner_gif" src="http://i.stack.imgur.com/FhHRx.gif"/>
 
                     <div id="progressbar">
-                        <div id="progressbar_inner"></div>
+                        <div id="progressbar_inner"</div>
                     </div>
                     <div id="progressbar_text">
                         <div id="current_folder">./</div>
