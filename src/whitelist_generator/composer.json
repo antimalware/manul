@@ -1,0 +1,22 @@
+{
+  "name": "Manul/WhiteList",
+  "description": "Manul whitelist generator",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ilya Sevostyanov",
+      "email": "d3th@zeen.ru"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/console": "~2.1",
+    "symfony/finder": "~2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Manul\\WhiteList\\": "src"
+    }
+  }
+}
