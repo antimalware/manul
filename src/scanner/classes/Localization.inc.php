@@ -136,7 +136,8 @@ if ($currentLang === 'ru') {
     define('PS_CHECKER_PERM', 'Каталог temp доступен на запись:');
     define('PS_CHECKER_FIX', 'Как исправить');
     define('PS_CHECKER_MESSAGE', 'Пожалуйста, исправьте указанные проблемы и перезапустите Manul.');
-}
+    define('PS_WARNING_MSG', 'Сервер перестал отвечать или ответил с ошибкой. Возможно, превышена допустимая нагрузка на хостинге. Процесс приостановлен на 1 минуту, затем процесс сканирования будет продолжен.');
+	}
 
 // Lang: en
 if ($currentLang === 'en') {
@@ -232,6 +233,7 @@ if ($currentLang === 'en') {
     define('PS_CHECKER_PERM', 'Temp folder available for writing:');
     define('PS_CHECKER_FIX', 'How to fix it');
     define('PS_CHECKER_MESSAGE', 'Please fix the issues mentioned above and restart Manul.');
+    define('PS_WARNING_MSG', 'Server stop responding or responded with an error. Pause for 1 minute then get back to scanning');
 }
 
 // Lang: tr
@@ -328,6 +330,7 @@ if ($currentLang === 'tr') {
     define('PS_CHECKER_PERM', 'TEMP kataloğu yazılabilir durumdadır.');
     define('PS_CHECKER_FIX', 'Düzeltme yöntemi');
     define('PS_CHECKER_MESSAGE', 'Sıralanan sorunları giderdikten sonra Manul\'u tekrar çalıştırın.');
+    define('PS_WARNING_MSG', 'Server stop responding or responded with an error. Pause for 1 minute then get back to scanning');
 }
 
 // Lang: uk
@@ -424,5 +427,6 @@ if ($currentLang === 'uk') {
     define('PS_CHECKER_PERM', 'Каталог temp доступний для запису:');
     define('PS_CHECKER_FIX', 'Як виправити');
     define('PS_CHECKER_MESSAGE', 'Будь ласка, виправте зазначені проблеми та перезапустіть Manul.');
+    define('PS_WARNING_MSG', 'Server stop responding or responded with an error. Pause for 1 minute then get back to scanning');
 }
 

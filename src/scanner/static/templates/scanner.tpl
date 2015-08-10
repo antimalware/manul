@@ -66,6 +66,7 @@
                     <div id="progressbar_text">
                         <div id="current_folder">./</div>
                         <div id="current_estimate">{PS_SCANNING_FILE} <span id="files_found">0</span> {PS_SCANNING_OF} <span id="files_total">0</span> {PS_SCANNING_FOUND}...</div>
+                        <div id="warning_msg">{PS_WARNING_MSG}</div>
                     </div>
                 </div>
                 <input class="button" type="button" id="settingsLink" value="{PS_SETTINGS}">
