@@ -1,5 +1,5 @@
-﻿var ajaxErrorCounter = 0;
-var maxAjaxErrors = 5;
+﻿var ajaxErrorCounter = 1;
+var maxAjaxErrors = 6;
 
 var scanForMalware = true;
 var requestDelay = 5;
@@ -56,12 +56,14 @@ $(document).ready(function(){
             $('#configPanel').hide();
             $('#scannerCaption').hide();
             $('#scannerDescription').hide();
+			$("#warning_msg").hide();
 
             //allow going away after scan is finished
             $(window).off('beforeunload');
         }
 
         function finishGetFileList() {
+			$("#warning_msg").hide();
             $('#spinner_gif').hide();
             if (!scanForMalware) {
                 finish();
@@ -142,22 +144,33 @@ $(document).ready(function(){
             console.log(response);
         }
 
+		function restartAfterError(url, handleResponse) {
+			ajaxErrorCounter = 1;
+			console.log("Restart after error");
+			sendRequest(url, handleResponse);
+			$("#warning_msg").hide();
+		}
+		
         function sendRequest(url, handleResponse) {        
 
             $.getJSON(url, function(responseJSON) { 
 
                handleResponse(responseJSON);
-               ajaxErrorCounter = 0;           
+               ajaxErrorCounter = 1;           
                
             })
               .fail(function(response) {
                 ajaxErrorCounter++;                
                 if (ajaxErrorCounter <= maxAjaxErrors) {                    
-                    delay = ajaxErrorCounter * 1000;
-                    console.log('Ajax error ' + ajaxErrorCounter + ' ' + JSON.stringify(response) + ' delay before new request = ' + delay/1000);
-                    setTimeout(sendRequest(url, handleResponse), delay);
-                } else {                
-                   showErrorMessage('Ajax critical error', 'Could not properly handle AJAX request ' + JSON.stringify(response));
+                    delay = ajaxErrorCounter * 3000;
+                    console.log('Ajax error ' + ajaxErrorCounter + ' ' + JSON.stringify(response) + ' delay before new request = ' + delay + ' ms');
+                    setTimeout(function() { sendRequest(url, handleResponse); }, delay);
+                } else {     
+			       $("#warning_msg").show();
+				   console.log('Error:' + JSON.stringify(response) + ' wait for 60 sec and restart');
+                     	
+				   setTimeout(function() { restartAfterError(url, handleResponse); }, 60000);
+                   //showErrorMessage('Ajax critical error', 'Could not properly handle AJAX request ' + JSON.stringify(response));
                 }
             })
         }

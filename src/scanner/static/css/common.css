@@ -569,3 +569,7 @@ a, .b-link:hover
    font-size: 80%
 }
 
+#warning_msg
+{
+  color: darkred;
+}
