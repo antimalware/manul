@@ -285,7 +285,7 @@ var localization = {
     
             } 
         },            
-        "ua": {
+        "uk": {
             "Common.Title": "Аналізатор логів",
             "Common.SubHeader": "Аналізатор логів",
             "Common.LoadFile": "Завантажити файл",
