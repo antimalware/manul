@@ -20,7 +20,10 @@ var localization = {
             browser_language = language;    
         }
 
-        this.chosen_language = language || browser_language;
+        if (this.locale_dicts.hasOwnProperty(language || browser_language)) {
+            this.chosen_language = language || browser_language;
+        }
+        
         this.locale_dict = JSON.parse(JSON.stringify(this.locale_dicts[this.chosen_language]));
 
         $.i18n.load(this.locale_dict);
