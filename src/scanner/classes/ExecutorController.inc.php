@@ -131,7 +131,7 @@ class ExecutorController
     public function start()
     {
         $authenticator = new Auth();
-        if ($authenticator->auth()) {
+        if ($authenticator->authenticate()) {
             $this->startExecutor();
         }
     }

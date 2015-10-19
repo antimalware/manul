@@ -94,7 +94,7 @@ class Auth
         }
     }
 
-    public function auth()
+    public function authenticate()
     {
         $result = false;
         $isPasswordSet = is_file($this->passwordHashFilepath);
