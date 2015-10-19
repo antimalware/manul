@@ -66,7 +66,7 @@ class ScannerController
         global $projectTmpDir, $php_errormsg;
 
         $authenticator = new Auth();
-        if ($authenticator->auth()) {
+        if ($authenticator->authenticate()) {
 
             ob_start();
 
