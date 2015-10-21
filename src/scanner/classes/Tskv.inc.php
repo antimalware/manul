@@ -1,6 +1,6 @@
 <?php
 
-//dump assisiative array to tab separated key-value string
+//dump associative array to tab separated key-value string
 function toTskv($dict)
 {
     $keyValuePairs = array();
