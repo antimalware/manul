@@ -27,7 +27,7 @@ class SignatureDetect
         if ($this->isDetected == 1) {
             $elements['id'] = $this->id;
             $elements['severity'] = $this->severity;
-            $elements['signature'] = $this->signature;
+            $elements['signature'] = base64_encode($this->signature);
             $elements['position'] = $this->position;
             $elements['detectedContent'] = $this->detectedContent;
         }
@@ -42,7 +42,7 @@ class SignatureDetect
          if ($this->isDetected == 1) {   
              $this->id = $keyValuePairs['id'];    
              $this->severity = $keyValuePairs['severity'];
-             $this->signature = $keyValuePairs['signature'];
+             $this->signature = base64_decode($keyValuePairs['signature']);
              $this->position = $keyValuePairs['position'];
              $this->detectedContent = $keyValuePairs['detectedContent'];
          }
