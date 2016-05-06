@@ -69,6 +69,18 @@ class FileInfo
         $data = array($this->name, $this->size, $this->ctime, $this->mtime, $this->owner, $this->group, $this->access, $this->md5);
         return implode(';', $data);
     }
+
+    public function info()
+    {
+        $str = '';
+        $fields = array('md5', 'size', 'ctime', 'mtime', 'owner', 'group', 'access');
+
+        foreach ($fields as $field) {
+            $str .= ';' . $field . '=' . $this->$field;
+        }
+
+        return $str;
+    }
 }
 
 

@@ -56,14 +56,14 @@ class FileList
     {
         if ($actionType === $this->ACTION_PROCESS) {
             $fileinfo = new FileInfo($filePath);
-            $fileinfoNode = $fileinfo->getXMLNode();
+            //$fileinfoNode = $fileinfo->getXMLNode();
 
             if ($this->GENERATE_FILE_QUEUE && is_file($fileinfo->absoluteName)) {
-                $queue_entry = $fileinfo->absoluteName . ' ' . $fileinfo->md5 . PHP_EOL;
+                $queue_entry = $fileinfo->absoluteName . ' ' . $fileinfo->info() . PHP_EOL;
                 file_put_contents2($this->tmpQueueFilename, $queue_entry, 'a');
             }
 
-            $this->dom->documentElement->appendChild($this->dom->importNode($fileinfoNode, true));
+            //$this->dom->documentElement->appendChild($this->dom->importNode($fileinfoNode, true));
             $this->filesFound++;
         } else if ($actionType === $this->ACTION_SKIP) {
             // TODO: Do something with skipped item
@@ -73,7 +73,7 @@ class FileList
 
     public function getXMLFilelist()
     {
-        $result = implode('', file($this->AJAX_TMP_FILE));
+        $result = '';
         $this->cleanUp();
 
         return $result;
