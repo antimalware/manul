@@ -75,7 +75,7 @@ class Auth
                 $passwordHashFromCookie = $_COOKIE['antimalware_password_hash'];
                 return ($passwordHashFromCookie === $passwordHash);
             } elseif (!empty($_POST['password'])) {
-                $passwordHashFromPost = hash('sha256', $_POST['password']);
+                $passwordHashFromPost = $this->getHash($_POST['password']);
                 if ($passwordHashFromPost === $passwordHash) {
                     $this->setPasswordHashCookie($passwordHash);
                     return true;
@@ -88,9 +88,18 @@ class Auth
     private function setNewPassword($password)
     {
         if (!file_exists($this->passwordHashFilepath)) {
-            $passwordHash = hash('sha256', $password);
+            $passwordHash = $this->getHash($password);
             file_put_contents2($this->passwordHashFilepath, "<?php die('Forbidden'); ?>\n" . $passwordHash);
             $this->setPasswordHashCookie($passwordHash);
+        }
+    }
+
+    private function getHash($text)
+    {
+        if (function_exists('hash')) {
+            return hash('sha256', $text);
+        } else {
+            return sha1($text);
         }
     }
 

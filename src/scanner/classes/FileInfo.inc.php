@@ -40,7 +40,7 @@ class FileInfo
                 $this->size = filesize($filePath);
 
                 if ($this->size <= $this->MAX_FILE_SIZE_FOR_HASHING) {
-                    $this->md5 = hash_file('md5', $filePath);
+                    $this->md5 = function_exists('hash_file') ? hash_file('md5', $filePath) : md5_file($filePath);
                 }
             }
         }
