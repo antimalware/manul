@@ -89,7 +89,7 @@ $(document).ready(function(){
                    numberFilesLeft = parseInt(response.data.filesLeft)
                    
                    if (!numberFilesToScan) {
-                       numberFilesToScan = numberFilesLeft;
+                       numberFilesToScan = numberFilesLeft + numberFilesScanned;
                    }
           
                    signatureScanProgress = numberFilesScanned * 100 / numberFilesToScan;
