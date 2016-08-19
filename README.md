@@ -1,3 +1,7 @@
+Warning: the project is no longer being maintained due to the lack of applicability.
+
+====================
+
 Manul: a simple extensible antimalware tool for websites
 ====================
 An utility which allows to analyze website logs made by Manul.
