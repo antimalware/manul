@@ -54,7 +54,7 @@ class ScannerController
 
         // retrieve list of files and append it to the report
         $tmpXmlDoc = new DOMDocument();
-        $tmpXmlDoc->loadXML('<files>' . $fileScanner->getXMLFilelist() . '</files>');
+        $tmpXmlDoc->loadXML('<files>' . utf8_encode($fileScanner->getXMLFilelist()) . '</files>');
 
         $dom->documentElement->appendChild($dom->importNode($tmpXmlDoc->documentElement, true));
 
