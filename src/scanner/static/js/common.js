@@ -85,12 +85,11 @@ $(document).ready(function(){
                if (response.status == 'inProcess')
                { 
                    lastScannedFile = response.data.lastFile;
-                   numberFilesScannedThisTime = parseInt(response.data.filesScannedThisTime)
+                   numberFilesScanned = parseInt(response.data.filesScannedThisTime)
                    numberFilesLeft = parseInt(response.data.filesLeft)
-                   numberFilesScanned += numberFilesScannedThisTime;
                    
                    if (!numberFilesToScan) {
-                       numberFilesToScan = numberFilesLeft + numberFilesScannedThisTime;
+                       numberFilesToScan = numberFilesLeft + numberFilesScanned;
                    }
           
                    signatureScanProgress = numberFilesScanned * 100 / numberFilesToScan;

@@ -40,7 +40,7 @@ class FileInfo
                 $this->size = filesize($filePath);
 
                 if ($this->size <= $this->MAX_FILE_SIZE_FOR_HASHING) {
-                    $this->md5 = hash_file('md5', $filePath);
+                    $this->md5 = function_exists('hash_file') ? hash_file('md5', $filePath) : md5_file($filePath);
                 }
             }
         }
@@ -68,6 +68,18 @@ class FileInfo
     {
         $data = array($this->name, $this->size, $this->ctime, $this->mtime, $this->owner, $this->group, $this->access, $this->md5);
         return implode(';', $data);
+    }
+
+    public function info()
+    {
+        $str = '';
+        $fields = array('md5', 'size', 'ctime', 'mtime', 'owner', 'group', 'access');
+
+        foreach ($fields as $field) {
+            $str .= ';' . $field . '=' . $this->$field;
+        }
+
+        return $str;
     }
 }
 
