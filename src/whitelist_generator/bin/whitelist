@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+if (!defined('PHP_VERSION_ID') || PHP_VERSION_ID < 50303) {
+    fwrite(STDERR, "PHP needs to be a minimum version of PHP 5.3.6\n");
+    exit(1);
+}
+
+set_error_handler(function ($severity, $message, $file, $line) {
+    throw new ErrorException($message, 0, $severity, $file, $line);
+});
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Manul\WhiteList\Application;
+
+$application = new Application();
+$application->run();
